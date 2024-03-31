@@ -1,16 +1,19 @@
-// light-theme.scss
-$background-color: #ffffff;
-$text-color: rgb(59, 55, 41);
+
 
 //Paleta de colores
-$primary: #001433;
-$secondary: #fdd835;
+$primary: #14104f;
+$secondary: #f7bf00;
 $succes: #f9a825;
 $info: #fffaba;
 $danger: #dc3545; // Rojo
 $light: #f8f9fa; // Gris claro
 $dark: #343a40; // Gris oscuro
 
+
+
+// light-theme.scss
+$background-color: #ffffff;
+$text-color: $primary;
 
 body {
   background-color: $background-color;

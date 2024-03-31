@@ -2,8 +2,7 @@
 
 
 @use '@angular/material' as mat;
-@import 'src/assets/themes/custom.scss';
-
+@import "./assets/themes/custom.scss";
 @include mat.core();
 
 
@@ -137,34 +136,8 @@ $custom-warn-map:(
   )
 );
 
-//Mapas para probar a usar como accent usando las paletas analogas
-$custom-accent-brown-map: mat.define-palette($custom-analogous-brown-map, 200, 100, 400);
-$custom-accent-green-map: mat.define-palette($custom-analogous-green-map, 200, 100, 400);
 
-//Definimos las paletas segun los mapas
-$primary-pallete: mat.define-palette($custom-primary-map);
-$accent-pallete: mat.define-palette($custom-accent-brown-map);
-$warn-pallete: mat.define-palette($custom-warn-map);
 
-//Creamos el objeto del tema personalizado
-$custom-theme: mat.define-light-theme((
-  color:(
-    primary: $primary-pallete,
-    accent: $accent-pallete,
-    warn: $warn-pallete //Esta paleta es opcional, el default es rojo
-  )
-));
-
-//La añadimos a los estilos
-@include mat.all-component-themes($custom-theme);
-
-.mat-mdc-menu-content {
-  padding: 0px !important;
-}
-
-.mat-mdc-form-field-subscript-wrapper{
-  display: none;
-}
 
 
 
