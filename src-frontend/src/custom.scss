@@ -2,8 +2,6 @@
 
 @include mat.core();
 
-$my-primary: mat.define-palette(mat.$indigo-palette, 900);
-$my-accent: mat.define-palette(mat.$yellow-palette, A100, A600, A700, A800);
-
-// The "warn" palette is optional and defaults to red if not specified.
-$my-warn: mat.define-palette(mat.$red-palette);
+$primary: mat.define-palette(mat.$indigo-palette, 900);
+$secondary: mat.define-palette(mat.$yellow-palette, A100, A600, A700, A800);
+$warn: mat.define-palette(mat.$red-palette);
