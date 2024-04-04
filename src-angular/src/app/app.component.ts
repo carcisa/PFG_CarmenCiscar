@@ -17,5 +17,5 @@ import { ButtonComponent } from './Components/button/button.component';
 })
 export class AppComponent {
   title = 'FrontendPlanazo';
-  theme = "custom";
+
 }

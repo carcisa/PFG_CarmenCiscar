@@ -17,7 +17,7 @@ $text-color: $primary;
 
 body {
   background-color: $background-color;
-  color: $text-color;
+  color: $primary;
 }
 
 button {
@@ -44,9 +44,4 @@ button:hover {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-}
-
-:single-button:hover {
-  background-color: $succes;
-  color: $primary;
 }

@@ -1,0 +1,192 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+
+$custom-indigo: (
+  50: #dbe8f2,
+  100: #9bcef8,
+  200: #68b6f6,
+  300: #0080e8,
+  400: #0071ce,
+  500: #005ca7,
+  600: #00437e,
+  700: #003060,
+  800: #001d3e,
+  900: #14104f,
+  contrast: (
+    50: #000,
+    100: #000,
+    200: #000,
+    300: #000,
+    400: #fff,
+    500: #fff,
+    600: #fff,
+    700: #fff,
+    800: #fff,
+    900: #fff,
+  )
+);
+
+$custom-yellow: (
+  50: #fffde7,
+  100: #fff9c4,
+  200: #fff59d,
+  300: #fffaba,
+  400: #ffee58,
+  500: #ffeb3b,
+  600: #f7bf00,
+  700: #fbc02d,
+  800: #f9a825,
+  900: #f57f17,
+  contrast: (
+    50: #000,
+    100: #000,
+    200: #000,
+    300: #000,
+    400: #000,
+    500: #000,
+    600: #000,
+    700: #000,
+    800: #000,
+    900: #000,
+  )
+);
+
+$custom-analogous-green-map: (
+  50: #e8f5e9,
+  100: #c8e6c9,
+  200: #a5d6a7,
+  300: #81c784,
+  400: #66bb6a,
+  500: #4caf50,
+  600: #43a047,
+  700: #388e3c,
+  800: #2e7d32,
+  900: #1b5e20,
+  contrast: (
+    50: #000,
+    100: #000,
+    200: #000,
+    300: #000,
+    400: #fff,
+    500: #fff,
+    600: #fff,
+    700: #fff,
+    800: #fff,
+    900: #fff,
+  )
+);
+
+
+$custom-orange: (
+  50: #fff3e0,
+  100: #ffe0b2,
+  200: #ffcc80,
+  300: #ffb74d,
+  400: #ffa726,
+  500: #ff9800,
+  600: #fb8c00,
+  700: #f57c00,
+  800: #ef6c00,
+  900: #e65100,
+  contrast: (
+    50: #000,
+    100: #000,
+    200: #000,
+    300: #000,
+    400: #000,
+    500: #fff,
+    600: #fff,
+    700: #fff,
+    800: #fff,
+    900: #fff,
+  )
+);
+
+
+$custom-red:(
+  50: #fdeaee,
+  100: #fbcad2,
+  200: #ea959b,
+  300: #de6c74,
+  400: #e84853,
+  500: #ed323b,
+  600: #de2839,
+  700: #cc1d33,
+  800: #bf152c,
+  900: #9c001dee,
+  contrast:(
+    50: #000,
+    100: #000,
+    200: #000,
+    300: #000,
+    400: #FFF,
+    500: #FFF,
+    600: #FFF,
+    700: #FFF,
+    800: #FFF,
+    900: #FFF,
+  )
+);
+
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$src-angular-primary: mat.define-palette(mat.$indigo-palette, 900);
+$src-angular-secondary: mat.define-palette(mat.$yellow-palette, 600);
+$src-angular-accent: mat.define-palette(mat.$orange-palette, 600);
+$src-angular-fondo: mat.define-palette(mat.$indigo-palette, 50);
+
+// The warn palette is optional (defaults to red).
+$src-angular-warn: mat.define-palette(mat.$red-palette, 900);
+
+//PALETA PERSONALIZADA
+$custom-primary: mat.define-palette($custom-indigo, 900);
+$custom-secondary: mat.define-palette($custom-yellow, 600);
+$custom-accent: mat.define-palette($custom-orange, 600);
+$custom-warn: mat.define-palette($custom-red, 900);
+$custom-fondo: mat.define-palette($custom-indigo, 50);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$src-angular-theme: mat.define-light-theme((
+  color: (
+    primary: $custom-primary,
+    secondary: $custom-secondary,
+    accent: $custom-accent,
+    warn: $custom-warn,
+    fondo: $custom-fondo
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($src-angular-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: larger; }
+
+
+.link-secondary {
+  color: mat.get-color-from-palette($custom-secondary, 600) !important;
+}
+
+.mdc-list-item__primary-text {
+  color: mat.get-color-from-palette($custom-primary, 900) !important;
+}
+
+.menu-icon {
+  color: mat.get-color-from-palette($custom-secondary, 600);
+}
