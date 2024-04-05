@@ -4,6 +4,7 @@ import { HeaderComponent } from './Components/header/header.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ButtonComponent } from './Components/button/button.component';
+import { FooterComponent } from './Components/footer/footer.component';
 
 
 @Component({
@@ -11,7 +12,8 @@ import { ButtonComponent } from './Components/button/button.component';
   standalone: true,
   imports: [RouterOutlet,
     HeaderComponent,
-    ButtonComponent],
+    ButtonComponent,
+    FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

@@ -190,3 +190,35 @@ body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
 .menu-icon {
   color: mat.get-color-from-palette($custom-secondary, 600);
 }
+
+
+
+button {
+  padding: 12px 16px;
+  font-size: 12px;
+  color: rgb(247, 191, 0);
+  background-color: rgb(20, 16, 79);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: rgb(247, 191, 0);
+  color:rgb(20, 16, 79);
+}
+
+
+.button_dark {
+  padding: 8px 18px;
+  font-size: 16px;
+  color: rgb(20, 16, 79);
+  background-color: rgb(247, 191, 0);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.button_dark:hover {
+  background-color: rgb(247, 165, 0);
+  color:rgb(20, 16, 79);
+}
+

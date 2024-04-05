@@ -6,10 +6,34 @@
 }
 
 .link-secondary{
-  margin: 0 20px !important;
+  margin: 0 40px !important;
+  font-weight: 600;
+}
+
+.link-secondary:hover {
+  color: rgb(247, 165, 0) !important;
+  text-decoration: underline;
 }
 
 .logo{
-  width: 5.5rem;
-  height: 5.5rem;
+  width: 6rem;
+  height: auto;
+}
+
+
+.btn{
+  margin-right: 12px;
+}
+
+
+.toolbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.toolbar-buttons {
+  display: flex;
+  gap: 10px; /* Ajusta el espacio entre los botones según necesites */
 }

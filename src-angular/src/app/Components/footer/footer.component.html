@@ -1,1 +1,44 @@
-<p>footer works!</p>
+<!-- Footer Component Template -->
+<footer class="footer" fxLayout="column" fxLayoutAlign="start center">
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutGap="10px" class="footer-content" color="primary">
+    <!-- Newsletter Section -->
+    <div fxFlex="30" fxFlex.xs="100" class="newsletter" fxLayout="column" fxLayoutAlign="start start">
+      <h3>Suscríbete a nuestra Newsletter y mantente al día sobre las novedades</h3>
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="tuCorreo@gmail.com">
+      </mat-form-field>
+      <button mat-raised-button color="primary">Suscribirse</button>
+    </div>
+
+    <!-- Address Section -->
+    <div fxFlex="30" fxFlex.xs="100" class="address">
+      <h3>Dirección</h3>
+      <p>Calle parque peruno, n11<br>Castilleja de la cuesta<br>41950 Sevilla</p>
+    </div>
+
+    <!-- Contact Section -->
+    <div fxFlex="30" fxFlex.xs="100" class="contact">
+      <h3>Contacto</h3>
+      <p>+34 602 300 315<br>planazo&#64;email.com</p>
+    </div>
+  </div>
+
+  <!-- Footer Links and Social Icons -->
+  <div fxLayout="row" fxLayoutAlign="space-between center" class="footer-links-icons">
+    <div class="footer-links" fxLayout="row" fxLayout.xs="column" fxLayoutGap="15px">
+      <a href="#">2024. All Rights Reserved</a>
+      <a href="#">Sobre nosotros</a>
+      <a href="#">Trabaja con nosotros</a>
+      <a href="#">Cookies</a>
+      <a href="#">Política de privacidad</a>
+    </div>
+    <div class="social-icons" fxLayout="row" fxLayoutGap="10px">
+      <!-- Use Material icons for these if you want -->
+      <a href="#"><mat-icon>twitter</mat-icon></a>
+      <a href="#"><mat-icon>facebook</mat-icon></a>
+      <a href="#"><mat-icon>print</mat-icon></a>
+      <a href="#"><mat-icon>share</mat-icon></a>
+    </div>
+  </div>
+</footer>
