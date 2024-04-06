@@ -59,24 +59,7 @@ añadir muchísimas funciones más, por ejemplo:
 - Puntuación de usuarios
 - Realizar sus propios planes personalizados
 - Etc.
-Incluso con tiempo, podría ser escalada a nivel de red social, donde las personas 
-podrían hacer planes de ocio con otras personas, aunque no se conocieran, si una 
-persona crea un plan y pregunta si alguien se apunta, poder apuntarte a ello, mientras 
-haya huecos libres, sería una gran forma de conocer gente nueva.
-Planazo podría tener un sinfín de implementaciones, tantas como se me fueran 
-ocurriendo, incluso podría llegar a convertirse en una aplicación web real ya que esta 
-basado en una necesidad real, pero me gustaría recalcar que Planazo nace de algo muy 
-simple pero poderoso: queremos más risas, más aventuras, y menos tiempo perdido 
-preguntándonos "¿y ahora qué hacemos?". No se trata solo de una app; es como ese 
-amigo que siempre sabe dónde ir, qué comer y cómo hacer de un día ordinario, algo 
-extraordinario. Planazo va más allá de solucionar el eterno dilema de "¿dónde 
-quedamos?"; busca ser la chispa que encienda recuerdos imborrables, esos que se crean 
-al compartir momentos únicos con amigos, pareja o incluso con gente nueva que aún no 
-sabemos que llegará a nuestras vidas. Al final, Planazo es un recordatorio de que la vida 
-está para vivirla, para salir y explorar, para atrevernos a disfrutar cada segundo con la 
-gente que queremos. Porque, al final del día, lo que nos llevamos son esas historias que 
-nacen de decir "¿por qué no?". Y ahí es donde Planazo quiere estar, convirtiendo cualquier 
-día en una aventura por vivir.
+Incluso con tiempo, podría ser escalada a nivel de red social.
 
 
 # Estructura del Proyecto Planazo
