@@ -2,8 +2,8 @@
 # Planazo
 
 #### Curso Escolar 2023-2024
-#### Autor: [Carmen ciscar arroyo]([Url de Github](https://github.com/carcisa))
-#### Tutor: [Nombre del profesor tutor](Enlace a su cuenta de gitHub)
+#### Autor: Carmen ciscar arroyo ([Url de Github](https://github.com/carcisa))
+#### Tutor: Mónica María Marcos Gutiérrez ([Url de gitHub](https://github.com/monicamg12))
 #### Fecha de Inicio: 18-03-2024
 #### Fecha de Finalización: DD-MM-YYYY
 
@@ -90,20 +90,17 @@ Esta carpeta contiene todo el código fuente relacionado con el backend de la ap
 - services: Para la lógica de negocio.
 - repositories: Para la comunicación con la base de datos.
 
-## src-frontend
-En esta carpeta se encuentra el código fuente del frontend de la aplicación, desarrollado con Angular. Se incluyen componentes de la interfaz de usuario, servicios para la comunicación con el backend, módulos y directivas. La estructura puede organizarse en subcarpetas como:
-- components: Para los componentes de Angular.
-- services: Para los servicios que ofrecen lógica reutilizable.
-- models: Para los modelos de datos del frontend.
-- views: Para las vistas o pantallas de la aplicación.
+## src-angular
+En esta carpeta se encuentra el código fuente del frontend de la aplicación, desarrollado con Angular. Se incluyen componentes de la interfaz de usuario, servicios para la comunicación con el backend, módulos y directivas.
+
 
 ## docs
 La carpeta docs está dedicada a la documentación del proyecto. Aquí se incluyen guías de instalación, configuración, uso de la API, documentación del código, y cualquier otra documentación técnica necesaria. La documentación ayuda a otros desarrolladores a entender y trabajar con el proyecto de manera efectiva.
 
 ## README.md
-El archivo README.md proporciona una visión general del proyecto Planazo. Incluye información sobre qué es Planazo, para qué sirve, cómo instalarlo, configurarlo y ejecutarlo. Además, puede contener enlaces a la documentación detallada, instrucciones de contribución, detalles de la licencia y agradecimientos.
+El archivo README.md proporciona una visión general del proyecto Planazo. Incluye información sobre qué es Planazo, para qué sirve, cómo instalarlo, configurarlo y ejecutarlo. 
 
-Este esquema de organización garantiza que el proyecto sea fácil de entender y mantener, tanto para los desarrolladores actuales como para los nuevos colaboradores.
+
 
 
 
