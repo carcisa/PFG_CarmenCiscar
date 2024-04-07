@@ -7,13 +7,18 @@ import { ButtonComponent } from './Components/button/button.component';
 import { FooterComponent } from './Components/footer/footer.component';
 
 
+
+
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet,
     HeaderComponent,
     ButtonComponent,
-    FooterComponent],
+    FooterComponent,
+
+
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
