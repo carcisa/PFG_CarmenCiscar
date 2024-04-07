@@ -208,8 +208,11 @@ button:hover {
 
 
 .button_dark {
-  padding: 8px 18px;
-  font-size: 16px;
+  padding: 4px 25px;
+  border: 2px solid;
+  border-color: #14104f;
+  font-size: 12px;
+  font-weight: 500;
   color: rgb(20, 16, 79);
   background-color: rgb(247, 191, 0);
   border: none;
@@ -219,6 +222,8 @@ button:hover {
 .button_dark:hover {
   background-color: rgb(247, 165, 0);
   color:rgb(20, 16, 79);
+  border: 2px solid;
+  border-color: #14104f;
 }
 
 

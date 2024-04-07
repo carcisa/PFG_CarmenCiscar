@@ -8,6 +8,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../button/button.component';
 
+
+
+
+
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -19,13 +23,22 @@ import { ButtonComponent } from '../button/button.component';
     MatButtonModule,
     FlexLayoutModule,
     CommonModule,
-    ButtonComponent
+    ButtonComponent,
+
+
   ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'] // Corrige 'styleUrl' a 'styleUrls' y asegúrate de que sea un array
 })
 export class HeaderComponent {
 
+  direcciones:string[][] = [
+    ['Inicio', 'inicio'],
+    ['Planes', 'planes'],
+    ['Actividades', 'actividades'],
+    ['Contacto', 'contacto'],
+    ['Faqs', 'faqs']
+  ];
 
 
 }

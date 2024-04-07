@@ -1,21 +1,305 @@
 <section class="relative text-gray-600 body-font h-[75vh]">
-  <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('assets/img/venice-2647436_1280.jpg');">
+  <div class="imagenFondo absolute inset-0 bg-cover bg-center"
+    style="background-image: url('assets/img/venice-2647436_1280.jpg');">
 
     <div class="container mx-auto flex flex-col px-5 py-24 justify-center items-center relative z-10 h-[75vh]">
       <div class="w-full md:w-2/3 flex flex-col mb-16 items-center text-center">
-        <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-white text-shadow">
+        <h1 class="title-font sm:text-4xl text-3xl font-medium text-textoLight mb-10"
+          style="text-shadow: 0px 4px 14px rgb(0, 0, 0);">
           INTRODUCE TU DESTINO</h1>
-        <p class="mb-8 leading-relaxed text-white">Introduce el nombre de tu destino en el buscador y encuentra PLANAZOS que nunca hubieras imaginado</p>
+        <!-- <p class="mb-8 leading-relaxed text-white text-shadow">Introduce el nombre de tu destino en el buscador y encuentra PLANAZOS que nunca hubieras imaginado</p> -->
         <div class="flex w-full justify-center items-end">
           <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4 md:w-full text-left">
-            <label for="hero-field" class="leading-7 text-sm text-white" ></label>
-            <input type="text" id="hero-field" name="hero-field" placeholder="Introduce tu destino..."
-              class="w-full bg-gray-100 bg-opacity-50 rounded focus:ring-2 focus:ring-indigo-200 focus:bg-transparent border border-gray-300 focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+            <label for="hero-field" class="leading-7 text-sm text-white"></label>
+            <input type="text" id="hero-field" name="hero-field" placeholder="Escribe aquí..."
+              class="w-full bg-fondot  rounded focus:ring-2 focus:ring-indigo-200  border border-primaryt focus:border-primaryt text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
           </div>
-          <button
-            class=" button_dark inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Buscar</button>
+
+        </div>
+        <button class=" button_dark  inline-flex text-primaryt text-lg mt-6 ">BUSCAR</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="text-gray-600 body-font">
+  <div class="container px-5 pt-20 mx-auto">
+    <div class="flex flex-col text-center w-full ">
+      <h1 class="sm:text-5xl text-10xl font-semibold title-font mb-4 text-gray-900">Algunos destinos populares</h1>
+      <h3 class="lg:w-2/3 mx-auto leading-relaxed text-base mb-5 py-5">Te sugerimos algunos destinos para que tus proximas
+        vacaciones elijas que hacer, antes que donde ir</h3>
+    </div>
+    <hr>
+    <div class="container px-5 pb-5 pt-10 mx-auto ">
+      <div class="flex flex-wrap -m-4">
+        <div class="p-4 md:w-1/3">
+          <div class="h-auto border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+            <img class="lg:h-64 md:h-36 w-full object-cover object-center" src="assets\img\cadiz-5246023_1280.jpg"
+              alt="blog">
+            <div class="p-6">
+              <h1 class="title-font text-2xl font-medium text-gray-900 mb-3 ml-1">Cádiz</h1>
+              <!-- <p class="leading-relaxed mb-3">Cádiz, un destino donde la historia se encuentra con playas infinitas y
+                festividades vibrantes, promete una escapada inolvidable bajo el sol de España</p> -->
+              <div class="flex items-center flex-wrap ">
+                <button class="button_dark">SABER MÁS</button>
+
+                <span
+                  class="text-gray-400 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">
+                  <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                    stroke-linejoin="round" viewBox="0 0 24 24">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>1.2K
+                </span>
+                <span class="text-gray-400 inline-flex items-center leading-none text-sm">
+                  <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                    stroke-linejoin="round" viewBox="0 0 24 24">
+                    <path
+                      d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z">
+                    </path>
+                  </svg>6
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 md:w-1/3">
+          <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+            <img class="lg:h-64 md:h-36 w-full object-cover object-center" src="assets\img\Jaen.jpg" alt="blog">
+            <div class="p-6">
+              <h1 class="title-font text-2xl font-medium text-gray-900 mb-3">Almería</h1>
+              <!-- <p class="leading-relaxed mb-3">Almería, un oasis entre desiertos y mares, te invita a explorar sus
+                paisajes lunares, fortalezas árabes y tranquilas playas mediterráneas.</p> -->
+              <div class="flex items-center flex-wrap">
+                <button class="button_dark">SABER MÁS</button>
+                <span
+                  class="text-gray-400 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">
+                  <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                    stroke-linejoin="round" viewBox="0 0 24 24">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>1.2K
+                </span>
+                <span class="text-gray-400 inline-flex items-center leading-none text-sm">
+                  <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                    stroke-linejoin="round" viewBox="0 0 24 24">
+                    <path
+                      d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z">
+                    </path>
+                  </svg>6
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 md:w-1/3">
+          <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+            <img class="lg:h-64 md:h-36 w-full object-cover object-center" src="assets\img\Sevilla.jpg" alt="blog">
+            <div class="p-6">
+              <h1 class="title-font text-2xl font-medium text-gray-900 mb-3">Sevilla</h1>
+              <!-- <p class="leading-relaxed mb-3">Sevilla, corazón palpitante de Andalucía, seduce con su majestuosa
+                arquitectura, apasionado flamenco y naranjos fragantes a cada paso.</p> -->
+              <div class="flex items-center flex-wrap ">
+                <button class="button_dark">SABER MÁS</button>
+                <span
+                  class="text-gray-400 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">
+                  <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                    stroke-linejoin="round" viewBox="0 0 24 24">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>1.2K
+                </span>
+                <span class="text-gray-400 inline-flex items-center leading-none text-sm">
+                  <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                    stroke-linejoin="round" viewBox="0 0 24 24">
+                    <path
+                      d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z">
+                    </path>
+                  </svg>6
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+
+<!-- ---------------------------------------------------------------------------------------------------------- -->
+
+<section class="text-gray-600 body-font">
+
+  <div class="container px-5 py-10 mx-auto ">
+    <div class="flex flex-wrap -m-4">
+      <div class="p-4 md:w-1/3">
+        <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+          <img class="lg:h-64 md:h-36 w-full object-cover object-center" src="assets\img\cordoba-573799_640.jpg"
+            alt="blog">
+          <div class="p-6">
+            <h1 class="title-font text-2xl font-medium text-gray-900 mb-3">Córdoba</h1>
+            <!-- <p class="leading-relaxed mb-3">Cádiz, un destino donde la historia se encuentra con playas infinitas y
+              festividades vibrantes, promete una escapada inolvidable bajo el sol de España</p> -->
+            <div class="flex items-center flex-wrap ">
+              <button class="button_dark">SABER MÁS</button>
+              <span
+                class="text-gray-400 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">
+                <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                  stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>1.2K
+              </span>
+              <span class="text-gray-400 inline-flex items-center leading-none text-sm">
+                <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                  stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path
+                    d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z">
+                  </path>
+                </svg>6
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-4 md:w-1/3">
+        <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+          <img class="lg:h-64 md:h-36 w-full object-cover object-center" src="assets\img\Granada.jpg" alt="blog">
+          <div class="p-6">
+            <h1 class="title-font text-2xl font-medium text-gray-900 mb-3">Granada</h1>
+            <!-- <p class="leading-relaxed mb-3">Almería, un oasis entre desiertos y mares, te invita a explorar sus paisajes
+              lunares, fortalezas árabes y tranquilas playas mediterráneas.</p> -->
+            <div class="flex items-center flex-wrap">
+              <button class="button_dark">SABER MÁS</button>
+              <span
+                class="text-gray-400 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">
+                <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                  stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>1.2K
+              </span>
+              <span class="text-gray-400 inline-flex items-center leading-none text-sm">
+                <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                  stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path
+                    d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z">
+                  </path>
+                </svg>6
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-4 md:w-1/3">
+        <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+          <img class="lg:h-64 md:h-36 w-full object-cover object-center" src="assets\img\Huelva.jpg" alt="blog">
+          <div class="p-6">
+            <h1 class="title-font text-2xl font-medium text-gray-900 mb-3">Huelva</h1>
+            <!-- <p class="leading-relaxed mb-3">Sevilla, corazón palpitante de Andalucía, seduce con su majestuosa
+              arquitectura, apasionado flamenco y naranjos fragantes a cada paso.</p> -->
+            <div class="flex items-center flex-wrap ">
+              <button class="button_dark">SABER MÁS</button>
+              <span
+                class="text-gray-400 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">
+                <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                  stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>1.2K
+              </span>
+              <span class="text-gray-400 inline-flex items-center leading-none text-sm">
+                <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                  stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path
+                    d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z">
+                  </path>
+                </svg>6
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+
+
+</section>
+
+
+<!-- ---------------------------------------------------------------------------------------------------------- -->
+
+<section class="text-gray-600 body-font">
+
+  <div class="container px-5 py-10 mx-auto ">
+    <div class="flex flex-wrap -m-4">
+      <div class="p-4 md:w-1/3">
+        <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+          <img class="lg:h-64 md:h-36 w-full object-cover object-center" src="assets\img\Jaen.jpg"
+            alt="blog">
+          <div class="p-6">
+            <h1 class="title-font text-2xl font-medium text-gray-900 mb-3">Jaén</h1>
+            <!-- <p class="leading-relaxed mb-3">Cádiz, un destino donde la historia se encuentra con playas infinitas y
+              festividades vibrantes, promete una escapada inolvidable bajo el sol de España</p> -->
+            <div class="flex items-center flex-wrap ">
+              <button class="button_dark">SABER MÁS</button>
+              <span
+                class="text-gray-400 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">
+                <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                  stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>1.2K
+              </span>
+              <span class="text-gray-400 inline-flex items-center leading-none text-sm">
+                <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                  stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path
+                    d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z">
+                  </path>
+                </svg>6
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-4 md:w-1/3">
+        <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+          <img class="lg:h-64 md:h-36 w-full object-cover object-center" src="assets\img\Malaga.jpg" alt="blog">
+          <div class="p-6">
+            <h1 class="title-font text-2xl font-medium text-gray-900 mb-3">Málaga</h1>
+            <!-- <p class="leading-relaxed mb-3">Almería, un oasis entre desiertos y mares, te invita a explorar sus paisajes
+              lunares, fortalezas árabes y tranquilas playas mediterráneas.</p> -->
+            <div class="flex items-center flex-wrap">
+              <button class="button_dark">SABER MÁS</button>
+              <span
+                class="text-gray-400 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">
+                <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                  stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>1.2K
+              </span>
+              <span class="text-gray-400 inline-flex items-center leading-none text-sm">
+                <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                  stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path
+                    d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z">
+                  </path>
+                </svg>6
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
 </section>

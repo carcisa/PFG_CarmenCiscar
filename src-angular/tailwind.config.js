@@ -15,7 +15,8 @@ module.exports = {
         primaryt: "#130F4E",
         secondaryt: "#FDC010",
         accentst: "#F7A500",
-        fondot: "#F5F5F5"
+        fondot: "#F5F5F5",
+        textoLight: "#FFEEC7"
       }
     },
   },
