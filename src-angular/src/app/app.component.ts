@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './Components/header/header.component';
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { ButtonComponent } from './Components/button/button.component';
 import { FooterComponent } from './Components/footer/footer.component';
+import { InicioComponent } from './pages/inicio/inicio.component';
 
 
 
@@ -16,7 +15,7 @@ import { FooterComponent } from './Components/footer/footer.component';
     HeaderComponent,
     ButtonComponent,
     FooterComponent,
-
+    InicioComponent,
 
   ],
   templateUrl: './app.component.html',
