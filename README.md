@@ -78,7 +78,7 @@ En esta carpeta se encuentra el código fuente del frontend de la aplicación, d
 
 
 ## docs
-La carpeta docs está dedicada a la documentación del proyecto. Aquí se incluyen guías de instalación, configuración, uso de la API, documentación del código, y cualquier otra documentación técnica necesaria. La documentación ayuda a otros desarrolladores a entender y trabajar con el proyecto de manera efectiva.
+La carpeta docs está dedicada a la documentación del proyecto. Aquí se incluyen guías de instalación, configuración, uso de la API, documentación del código, y cualquier otra documentación técnica necesaria. 
 
 ## README.md
 El archivo README.md proporciona una visión general del proyecto Planazo. Incluye información sobre qué es Planazo, para qué sirve, cómo instalarlo, configurarlo y ejecutarlo. 
