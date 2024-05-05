@@ -28,17 +28,10 @@ import { ButtonComponent } from '../button/button.component';
 
   ],
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'] // Corrige 'styleUrl' a 'styleUrls' y asegúrate de que sea un array
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
 
-  direcciones:string[][] = [
-    ['Inicio', 'inicio'],
-    ['Planes', 'planes'],
-    ['Actividades', 'actividades'],
-    ['Contacto', 'contacto'],
-    ['Faqs', 'faqs']
-  ];
 
 
 }

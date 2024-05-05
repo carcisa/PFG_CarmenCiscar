@@ -1,14 +1,14 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav mode="over" opened="false">
     <mat-nav-list>
-      <a (click)="sidenav.toggle()" href="" mat-list-item class="link">x</a>
-      <a href="#" mat-list-item class="link">Inicio</a>
-      <a href="#" mat-list-item class="link">Planes</a>
-      <a href="#" mat-list-item class="link">Actividades</a>
-      <a href="#" mat-list-item class="link">Contacto</a>
-      <a href="#" mat-list-item class="link">Faqs</a>
-      <a href="#" mat-list-item class="link">Iniciar Sesión</a>
-      <a href="#" mat-list-item class="link">Registrarse</a>
+      <a (click)="sidenav.toggle()" routerLink="/" mat-list-item class="link">x</a>
+      <a href="/" mat-list-item class="link">Inicio</a>
+      <a href="/planes" mat-list-item class="link">Planes</a>
+      <a href="/actividades" mat-list-item class="link">Actividades</a>
+      <a href="/categorias" mat-list-item class="link">Categorías</a>
+      <a href="/contacto" mat-list-item class="link">Contacto</a>
+      <a href="/login" mat-list-item class="link">Iniciar Sesión</a>
+      <a href="/register" mat-list-item class="link">Registrarse</a>
     </mat-nav-list>
   </mat-sidenav>
 
@@ -31,13 +31,12 @@
           <mat-icon class="menu-icon">menu</mat-icon>
         </button>
         <span class="menu-spacer"></span>
-        <div fxShow="true" fxHide.lt-md style="width: 100%; display: flex; justify-content: center; ">
-          <a href="#" mat-button class="link-secondary">Inicio</a>
-          <a href="#" mat-button class="link-secondary">Planes</a>
-          <a href="#" mat-button class="link-secondary">Actividades</a>
-          <a href="#" mat-button class="link-secondary">Contacto</a>
-          <a href="#" mat-button class="link-secondary">Faqs</a>
-
+        <div fxShow="true" fxHide.lt-md style="width: 100%; display: flex; justify-content: center;">
+          <a href="/" mat-button class="link-secondary">Inicio</a>
+          <a href="/planes" mat-button class="link-secondary">Planes</a>
+          <a href="/actividades" mat-button class="link-secondary">Actividades</a>
+          <a href="/categorias" mat-button class="link-secondary">Categorías</a>
+          <a href="/contacto" mat-button class="link-secondary">Contacto</a>
         </div>
       </mat-toolbar-row>
     </mat-toolbar>
