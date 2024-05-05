@@ -11,6 +11,7 @@ import { ActividadesComponent } from './pages/actividades/actividades.component'
 import { PlanesComponent } from './pages/planes/planes.component';
 import { FormsModule } from '@angular/forms';
 import { SelectComponent } from './Components/select/select.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -30,7 +31,8 @@ import { SelectComponent } from './Components/select/select.component';
     ActividadesComponent,
     PlanesComponent,
     FormsModule,
-    SelectComponent
+    SelectComponent,
+    HttpClientModule
 
 
   ],
