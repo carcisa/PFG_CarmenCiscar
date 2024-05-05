@@ -9,6 +9,9 @@ import { CategoriasComponent } from './pages/categorias/categorias.component';
 import { ContactoComponent } from './pages/contacto/contacto.component';
 import { ActividadesComponent } from './pages/actividades/actividades.component';
 import { PlanesComponent } from './pages/planes/planes.component';
+import { FormsModule } from '@angular/forms';
+import { SelectComponent } from './Components/select/select.component';
+
 
 
 
@@ -26,6 +29,8 @@ import { PlanesComponent } from './pages/planes/planes.component';
     ContactoComponent,
     ActividadesComponent,
     PlanesComponent,
+    FormsModule,
+    SelectComponent
 
 
   ],

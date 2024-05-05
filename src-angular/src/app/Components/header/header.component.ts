@@ -32,6 +32,6 @@ import { ButtonComponent } from '../button/button.component';
 })
 export class HeaderComponent {
 
-
+  isAuthenticated: boolean = false;
 
 }

@@ -1,3 +1,7 @@
-<button mat-button [attr.color]="color" [ngClass]="{'mat-raised-button': type === 'raised', 'mat-stroked-button': type === 'stroked', 'mat-flat-button': type === 'flat'}">
+
+<button [ngClass]="{
+  'bg-primaryt text-secondaryt border-primaryt hover:bg-secondaryt-darker p-2 rounded': buttonStyle === 'primary',
+  'bg-secondaryt text-primaryt border-secondaryt hover:bg-accentst p-2 rounded': buttonStyle === 'secondary'
+}" class="p-2 rounded transition duration-300 ease-in-out">
   <ng-content></ng-content>
 </button>

@@ -10,7 +10,6 @@ import { CommonModule } from '@angular/common';
 })
 export class ButtonComponent {
 
-  @Input() color: 'primary' | 'accent' | 'warn' = 'primary';
-  @Input() type: 'raised' | 'stroked' | 'flat' = 'raised';
+  @Input() buttonStyle: 'primary' | 'secondary' = 'primary';  // Estilo por defecto
 
 }

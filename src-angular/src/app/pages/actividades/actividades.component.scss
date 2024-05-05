@@ -1,0 +1,27 @@
+.titulo {
+  text-align: left;
+  margin-left: 16rem;
+  font-weight: bold;
+  font-size: 2.25rem;
+  text-decoration: underline; /* Base para dispositivos grandes */
+}
+
+/* Media queries para ajustes en dispositivos más pequeños */
+@media (max-width: 768px) {
+  .titulo {
+      font-size: 2rem; /* Tamaño más pequeño para tablets */
+  }
+}
+
+@media (max-width: 480px) {
+  .titulo {
+      font-size: 1.75rem; /* Tamaño aún más pequeño para teléfonos */
+  }
+}
+
+
+.search {
+  text-align: left;
+  font-weight: medium;
+  font-size: 0.75rem;
+}
