@@ -7,7 +7,7 @@
       <a *ngIf="isAdmin" mat-list-item class="link" routerLink="/moderador">Moderador</a>
       <a *ngIf="isAdmin" mat-list-item class="link" routerLink="/perfiles">Perfiles</a>
       <a *ngIf="isAdmin" mat-list-item class="link" routerLink="/estadisticas">Estadísticas</a>
-      <a *ngIf="!isAdmin" mat-list-item class="link" routerLink="/planes">Planes</a>
+      <a *ngIf="!isAdmin" mat-list-item class="link" routerLink="/destinos">Destinos</a>
       <a *ngIf="!isAdmin" mat-list-item class="link" routerLink="/actividades">Actividades</a>
       <a *ngIf="!isAdmin" mat-list-item class="link" routerLink="/categorias">Categorías</a>
       <a *ngIf="!isAdmin" mat-list-item class="link" routerLink="/contacto">Contacto</a>
@@ -45,7 +45,7 @@
             <a  class="link-secondary" routerLink="/estadisticas">Estadísticas</a>
           </ng-container>
           <ng-container *ngIf="!isAdmin">
-            <a  class="link-secondary" routerLink="/planes">Planes</a>
+            <a  class="link-secondary" routerLink="/planes">Destinos</a>
             <a  class="link-secondary" routerLink="/actividades">Actividades</a>
             <a  class="link-secondary" routerLink="/categorias">Categorías</a>
             <a  class="link-secondary" routerLink="/contacto">Contacto</a>

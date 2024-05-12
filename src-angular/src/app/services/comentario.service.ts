@@ -7,7 +7,7 @@ import { Comentario } from '../models/comentario.model';
   providedIn: 'root'
 })
 export class ComentarioService {
-  private apiUrl = 'http://localhost:8080/api/comentario';
+  private apiUrl = 'http://localhost:8081/api/comentario';
 
   constructor(private http: HttpClient) {}
 

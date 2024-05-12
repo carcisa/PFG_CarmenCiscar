@@ -40,5 +40,10 @@ public class DestinoServiceImpl implements DestinoServicio {
 		return destinoRepository.save(destino);
 	}
 
+	@Override
+	public Optional<Destino> findByNombre(String nombre) {
+		return destinoRepository.findByNombre(nombre);
+	}
+
 	
 }

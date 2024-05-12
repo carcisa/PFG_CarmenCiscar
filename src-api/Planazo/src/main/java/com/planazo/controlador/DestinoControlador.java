@@ -150,5 +150,15 @@ public class DestinoControlador {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
     
-  
+    /**
+     * Obtiene un destino por su nombre.
+     * @param nombre El nombre del destino.
+     * @return ResponseEntity con el destino si se encuentra, o no encontrado (404) si no se encuentra.
+     */
+    @GetMapping("/buscar/{nombre}")
+    public ResponseEntity<Destino> getDestinoByNombre(@PathVariable String nombre) {
+        return destinoService.findByNombre(nombre)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 }

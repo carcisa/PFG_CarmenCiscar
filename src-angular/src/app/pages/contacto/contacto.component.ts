@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-contacto',
@@ -9,4 +12,13 @@ import { Component } from '@angular/core';
 })
 export class ContactoComponent {
 
+  constructor(
+    private router: Router
+  ){}
+
+  onSubmit() {
+      this.router.navigate(['/']);
+      }
 }
+
+

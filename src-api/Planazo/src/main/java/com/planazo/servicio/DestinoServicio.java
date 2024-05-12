@@ -20,5 +20,7 @@ public interface DestinoServicio {
 	Destino save(Destino destino);
 
 	void deleteById(Integer id);
-
+	
+	Optional<Destino> findByNombre(String nombre);
+	
 }

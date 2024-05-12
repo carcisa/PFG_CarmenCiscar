@@ -17,6 +17,7 @@ export const routes: Routes = [
 
   { path: '', component: InicioComponent },
   { path: 'planes', component: PlanesComponent },
+  { path: 'destinos/:id/planes', component: PlanesComponent },
   { path: 'actividades', component: ActividadesComponent },
   { path: 'categorias', component: CategoriasComponent },
   { path: 'contacto', component: ContactoComponent },

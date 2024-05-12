@@ -8,7 +8,7 @@ import { Actividad } from '../models/actividad.model';
   providedIn: 'root'
 })
 export class DestinoService {
-  private apiUrl = 'http://localhost:8080/api/destinos';
+  private apiUrl = 'http://localhost:8081/api/destinos';
 
   constructor(private http: HttpClient) {}
 
@@ -41,5 +41,9 @@ export class DestinoService {
 
   deleteDestino(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  getDestinoByNombre(nombre: string): Observable<Destino> {
+    return this.http.get<Destino>(`${this.apiUrl}/buscar/${nombre}`);
   }
 }

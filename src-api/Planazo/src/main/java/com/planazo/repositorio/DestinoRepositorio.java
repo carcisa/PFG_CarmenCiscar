@@ -16,4 +16,5 @@ public interface DestinoRepositorio extends JpaRepository<Destino, Integer> {
 
 	void deleteById(Integer id);
 	
+	Optional<Destino> findByNombre(String nombre);
 }

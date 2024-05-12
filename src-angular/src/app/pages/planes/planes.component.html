@@ -1,61 +1,16 @@
-<h1 class="titulo mb-5 mt-5">Aquí tienes PLANAZOS en Sevilla</h1>
+<section class="text-gray-600 body-font m-5">
+  <div class="container px-5 py-24 mx-auto border-white">
+    <div class="flex flex-wrap -mx-4 -mb-10 text-center">
 
-
-<section class="text-gray-600 body-font">
-
-  <div class="container px-5 py-10 mx-auto mb-24">
-
-    <div class="cabecera mb-4 bg-primaryt">
-      <div class="container px-5 py-2 mx-auto">
-        <div class="lg:w-2/3 flex flex-col sm:flex-row sm:items-center items-start mx-auto">
-          <h1 class="flex-grow sm:pr-16 text-2xl font-medium title-font text-secondaryt">OPCIÓN N.1</h1>
-          <app-button buttonStyle="secondary" >SELECCIONAR</app-button>
+      <div class="sm:w-1/2 mb-24 px-4 " *ngFor="let destino of destinos">
+        <div class="rounded-lg h-64 overflow-hidden">
+          <img alt="Imagen del destino" class="object-cover object-center h-full w-full" [src]="destino.imagen">
         </div>
-      </div>
-    </div>
-    <div class="flex flex-wrap -m-4">
-      <div class="p-4 md:w-1/3">
-        <div><h2>CULTURA</h2></div>
-        <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
-          <img class="lg:h-64 md:h-36 w-full object-cover object-center" src="assets\img\cordoba-573799_640.jpg"
-            alt="blog">
-          <div class="p-6">
-            <h1 class="title-font text-2xl font-medium text-gray-900 mb-3">Nombre de la actividad<span class="bg-gray-200 p-1 rounded ml-6">4.2</span></h1>
-            <!-- <p class="leading-relaxed mb-3">Cádiz, un destino donde la historia se encuentra con playas infinitas y
-              festividades vibrantes, promete una escapada inolvidable bajo el sol de España</p> -->
-          </div>
-        </div>
-      </div>
-
-
-      <div class="p-4 md:w-1/3">
-        <div><h2>GASTRONOMÍA</h2></div>
-        <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
-          <img class="lg:h-64 md:h-36 w-full object-cover object-center" src="assets\img\Granada.jpg" alt="blog">
-          <div class="p-6">
-            <h1 class="title-font text-2xl font-medium text-gray-900 mb-3">Nombre de la actividad<span class="bg-gray-200 p-1 rounded ml-6">4.2</span></h1>
-            <!-- <p class="leading-relaxed mb-3">Cádiz, un destino donde la historia se encuentra con playas infinitas y
-              festividades vibrantes, promete una escapada inolvidable bajo el sol de España</p> -->
-          </div>
-        </div>
-      </div>
-
-
-      <div class="p-4 md:w-1/3">
-        <div><h2>OCIO</h2></div>
-        <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
-          <img class="lg:h-64 md:h-36 w-full object-cover object-center" src="assets\img\Huelva.jpg" alt="blog">
-          <div class="p-6">
-            <h1 class="title-font text-2xl font-medium text-gray-900 mb-3">Nombre de la actividad <span class="bg-gray-200 p-1 rounded ml-6">4.2</span></h1>
-            <!-- <p class="leading-relaxed mb-3">Sevilla, corazón palpitante de Andalucía, seduce con su majestuosa
-              arquitectura, apasionado flamenco y naranjos fragantes a cada paso.</p> -->
-
-          </div>
-        </div>
+        <h2 class="title-font text-2xl font-medium text-gray-900 mt-6 mb-3">{{ destino.nombre }}</h2>
+        <p class="leading-relaxed text-base"></p>
+        <button class="flex mx-auto mt-6 mb-4 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded">Ver Más</button>
+        <hr>
       </div>
     </div>
   </div>
-
-
-
 </section>

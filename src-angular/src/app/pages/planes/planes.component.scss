@@ -24,12 +24,27 @@
 }
 
 
-img{
-  width: 22.5rem;
-  height: auto;
-}
+// img{
+//   width: 22.5rem;
+//   height: auto;
+// }
 
 h2{
   text-align: center;
   margin-bottom: 6px;
+}
+
+.img-container {
+  height: 250px; /* Establece una altura fija para el contenedor de la imagen */
+  overflow: hidden; /* Asegura que cualquier imagen que exceda este tamaño sea recortada */
+  position: relative; /* Posicionamiento relativo para más control si es necesario */
+  border-radius: 0.5rem; /* Estiliza los bordes si es deseado */
+}
+
+.img-responsive {
+  width: 100%; /* Asegura que la imagen cubra todo el ancho del contenedor */
+  height: 100%; /* Asegura que la imagen cubra la altura del contenedor (250px en este caso) */
+  object-fit: cover; /* Cubre completamente el contenedor, cortando los excesos */
+  position: absolute; /* Posiciona la imagen de manera absoluta dentro de su contenedor */
+  top: 0; /* Alinea la parte superior de la imagen con la parte superior del contenedor */
 }
