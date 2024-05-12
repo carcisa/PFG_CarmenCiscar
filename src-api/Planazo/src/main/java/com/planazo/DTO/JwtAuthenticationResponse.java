@@ -1,74 +1,56 @@
 package com.planazo.DTO;
+import java.util.Set;
 
 /**
  * Clase que encapsula la respuesta de autenticación con un token JWT.
  * Se utiliza para enviar el token generado a los clientes tras una autenticación exitosa.
  */
 public class JwtAuthenticationResponse {
-    private String token; // El token JWT
+    private String token; 
+    private Set<String> roles;
 
-    /**
-     * Constructor que inicializa una nueva instancia de JwtAuthenticationResponse con un token.
-     *
-     * @param token El token JWT como cadena de texto.
-     */
-    public JwtAuthenticationResponse(String token) {
+   
+    public JwtAuthenticationResponse(String token, Set<String> roles) {
         this.token = token;
+        this.roles = roles;
     }
-
-    /**
-     * Obtiene el token JWT contenido en esta respuesta de autenticación.
-     *
-     * @return El token JWT como cadena de texto.
-     */
+    
     public String getToken() {
         return token;
     }
 
-    /**
-     * Establece o actualiza el token JWT en esta respuesta de autenticación.
-     *
-     * @param token El nuevo token JWT como cadena de texto.
-     */
     public void setToken(String token) {
         this.token = token;
     }
+    
+    public Set<String> getRoles() {
+        return roles;
+    }
 
-    /**
-     * Proporciona una instancia del constructor de la respuesta de autenticación JWT.
-     * 
-     * @return Una nueva instancia de JwtAuthenticationResponseBuilder para construir una respuesta de autenticación JWT.
-     */
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
+    }
+
     public static JwtAuthenticationResponseBuilder builder() {
         return new JwtAuthenticationResponseBuilder();
     }
 
-    /**
-     * Clase constructora para JwtAuthenticationResponse.
-     * Permite una construcción fluida y fácil del objeto JwtAuthenticationResponse.
-     */
+    
     public static class JwtAuthenticationResponseBuilder {
-        private String token; // El token JWT a ser construido
+        private String token; 
+		private Set<String> roles;
 
-        /**
-         * Establece el token para el objeto JwtAuthenticationResponse que está siendo construido.
-         *
-         * @param token El token JWT como cadena de texto.
-         * @return La instancia del constructor para encadenar llamadas.
-         */
-        public JwtAuthenticationResponseBuilder token(String token) {
+  
+        public JwtAuthenticationResponseBuilder token(String token, Set<String> roles) {
             this.token = token;
+            this.roles = roles;
             return this;
         }
 
-        /**
-         * Construye y retorna una nueva instancia de JwtAuthenticationResponse con el token configurado.
-         *
-         * @return Una nueva instancia de JwtAuthenticationResponse con el token establecido.
-         */
         public JwtAuthenticationResponse build() {
-            return new JwtAuthenticationResponse(token);
+            return new JwtAuthenticationResponse(token, roles);
         }
     }
 }
+
 

@@ -1,9 +1,14 @@
 package com.planazo.configuracion;
 
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -15,8 +20,7 @@ import com.planazo.repositorio.UsuarioRepositorio;
 
 /**
  * Clase de configuración que implementa CommandLineRunner para inicializar
- * datos en la base de datos al arranque de la aplicación. Utiliza Faker para
- * generar datos aleatorios para usuarios, destinos y actividades.
+ * datos en la base de datos al arranque de la aplicación. 
  */
 @Component
 public class InicializarDatos implements CommandLineRunner {
@@ -26,14 +30,25 @@ public class InicializarDatos implements CommandLineRunner {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+    @Autowired
+    private ResourceLoader resourceLoader;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
 
 	@Override
 	public void run(String... args) throws Exception {
 
 		insertarUsuarioSiNoExiste("admin@example.com", "admin", "admin1234", Rol.ROL_ADMIN);
 		insertarUsuarioSiNoExiste("user@example.com", "user", "user1234", Rol.ROL_USER);
-
-	}
+		
+		
+	    }
+	
+		    
+	
 
 	private void insertarUsuarioSiNoExiste(String email, String nombreUsuario, String contraseña, Rol role) {
 		usuarioRepository.findByEmail(email).orElseGet(() -> {

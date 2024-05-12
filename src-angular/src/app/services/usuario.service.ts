@@ -1,45 +1,77 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Usuario } from '../models/usuario.model';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Observable, catchError, throwError } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UsuarioService {
-  private apiUrl = 'http://localhost:8080/api/usuarios';
+export class UserService {
 
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
+  private apiUrl = 'http://localhost:8081/api/usuarios/';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
-
-  getAllUsuarios(): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(`${this.apiUrl}/`);
+  private isNoAutorizado(e: HttpErrorResponse): boolean {
+    if (e.status === 401 || e.status === 403) {
+      this.router.navigate(['/login']);
+      return true;
+    }
+    return false;
   }
 
-  getUsuarioById(id: number): Observable<Usuario> {
-    return this.http.get<Usuario>(`${this.apiUrl}/${id}`);
+  devolverUsuario(token: string) {
+    return this.http.get<any>(this.apiUrl+'miusuario', { headers: this.getHeaders(token) }).pipe(
+      catchError((e) => {
+        this.isNoAutorizado(e);
+        return throwError(() => new Error('Unauthorized or forbidden access'));
+      })
+    );
+  }
+
+  private getHeaders(token: string): HttpHeaders {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+  }
+
+  getUsers(token: string): Observable<any> {
+    return this.http.get<any>(this.apiUrl, { headers: this.getHeaders(token) }).pipe(
+      catchError((e) => {
+        this.isNoAutorizado(e);
+        return throwError(() => new Error('Unauthorized or forbidden access'));
+      })
+    );
+  }
+
+  createUser(token: string, user: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, user, { headers: this.getHeaders(token) }).pipe(
+      catchError((e) => {
+        this.isNoAutorizado(e);
+        return throwError(() => new Error('Error creating user'));
+      })
+    );
+  }
+
+  updateUser(token: string, userId: number, user: any): Observable<any> {
+    const url = `${this.apiUrl}${userId}`;
+    return this.http.put<any>(url, user, { headers: this.getHeaders(token) }).pipe(
+      catchError((e) => {
+        this.isNoAutorizado(e);
+        return throwError(() => new Error('Error updating user'));
+      })
+    );
   }
 
 
-  createUsuario(usuario: Usuario): Observable<Usuario> {
-    return this.http.post<Usuario>(this.apiUrl, usuario, this.httpOptions);
-  }
-
-
-  createAdminUsuario(usuario: Usuario): Observable<Usuario> {
-    return this.http.post<Usuario>(`${this.apiUrl}/admin/createUser`, usuario, this.httpOptions);
-  }
-
-
-  updateUsuario(id: number, usuario: Usuario): Observable<Usuario> {
-    return this.http.put<Usuario>(`${this.apiUrl}/${id}`, usuario, this.httpOptions);
-  }
-
-  deleteUsuario(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`, this.httpOptions);
+  deleteUser(token: string, userId: number): Observable<any> {
+    const url = `${this.apiUrl}${userId}`;
+    return this.http.delete<any>(url, { headers: this.getHeaders(token) }).pipe(
+      catchError((e) => {
+        this.isNoAutorizado(e);
+        return throwError(() => new Error('Error deleting user'));
+      })
+    );
   }
 }

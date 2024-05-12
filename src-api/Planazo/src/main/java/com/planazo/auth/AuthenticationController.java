@@ -1,5 +1,7 @@
 package com.planazo.auth;
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.planazo.DTO.JwtAuthenticationResponse;
+import com.planazo.DTO.UsuarioDto;
 import com.planazo.request.SignUpRequest;
 import com.planazo.request.SigninRequest;
 import com.planazo.servicio.AuthenticationServicio;
@@ -39,7 +42,10 @@ public class AuthenticationController {
      * @return JwtAuthenticationResponse que contiene el token JWT generado tras el registro exitoso.
      */
     @PostMapping("/signup")
-    public ResponseEntity<JwtAuthenticationResponse> signup(@RequestBody SignUpRequest request) {
+    public ResponseEntity<JwtAuthenticationResponse> signup(@RequestBody SignUpRequest request, UsuarioDto usuarioDto) {
+    	 if (usuarioDto.getRoles() == null || usuarioDto.getRoles().isEmpty()) {
+             usuarioDto.setRoles(Set.of("ROL_USER"));  
+         }
         JwtAuthenticationResponse response = authenticationService.signup(request);
         return ResponseEntity.ok(response);
     }

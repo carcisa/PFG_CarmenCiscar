@@ -1,5 +1,7 @@
 package com.planazo.entidad;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -43,13 +45,14 @@ public class Comentario {
     private Double puntuacion;
 
     @NotNull(message = "Debe existir un usuario asociado")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
     @NotNull(message = "Debe existir una actividad asociada")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "actividad_id", nullable = false)
+    @JsonBackReference
     private Actividad actividad;
 
     // Constructor por defecto

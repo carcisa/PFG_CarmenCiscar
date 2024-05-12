@@ -5,6 +5,7 @@ package com.planazo.entidad;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -23,6 +24,7 @@ import jakarta.validation.constraints.NotBlank;
  */
 @Entity
 @Table(name = "destino")
+@JsonIgnoreProperties()
 public class Destino {
 
     /**
@@ -38,6 +40,14 @@ public class Destino {
     @NotBlank(message = "El nombre del destino no puede estar vacío")
     @Column(nullable = false)
     private String nombre;
+    
+    
+    /**
+     * Imagen del destino. No puede ser nulo.
+     */
+    @NotBlank(message = "El src del destino no puede estar vacío")
+    @Column(nullable = false)
+    private String imagen;
 
 
 
@@ -62,9 +72,10 @@ public class Destino {
      * @param descripcion Descripción del destino.
      * @param actividades Lista de actividades asociadas al destino.
      */
-    public Destino(Integer id, String nombre,List<Actividad> actividades) {
+    public Destino(Integer id, String nombre,String imagen, List<Actividad> actividades) {
         this.id = id;
         this.nombre = nombre;
+        this.imagen = imagen;
         this.actividades = actividades;
     }
 
@@ -100,8 +111,15 @@ public class Destino {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	
+	
+	public String getImagen() {
+		return imagen;
+	}
 
-
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
 
 	public List<Actividad> getActividades() {
 		return actividades;

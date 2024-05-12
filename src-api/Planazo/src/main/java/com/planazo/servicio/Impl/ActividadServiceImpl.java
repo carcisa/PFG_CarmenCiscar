@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.planazo.entidad.Actividad;
+import com.planazo.entidad.Comentario;
 import com.planazo.repositorio.ActividadRepositorio;
 import com.planazo.servicio.ActividadServicio;
 
@@ -39,4 +40,13 @@ public class ActividadServiceImpl implements ActividadServicio {
 	public Actividad save(Actividad actividad) {
 		return actividadRepository.save(actividad);
 	}
+
+
+	 @Override
+	    public Double getPuntuacionPromedioPorActividadId(Integer actividadId) {
+	        Double promedio = actividadRepository.getPuntuacionPromedioPorActividadId(actividadId);
+	        return promedio != null ? promedio : 0.0; 
+	    }
+	
+	
 }

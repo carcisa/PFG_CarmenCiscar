@@ -1,21 +1,14 @@
-export class Usuario {
-  id?: number;
-  nombreUsuario?: string;
+export class Usuario{
+
+  public id?:number;
+  public nombreUsuario?: string;
   public email: string = "";
   public password: string = "";
-  rol: Rol[] = [];
+  public roles:string[] = [];
 
-  constructor(password:string, email:string){
-    this.email = email;
-    this.password = password;
-  }
-
-
-
-}
-
-export enum Rol {
-  ADMIN = 'ADMIN',
-  USER = 'USER'
+    constructor(password:string, email:string){
+      this.email = email;
+      this.password = password;
+    }
 
 }

@@ -16,5 +16,7 @@ public interface ActividadServicio {
 
 	void deleteById(Integer id);
 	
+	Double getPuntuacionPromedioPorActividadId(Integer actividadId);
+	
 	
 }

@@ -56,6 +56,7 @@ public class SecurityConfig {
 				.requestMatchers(HttpMethod.DELETE, "/api/usuarios/**").hasAnyAuthority(Rol.ROL_ADMIN.toString())
 
 				//El usuario solo puede listar
+				.requestMatchers("/api/destinos/**").permitAll()
 				.requestMatchers(HttpMethod.GET, "/api/destinos/**").permitAll()
 				.requestMatchers(HttpMethod.POST, "/api/destinos/**")
 				.hasAnyAuthority(Rol.ROL_ADMIN.toString())
@@ -72,6 +73,7 @@ public class SecurityConfig {
 				.requestMatchers(HttpMethod.DELETE, "/api/actividades/**").hasAnyAuthority(Rol.ROL_ADMIN.toString())
 
 				//El usuario puede hacer el crud entero
+				.requestMatchers("/api/comentario/**").permitAll()
 				.requestMatchers(HttpMethod.GET, "/api/comentario/**")
 				.hasAnyAuthority(Rol.ROL_USER.toString(), Rol.ROL_ADMIN.toString())
 				.requestMatchers(HttpMethod.POST, "/api/comentario/**")

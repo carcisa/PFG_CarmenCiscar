@@ -1,12 +1,17 @@
 package com.planazo.servicio.Impl;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.planazo.DTO.JwtAuthenticationResponse;
+import com.planazo.entidad.Rol;
 import com.planazo.entidad.Usuario;
 import com.planazo.repositorio.UsuarioRepositorio;
 import com.planazo.request.SignUpRequest;
@@ -48,15 +53,17 @@ public class AuthenticationServiceImpl implements AuthenticationServicio {
         if(userRepository.existsByEmail(request.getEmail())) {
             throw new IllegalArgumentException("El email ya existe.");
         }
-        // Corrige la forma de construir el objeto 'User'
         Usuario user = new Usuario();
         user.setNombreUsuario(request.getFirstName());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.getRoles().add(com.planazo.entidad.Rol.ROL_USER); 
+        user.getRoles().add(Rol.ROL_USER); 
         userRepository.save(user);
         String jwt = jwtService.generateToken(user);
-        return JwtAuthenticationResponse.builder().token(jwt).build();
+        Set<String> roles = user.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toSet());
+            return JwtAuthenticationResponse.builder().token(jwt, roles).build();
     }
 
     @Override
@@ -70,6 +77,10 @@ public class AuthenticationServiceImpl implements AuthenticationServicio {
         Usuario user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
         String jwt = jwtService.generateToken(user);
-        return JwtAuthenticationResponse.builder().token(jwt).build();
+//        UserDetails userDetails = myUserDetailsService.loadUserByUsername(request.getEmail());
+        Set<String> roles = user.getAuthorities().stream()
+            .map(GrantedAuthority::getAuthority)
+            .collect(Collectors.toSet());
+        return JwtAuthenticationResponse.builder().token(jwt, roles).build();
     }
 }

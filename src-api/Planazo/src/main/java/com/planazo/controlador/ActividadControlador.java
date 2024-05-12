@@ -19,6 +19,7 @@ import com.planazo.error.actividad.ListaActividadesVaciaException;
 import com.planazo.servicio.ActividadServicio;
 import com.planazo.servicio.DestinoServicio;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 /**
@@ -50,6 +51,7 @@ public class ActividadControlador {
 	 * @return Una lista de actividades.
 	 */
 	@GetMapping
+	@Transactional
 	public List<Actividad> getAllActividades() {
 		List<Actividad> actividades = actividadService.findAll();
 		if (actividades.isEmpty()) {
@@ -118,4 +120,22 @@ public class ActividadControlador {
 		}).orElseGet(() -> ResponseEntity.notFound().build());
 
 	}
+	
+	
+	/**
+	 * Calcula la puntuación promedio de una actividad basandose en la puntuación de los comentarios
+	 * 
+	 * @param id de la actividad
+	 * @return El promedio de la puntuación
+	 */
+	   @GetMapping("/{id}/puntuacionPromedio")
+	    public Double getPuntuacionPromedioPorActividadId(@PathVariable Integer id) {
+	        return actividadService.getPuntuacionPromedioPorActividadId(id);
+	    }
+	
+	
+	
+	
+	
+	
 }

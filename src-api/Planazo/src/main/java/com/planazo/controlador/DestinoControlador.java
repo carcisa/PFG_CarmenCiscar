@@ -51,6 +51,7 @@ public class DestinoControlador {
      * @return Una lista de destinos.
      */
     @GetMapping("/")
+    @Transactional
     public List<Destino> getAllDestinos() {
     	List<Destino> destinos = destinoService.findAll(); 
 	    if (destinos.isEmpty()) {

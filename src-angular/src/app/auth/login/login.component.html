@@ -1,1 +1,61 @@
-<p>login works!</p>
+
+
+
+
+<section class="bg-gray-50 dark:bg-gray-900 bg-cover bg-center"  style="background-image: url('assets/img/beach-2836300_1280.jpg');">
+  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+
+      <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+          <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+              <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                  INICIA SESIÓN
+              </h1>
+              <form class="space-y-4 md:space-y-6" action="#">
+                  <div>
+                      <label for="email1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                      <input type="email1" name="email1" [(ngModel)]="user.email" id="email1" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="nombre@ejemplo.com" required="">
+                  </div>
+                  <div>
+                      <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
+                      <input type="password" name="password" [(ngModel)]="user.password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                  </div>
+
+                  <div class="flex items-center justify-between">
+                      <div class="flex items-start">
+                          <div class="flex items-center h-5">
+                            <input id="remember" aria-describedby="remember" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required="">
+                          </div>
+                          <div class="ml-3 text-sm">
+                            <label for="remember" class="text-gray-500 dark:text-gray-300">Recuerdame </label>
+                          </div>
+                      </div>
+                      <a href="#" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">¿Has olvidado la contraseña?</a>
+                  </div>
+                  <button (click)="onLogin($event)" type="submit" class="w-full text-secondaryt bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">ENTRAR</button>
+                  <hr>
+                  <p>
+                    O Inicia sesión con un click
+                  </p>
+                   <!-- Botón de iniciar sesión con Google -->
+                <button class="flex items-center justify-center w-full py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 20a10 10 0 1 0 0-20 10 10 0 0 0 0 20zm4.291-11.51H15v-1.9h2.9c.044.225.07.455.07.688 0 1.712-1.143 3.056-3.047 3.056a3.078 3.078 0 0 1-3.078-3.086c0-.192.021-.377.062-.556h-3.12c.035.177.055.362.055.556a5.322 5.322 0 0 0 5.33 5.34c3.212 0 5.305-2.16 5.305-5.328 0-3.173-2.164-5.332-5.324-5.332a5.332 5.332 0 0 0-5.313 5.332v.64H8.314V9.49h-1.7v1.9h1.7v3.17h1.911v-3.17h2.826l-.095-.64z" clip-rule="evenodd"/>
+                    </svg>
+                    Sign in with Google
+                </button>
+
+                <!-- Botón de iniciar sesión con Apple -->
+                <button class="flex items-center justify-center w-full py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-black text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 0a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm5.309 16.059C14.641 17.231 12.886 18 10 18c-2.886 0-4.641-.769-5.308-1.941-.666-.748-.995-1.819-.995-3.118h2.038c0 .738.366 1.309.822 1.762.471.471 1.11.794 1.828.794.71 0 1.357-.323 1.828-.794.465-.453.821-1.025.821-1.762H15c0 1.298-.334 2.369-.997 3.118zm.45-5.784c-.144-.155-.308-.321-.486-.503-.373-.367-.776-.753-1.195-1.157-.435-.416-.88-.862-1.33-1.335-.448-.471-.876-.883-1.294-1.237-.422-.361-.805-.675-1.144-.938-.353-.272-.657-.472-.9-.595-.245-.125-.474-.184-.679-.184-.213 0-.47.059-.759.177-.277.118-.588.293-.937.523-.349.232-.647.52-.892.873-.263.372-.495.77-.695 1.195-.203.432-.33.84-.382 1.235h2.057c0-.32.108-.73.328-1.221.217-.491.494-.918.833-1.28.343-.36.735-.646 1.18-.859.442-.216.947-.323 1.512-.323.452 0 .842.094 1.163.284.319.191.598.454.833.789.24.339.42.711.542 1.116.123.402.186.833.186 1.292 0 .473-.07.92-.203 1.334zm-4.993 3.356c-.636-.107-1.267-.383-1.879-.83-.593-.438-1.091-1.028-1.486-1.758-.4-.741-.671-1.566-.824-2.465-.154-.901-.231-1.802-.231-2.703 0-.913.077-1.813.231-2.7.154-.891.424-1.717.824-2.464.394-.74.892-1.32 1.486-1.759.612-.447 1.243-.722 1.879-.83.498-.086.995-.129 1.486-.129.484 0 .981.043 1.479.129.636.107 1.267.383 1.879.83.593.438 1.091 1.027 1.486 1.759.4.741.671 1.567.824 2.464.154.887.231 1.787.231 2.7 0 .9-.077 1.802-.231 2.703-.153.9-.424 1.724-.824 2.465-.395.73-.893 1.32-1.486 1.758-.612.447-1.243.723-1.879.83-.498.086-.995.129-1.479.129-.491 0-.988-.043-1.486-.129zm-.155-1.761c.57.102 1.134.353 1.691.758.548.402 1.011.945 1.394 1.622.39.674.673 1.436.841 2.284.168.849.253 1.686.253 2.512 0 .828-.085 1.665-.253 2.513-.168.848-.451 1.61-.841 2.284-.383.676-.846 1.219-1.394 1.622-.557.405-1.121.656-1.691.758-.443.061-.887.092-1.331.092-.444 0-.889-.031-1.332-.092-.57-.102-1.134-.353-1.691-.758-.548-.403-1.011-.946-1.394-1.622-.39-.674-.673-1.436-.841-2.284-.168-.848-.253-1.685-.253-2.513 0-.826.085-1.663.253-2.512.168-.849.451-1.61.841-2.284.383-.676.846-1.22 1.394-1.622.557-.405 1.121-.656 1.691-.758.443-.061.888-.092 1.332-.092.444 0 .888.031 1.331.092z"/>
+                    </svg>
+                    Sign in with Apple
+                </button>
+                  <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                      ¿No tienes cuenta todavía? <a href="#" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Registrate</a>
+                  </p>
+              </form>
+          </div>
+      </div>
+  </div>
+</section>

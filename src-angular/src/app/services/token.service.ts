@@ -1,15 +1,18 @@
-import { Injectable } from '@angular/core';
-
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 @Injectable({
   providedIn: 'root'
 })
 export class TokenService {
 
-  constructor() { }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
-  //devuelve el token almacenado en la session, si no hay retorna null
   getToken(): string | null {
-    return sessionStorage.getItem('token');
+    // Verifica si está en el navegador antes de acceder a sessionStorage
+    if (isPlatformBrowser(this.platformId)) {
+      return sessionStorage.getItem('token');
+    }
+    return null;  // Retorna null o maneja de forma adecuada si no está en un entorno de navegador
   }
 
   //recibe un token y un array de roles

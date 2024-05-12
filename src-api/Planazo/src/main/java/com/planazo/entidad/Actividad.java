@@ -1,6 +1,5 @@
 package com.planazo.entidad;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,10 +60,30 @@ public class Actividad {
 	private Categoria categoria;
 
 	/**
+	 * Puntuación de la actividad. No puede ser nulo.
+	 */
+	@NotBlank(message = "La puntuación no puede estar vacía")
+	@Column(nullable = false)
+	private Double puntuacion;
+
+	/**
 	 * Dirección física de la actividad.
 	 */
 	@Column
 	private String direccion;
+
+	/**
+	 * Horario de la actividad.
+	 */
+	@Column
+	private String horario;
+
+	/**
+	 * Imagen de la actividad. No puede ser nulo.
+	 */
+	@NotBlank(message = "El src de la actividad no puede estar vacío")
+	@Column(nullable = false)
+	private String imagen;
 
 	/**
 	 * Destino asociado a la actividad. Se utiliza la anotación JsonBackReference
@@ -76,10 +95,10 @@ public class Actividad {
 	@JoinColumn(name = "destino_id", nullable = false)
 	@JsonBackReference
 	private Destino destino;
-	
+
 	@OneToMany(mappedBy = "actividad", orphanRemoval = true)
-    @JsonManagedReference
-    private List<Comentario> comentarios = new ArrayList<>();
+	@JsonManagedReference
+	private List<Comentario> comentarios = new ArrayList<>();
 
 	/**
 	 * Constructor por defecto.
@@ -90,22 +109,25 @@ public class Actividad {
 	}
 
 	
-	
 
 	public Actividad(Integer id, @NotBlank(message = "El nombre no puede estar vacío") String nombre,
 			@Size(max = 1000, message = "La descripción no puede superar los 1000 caracteres") String descripcion,
-			@NotNull(message = "La categoría no puede ser nula") Categoria categoria, String direccion,
+			@NotNull(message = "La categoría no puede ser nula") Categoria categoria,
+			@NotBlank(message = "La puntuación no puede estar vacía") Double puntuacion, String direccion,
+			String horario, @NotBlank(message = "El src de la actividad no puede estar vacío") String imagen,
 			@NotNull(message = "Debe existir un destino asociado") Destino destino, List<Comentario> comentarios) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.categoria = categoria;
+		this.puntuacion = puntuacion;
 		this.direccion = direccion;
+		this.horario = horario;
+		this.imagen = imagen;
 		this.destino = destino;
 		this.comentarios = comentarios;
 	}
-
 
 
 
@@ -149,6 +171,30 @@ public class Actividad {
 		this.direccion = direccion;
 	}
 
+	public Double getPuntuacion() {
+		return puntuacion;
+	}
+
+	public void setPuntuacion(Double puntuacion) {
+		this.puntuacion = puntuacion;
+	}
+
+	public String getHorario() {
+		return horario;
+	}
+
+	public void setHorario(String horario) {
+		this.horario = horario;
+	}
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+
 	public Destino getDestino() {
 		return destino;
 	}
@@ -157,7 +203,6 @@ public class Actividad {
 		this.destino = destino;
 	}
 
-	
 	public List<Comentario> getComentarios() {
 		return comentarios;
 	}
@@ -167,32 +212,17 @@ public class Actividad {
 	}
 
 	
-	 /**
-     * Calcula y devuelve la puntuación promedio de la actividad.
-     * @return la puntuación promedio como Double. Retorna null si no hay comentarios.
-     */
-    public Double getPuntuacionPromedio() {
-        if (comentarios.isEmpty()) {
-            return null;
-        }
-        return comentarios.stream()
-                          .mapToDouble(Comentario::getPuntuacion)
-                          .average()
-                          .orElse(Double.NaN);
-    }
 
-    // Métodos para agregar y eliminar comentarios
-    public void agregarComentario(Comentario comentario) {
-        comentarios.add(comentario);
-        comentario.setActividad(this);
-    }
+	// Métodos para agregar y eliminar comentarios
+	public void agregarComentario(Comentario comentario) {
+		comentarios.add(comentario);
+		comentario.setActividad(this);
+	}
 
-    public void eliminarComentario(Comentario comentario) {
-        comentarios.remove(comentario);
-        comentario.setActividad(null);
-    }
-
-
+	public void eliminarComentario(Comentario comentario) {
+		comentarios.remove(comentario);
+		comentario.setActividad(null);
+	}
 
 	@Override
 	public String toString() {

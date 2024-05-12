@@ -109,7 +109,7 @@ public class ComentarioControlador {
      * @param actividadId El ID de la actividad.
      * @return Una lista de comentarios para la actividad especificada.
      */
-    @GetMapping("/actividades/{id}/comentario")
+    @GetMapping("/actividades/{Id}/comentario")
     public ResponseEntity<List<Comentario>> getComentariosPorActividadId(@PathVariable Integer actividadId) {
         List<Comentario> comentarios = comentarioServicio.obtenerComentariosPorActividadId(actividadId);
         if (comentarios.isEmpty()) {
@@ -119,9 +119,21 @@ public class ComentarioControlador {
     }
     
     
-    
-    
-    
+    /**
+     * Obtiene todos los comentarios asociados a un usuario específico por el ID del usuario.
+     * 
+     * @param usuariodId El ID del usuario
+     * @return Una lista de comentarios para el usuario identificado.
+     */
+    @GetMapping("/usuarios/{Id}/comentarios")
+    public ResponseEntity<List<Comentario>> getComentariosPorUsuarioId(@PathVariable Integer usuarioId) {
+        List<Comentario> comentarios = comentarioServicio.obtenerComentariosPorUsuarioId(usuarioId);
+        if (comentarios.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(comentarios);
+    }
+
     
     
     

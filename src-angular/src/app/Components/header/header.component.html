@@ -1,15 +1,20 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav mode="over" opened="false">
     <mat-nav-list>
-      <a (click)="sidenav.toggle()" routerLink="/" mat-list-item class="link">x</a>
-      <a href="/" mat-list-item class="link">Inicio</a>
-      <a href="/planes" mat-list-item class="link">Planes</a>
-      <a href="/actividades" mat-list-item class="link">Actividades</a>
-      <a href="/categorias" mat-list-item class="link">Categorías</a>
-      <a href="/contacto" mat-list-item class="link">Contacto</a>
-      <a href="/login" mat-list-item class="link">Iniciar Sesión</a>
-      <a href="/register" mat-list-item class="link">Registrarse</a>
+      <a mat-list-item class="link" (click)="sidenav.toggle()" routerLink="/">x</a>
+      <a mat-list-item class="link" routerLink="/">Inicio</a>
+      <a *ngIf="isAdmin" mat-list-item class="link" routerLink="/bandeja">Bandeja de Entrada</a>
+      <a *ngIf="isAdmin" mat-list-item class="link" routerLink="/moderador">Moderador</a>
+      <a *ngIf="isAdmin" mat-list-item class="link" routerLink="/perfiles">Perfiles</a>
+      <a *ngIf="isAdmin" mat-list-item class="link" routerLink="/estadisticas">Estadísticas</a>
+      <a *ngIf="!isAdmin" mat-list-item class="link" routerLink="/planes">Planes</a>
+      <a *ngIf="!isAdmin" mat-list-item class="link" routerLink="/actividades">Actividades</a>
+      <a *ngIf="!isAdmin" mat-list-item class="link" routerLink="/categorias">Categorías</a>
+      <a *ngIf="!isAdmin" mat-list-item class="link" routerLink="/contacto">Contacto</a>
+      <a mat-list-item class="link" routerLink="/login" *ngIf="!isAuthenticated">Iniciar Sesión</a>
+      <a mat-list-item class="link" routerLink="/register" *ngIf="!isAuthenticated">Registrarse</a>
     </mat-nav-list>
+
   </mat-sidenav>
 
   <mat-sidenav-content>
@@ -18,8 +23,8 @@
         <div class="toolbar-content">
           <img src="assets/img/LogoPlanazoAzulconLetrasRosa.png" alt="Logo" class="logo">
           <div class="toolbar-buttons">
-            <app-button class="btn hidden md:block">INICIAR SESIÓN</app-button>
-            <app-button class="btn hidden md:block">REGISTRARSE</app-button>
+            <app-button class="btn hidden md:block" (click)="onRegisterClicked()" > {{ isAuthenticated ? 'MI CUENTA' : 'REGISTRO' }}</app-button>
+            <app-button class="btn hidden md:block" (click)="onLoginClicked()"> {{ isAuthenticated ? 'CERRAR SESIÓN' : 'INICIAR SESIÓN' }} </app-button>
           </div>
         </div>
       </mat-toolbar-row>
@@ -31,15 +36,24 @@
           <mat-icon class="menu-icon">menu</mat-icon>
         </button>
         <span class="menu-spacer"></span>
-        <div fxShow="true" fxHide.lt-md style="width: 100%; display: flex; justify-content: center;">
-          <a href="/" mat-button class="link-secondary">Inicio</a>
-          <a href="/planes" mat-button class="link-secondary">Planes</a>
-          <a href="/actividades" mat-button class="link-secondary">Actividades</a>
-          <a href="/categorias" mat-button class="link-secondary">Categorías</a>
-          <a href="/contacto" mat-button class="link-secondary">Contacto</a>
+        <div fxShow="true" fxHide.lt-md style="width: 100%; display: flex; justify-content: center; align-items: center;">
+          <a mat-button class="link-secondary" routerLink="/">Inicio</a>
+          <ng-container *ngIf="isAdmin">
+            <a  class="link-secondary" routerLink="/bandeja">Bandeja de Entrada</a>
+            <a class="link-secondary" routerLink="/moderador">Moderador</a>
+            <a  class="link-secondary" routerLink="/perfiles">Usuarios</a>
+            <a  class="link-secondary" routerLink="/estadisticas">Estadísticas</a>
+          </ng-container>
+          <ng-container *ngIf="!isAdmin">
+            <a  class="link-secondary" routerLink="/planes">Planes</a>
+            <a  class="link-secondary" routerLink="/actividades">Actividades</a>
+            <a  class="link-secondary" routerLink="/categorias">Categorías</a>
+            <a  class="link-secondary" routerLink="/contacto">Contacto</a>
+          </ng-container>
         </div>
       </mat-toolbar-row>
     </mat-toolbar>
   </mat-sidenav-content>
 </mat-sidenav-container>
+
 
