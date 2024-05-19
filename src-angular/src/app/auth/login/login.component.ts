@@ -8,7 +8,6 @@ import { TokenService } from '../../services/token.service';
 import { UserService } from '../../services/usuario.service';
 import { FormsModule } from '@angular/forms';
 
-
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -17,7 +16,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnInit {
-  user: Usuario = new Usuario('', '');
+  user: Usuario = new Usuario('', '', "", "");
   token: string | null = null;
   users: any[] = [];
 
@@ -49,10 +48,13 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem('token', token);
         }
         const isAdmin = tokenResponse.roles.includes('admin');
-        this.router.navigate([isAdmin ? '/bandeja' : '/inicio']).then(() => {
-          Swal.fire('Login correcto').then(() =>
-            this.router.navigate(['/bandeja']));
-            //  window.location.reload());
+        const navigateTo = isAdmin ? '/bandeja' : '/inicio';
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          this.router.navigate([navigateTo]).then(() => {
+            Swal.fire('Login correcto').then(() => {
+              window.location.reload();
+            });
+          });
         });
       },
       error: (error) => {

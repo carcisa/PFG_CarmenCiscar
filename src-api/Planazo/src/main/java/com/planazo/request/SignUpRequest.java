@@ -24,6 +24,9 @@ public class SignUpRequest {
      * Contraseña elegida por el usuario a registrar.
      */
     private String password;
+    
+    public SignUpRequest() {
+    }
 
     public SignUpRequest(String string, String string2, String string3, String string4) {
 	}

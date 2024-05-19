@@ -1,5 +1,6 @@
 package com.planazo.servicio.Impl;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -48,6 +49,24 @@ public class AuthenticationServiceImpl implements AuthenticationServicio {
         this.authenticationManager = authenticationManager;
     }
 
+//    @Override
+//    public JwtAuthenticationResponse signup(SignUpRequest request) {
+//        if(userRepository.existsByEmail(request.getEmail())) {
+//            throw new IllegalArgumentException("El email ya existe.");
+//        }
+//        Usuario user = new Usuario();
+//        user.setNombreUsuario(request.getFirstName());
+//        user.setEmail(request.getEmail());
+//        user.setPassword(passwordEncoder.encode(request.getPassword()));
+//        user.getRoles().add(Rol.ROL_USER); 
+//        userRepository.save(user);
+//        String jwt = jwtService.generateToken(user);
+//        Set<String> roles = user.getAuthorities().stream()
+//                .map(GrantedAuthority::getAuthority)
+//                .collect(Collectors.toSet());
+//            return JwtAuthenticationResponse.builder().token(jwt, roles).build();
+//    }
+    
     @Override
     public JwtAuthenticationResponse signup(SignUpRequest request) {
         if(userRepository.existsByEmail(request.getEmail())) {
@@ -57,14 +76,20 @@ public class AuthenticationServiceImpl implements AuthenticationServicio {
         user.setNombreUsuario(request.getFirstName());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.getRoles().add(Rol.ROL_USER); 
+        
+        if (user.getRoles() == null) {
+            user.setRoles(new HashSet<>());  
+        }
+        user.getRoles().add(Rol.ROL_USER);
+        
         userRepository.save(user);
         String jwt = jwtService.generateToken(user);
         Set<String> roles = user.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toSet());
-            return JwtAuthenticationResponse.builder().token(jwt, roles).build();
+        return JwtAuthenticationResponse.builder().token(jwt, roles).build();
     }
+
 
     @Override
     public JwtAuthenticationResponse signin(SigninRequest request) {
