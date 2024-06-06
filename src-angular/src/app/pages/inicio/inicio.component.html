@@ -38,9 +38,11 @@
       <img [src]="destino.imagen" alt="{{ destino.nombre }}" class="w-full h-48 object-cover">
       <div class="p-4 bg-white">
         <h2 class="text-xl font-semibold mb-2">{{ destino.nombre }}</h2>
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          SABER MÁS
-        </button>
+        <a [routerLink]="destino.path" class="inline-block">
+          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            SABER MÁS
+          </button>
+        </a>
       </div>
     </div>
   </div>
