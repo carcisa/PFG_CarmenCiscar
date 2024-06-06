@@ -4,6 +4,7 @@ import { Destino } from '../../models/destino.model';
 import { DestinoService } from '../../services/destino.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
@@ -11,6 +12,8 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [ButtonComponent,
     CommonModule,
+    FormsModule,
+
 
   ],
   templateUrl: './inicio.component.html',
