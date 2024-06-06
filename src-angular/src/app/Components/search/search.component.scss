@@ -1,0 +1,30 @@
+.search-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding: 5px;
+  width: 33%; /* Ajusta esto para ocupar un tercio del ancho del contenedor */
+
+  .search-input {
+    border: none;
+    outline: none;
+    flex: 1;
+    padding: 5px;
+  }
+
+  .search-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+
+    .search-icon {
+      width: 20px;
+      height: 20px;
+      display: block; /* Asegúrate de que se muestre como bloque */
+    }
+  }
+}
