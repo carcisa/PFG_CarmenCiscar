@@ -19,6 +19,7 @@ import { HuelvaComponent } from './pages/destinos/huelva/huelva.component';
 import { JaenComponent } from './pages/destinos/jaen/jaen.component';
 import { MalagaComponent } from './pages/destinos/malaga/malaga.component';
 import { SevillaComponent } from './pages/destinos/sevilla/sevilla.component';
+import { ActividadComponent } from './pages/actividad/actividad.component';
 
 export const routes: Routes = [
 
@@ -27,6 +28,7 @@ export const routes: Routes = [
   { path: 'planes', component: PlanesComponent },
   { path: 'destinos/:id/planes', component: PlanesComponent },
   { path: 'actividades', component: ActividadesComponent },
+  { path: 'actividad/:id', component: ActividadComponent },
   { path: 'categorias', component: CategoriasComponent },
   { path: 'contacto', component: ContactoComponent },
   { path: 'login', component: LoginComponent },

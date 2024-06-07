@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { Actividad } from '../../models/actividad.model';
 import { ActividadService } from '../../services/actividad.service';
 import { SearchComponent } from '../../Components/search/search.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-actividades',
@@ -32,10 +33,15 @@ export class ActividadesComponent implements OnInit, AfterViewInit {
   @Input() selectedValue: string = '';
 
   @Output() selectedValueChange = new EventEmitter<string>();
+  onChange(value: string) {
+    this.selectedValueChange.emit(value);
+  }
 
   searchQuery: string = '';
 
-  constructor(private actividadService: ActividadService) {}
+  constructor(private actividadService: ActividadService,
+     private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loadActividades();
@@ -55,6 +61,14 @@ export class ActividadesComponent implements OnInit, AfterViewInit {
         console.error('Error al cargar las actividades:', error);
       }
     });
+  }
+
+  verDetalleActividad(id: number | undefined): void {
+    if (id !== undefined) {
+      this.router.navigate(['/actividad', id]);
+    } else {
+      console.error('ID de actividad no está definido');
+    }
   }
 
   onSearch(query: string): void {
