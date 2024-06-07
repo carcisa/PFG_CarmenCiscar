@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Actividad, Categoria } from '../../../models/actividad.model';
 import { DestinoService } from '../../../services/destino.service';
 import { CommonModule } from '@angular/common';
@@ -7,6 +7,7 @@ import { ButtonComponent } from '../../../Components/button/button.component';
 import { SelectComponent } from '../../../Components/select/select.component';
 import { SearchComponent } from '../../../Components/search/search.component';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-almeria',
@@ -16,24 +17,36 @@ import { Location } from '@angular/common';
   styleUrls: ['./almeria.component.scss']
 })
 export class AlmeriaComponent implements OnInit, AfterViewInit {
+
+  @Input() options: { value: string, label: string }[] = [
+    { value: 'OCIO', label: 'OCIO' },
+    { value: 'NATURALEZA', label: 'NATURALEZA' },
+    { value: 'GASTRONOMIA', label: 'GASTRONOMÍA' },
+    { value: 'DEPORTE', label: 'DEPORTE' },
+    { value: 'CULTURA', label: 'CULTURA' }
+  ];
+
+  @Input() selectedCategoria: string = '';
+
   @ViewChild('searchInput') searchInput!: SearchComponent;
 
   actividades: Actividad[] = [];
   nombreDestino: string = '';
   filteredActividades: Actividad[] = [];
+  searchSuggestions: Actividad[] = [];
   categorias = Object.values(Categoria);
-  selectedCategoria: string = '';
   searchQuery: string = '';
 
-  constructor(private destinoService: DestinoService, private location: Location) {}
+  constructor(private destinoService: DestinoService, private location: Location, private router: Router) {}
 
   ngOnInit(): void {
     this.cargarActividades();
   }
 
   ngAfterViewInit(): void {
-    // Ahora searchInput está inicializado
+
   }
+
 
   cargarActividades(): void {
     const destinoId = 1;
@@ -56,12 +69,27 @@ export class AlmeriaComponent implements OnInit, AfterViewInit {
     });
   }
 
+  verDetalleActividad(id: number | undefined): void {
+    if (id !== undefined) {
+      this.router.navigate(['/actividad', id]);
+    } else {
+      console.error('ID de actividad no está definido');
+    }
+  }
+
   onSearch(query: string): void {
     this.searchQuery = query;
     this.filteredActividades = this.actividades.filter(actividad =>
       actividad.nombre.toLowerCase().includes(query.toLowerCase()) &&
       (this.selectedCategoria ? actividad.categoria === this.selectedCategoria : true)
     );
+
+    this.searchSuggestions = query ? this.filteredActividades : [];
+  }
+
+  selectSuggestion(suggestion: Actividad): void {
+    this.searchSuggestions = [];
+    this.filteredActividades = [suggestion];
   }
 
   onCategoriaChange(categoria: string): void {
@@ -73,7 +101,7 @@ export class AlmeriaComponent implements OnInit, AfterViewInit {
   }
 
   getCategoriaOptions() {
-    return this.categorias.map(categoria => ({ value: categoria, label: categoria }));
+    return this.options;
   }
 
   goBack(): void {
@@ -82,12 +110,11 @@ export class AlmeriaComponent implements OnInit, AfterViewInit {
       this.searchQuery = '';
       this.selectedCategoria = '';
       this.filteredActividades = this.actividades;
+      this.searchSuggestions = [];
 
       // Limpiar el campo de búsqueda
-      if (this.searchInput) {
-        this.searchInput.searchQuery = '';
-        this.searchInput.onInputChange();
-      }
+      this.searchInput.searchQuery = '';
+      this.searchInput.onInputChange();
     } else {
       // Navegar a la página anterior
       this.location.back();

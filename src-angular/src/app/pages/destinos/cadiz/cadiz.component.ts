@@ -7,6 +7,7 @@ import { ButtonComponent } from '../../../Components/button/button.component';
 import { SelectComponent } from '../../../Components/select/select.component';
 import { SearchComponent } from '../../../Components/search/search.component';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cadiz',
@@ -25,7 +26,7 @@ export class CadizComponent implements OnInit, AfterViewInit {
   selectedCategoria: string | undefined = undefined;
   searchQuery: string = '';
 
-  constructor(private destinoService: DestinoService, private location: Location) {}
+  constructor(private destinoService: DestinoService, private location: Location,  private router: Router) {}
 
   ngOnInit(): void {
     this.cargarActividades();
@@ -93,4 +94,13 @@ export class CadizComponent implements OnInit, AfterViewInit {
       this.location.back();
     }
   }
+
+  verDetalleActividad(id: number | undefined): void {
+    if (id !== undefined) {
+      this.router.navigate(['/actividad', id]);
+    } else {
+      console.error('ID de actividad no está definido');
+    }
+  }
+
 }

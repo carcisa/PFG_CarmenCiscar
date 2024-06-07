@@ -7,6 +7,7 @@ import { ButtonComponent } from '../../../Components/button/button.component';
 import { SelectComponent } from '../../../Components/select/select.component';
 import { SearchComponent } from '../../../Components/search/search.component';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sevilla',
@@ -25,7 +26,7 @@ export class SevillaComponent implements OnInit, AfterViewInit {
   selectedCategoria: string | undefined = undefined;
   searchQuery: string = '';
 
-  constructor(private destinoService: DestinoService, private location: Location) {}
+  constructor(private destinoService: DestinoService, private location: Location, private router: Router) {}
 
   ngOnInit(): void {
     this.cargarActividades();
@@ -54,6 +55,14 @@ export class SevillaComponent implements OnInit, AfterViewInit {
         console.error('Error al cargar el destino', err);
       }
     });
+  }
+
+  verDetalleActividad(id: number | undefined): void {
+    if (id !== undefined) {
+      this.router.navigate(['/actividad', id]);
+    } else {
+      console.error('ID de actividad no está definido');
+    }
   }
 
   onSearch(query: string): void {

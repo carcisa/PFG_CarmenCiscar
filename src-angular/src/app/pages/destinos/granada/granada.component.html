@@ -27,7 +27,7 @@
     </div>
     <div class="flex flex-wrap -m-4 mt-4">
       <div *ngFor="let actividad of filteredActividades" class="lg:w-1/4 md:w-1/2 p-4 w-full">
-        <a class="block relative h-48 rounded overflow-hidden">
+        <a (click)="verDetalleActividad(actividad.id)" class="block relative h-48 rounded overflow-hidden">
           <img [src]="actividad.imagen" alt="imagen de actividad" class="object-cover object-center w-full h-full block">
         </a>
         <div class="mt-4">
