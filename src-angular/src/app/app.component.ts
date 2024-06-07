@@ -12,6 +12,7 @@ import { PlanesComponent } from './pages/planes/planes.component';
 import { FormsModule } from '@angular/forms';
 import { SelectComponent } from './Components/select/select.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -32,7 +33,8 @@ import { HttpClientModule } from '@angular/common/http';
     PlanesComponent,
     FormsModule,
     SelectComponent,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule
 
 
   ],

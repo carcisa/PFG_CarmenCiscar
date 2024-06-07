@@ -19,6 +19,9 @@ import { ButtonComponent } from '../button/button.component';
 })
 export class SelectComponent implements ControlValueAccessor {
   @Input() options: Array<{ value: string, label: string }> = [];
+  @Input() defaultOptionLabel: string = 'Categoría';
+  @Input() defaultOptionValue: string = '';
+
   @Output() selectedValueChange = new EventEmitter<string>();
 
   private _selectedValue: string | null = null;
@@ -39,6 +42,8 @@ export class SelectComponent implements ControlValueAccessor {
   writeValue(value: any): void {
     if (value !== undefined) {
       this.selectedValue = value;
+    } else {
+      this.selectedValue = this.defaultOptionValue;
     }
   }
 
@@ -48,5 +53,10 @@ export class SelectComponent implements ControlValueAccessor {
 
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
+  }
+
+  onSelectChange(event: any): void {
+    this.selectedValue = event;
+    this.selectedValueChange.emit(event);
   }
 }
