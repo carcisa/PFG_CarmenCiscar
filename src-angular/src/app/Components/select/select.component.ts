@@ -24,27 +24,23 @@ export class SelectComponent implements ControlValueAccessor {
 
   @Output() selectedValueChange = new EventEmitter<string>();
 
-  private _selectedValue: string | null = null;
+  private _selectedValue: string | undefined = undefined;
 
   onChange: any = () => {};
   onTouched: any = () => {};
 
-  get selectedValue(): string | null {
+  get selectedValue(): string | undefined {
     return this._selectedValue;
   }
 
-  set selectedValue(val: string | null) {
+  set selectedValue(val: string | undefined) {
     this._selectedValue = val;
     this.onChange(val);
     this.onTouched();
   }
 
   writeValue(value: any): void {
-    if (value !== undefined) {
-      this.selectedValue = value;
-    } else {
-      this.selectedValue = this.defaultOptionValue;
-    }
+    this.selectedValue = value !== undefined ? value : this.defaultOptionValue;
   }
 
   registerOnChange(fn: any): void {
@@ -55,8 +51,8 @@ export class SelectComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  onSelectChange(event: any): void {
-    this.selectedValue = event;
-    this.selectedValueChange.emit(event);
+  onSelectChange(value: string): void {
+    this.selectedValue = value;
+    this.selectedValueChange.emit(this.selectedValue);
   }
 }
