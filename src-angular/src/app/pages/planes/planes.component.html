@@ -28,19 +28,22 @@
     </div>
     <div class="flex flex-wrap -m-4">
       <div *ngFor="let actividad of opcion1" class="p-4 md:w-1/3">
-        <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden img-container">
-          <img class="img-responsive" [src]="actividad.imagen" alt="Imagen de la actividad">
+        <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+          <div class="img-container relative">
+            <img class="img-responsive" [src]="actividad.imagen" alt="Imagen de la actividad">
+            <span class="puntuacion bg-gray-200 p-1 rounded">{{ actividad.puntuacion }}</span>
+          </div>
           <div class="p-6">
             <h2>{{ actividad.categoria | uppercase }}</h2>
-            <h1 class="title-font text-2xl font-medium text-gray-900 mb-3">{{ actividad.nombre }}
-              <span class="bg-gray-200 p-1 rounded ml-6">{{ actividad.puntuacion }}</span>
-            </h1>
+            <h1 class="title-font text-2xl font-medium text-gray-900 mb-3">{{ actividad.nombre }}</h1>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+
 
 <!-- --------------------------------------------------------------------------------------------------------- -->
 

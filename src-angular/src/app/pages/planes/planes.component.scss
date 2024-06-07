@@ -7,29 +7,21 @@
 /* Media queries para ajustes en dispositivos más pequeños */
 @media (max-width: 768px) {
   .titulo {
-      font-size: 2rem; /* Tamaño más pequeño para tablets */
+    font-size: 2rem; /* Tamaño más pequeño para tablets */
   }
 }
 
 @media (max-width: 480px) {
   .titulo {
-      font-size: 1.75rem; /* Tamaño aún más pequeño para teléfonos */
+    font-size: 1.75rem; /* Tamaño aún más pequeño para teléfonos */
   }
 }
 
-.container{
-
+.container {
   border: 2px solid black;
-
 }
 
-
-// img{
-//   width: 22.5rem;
-//   height: auto;
-// }
-
-h2{
+h2 {
   text-align: center;
   margin-bottom: 6px;
 }
@@ -45,6 +37,15 @@ h2{
   width: 100%; /* Asegura que la imagen cubra todo el ancho del contenedor */
   height: 100%; /* Asegura que la imagen cubra la altura del contenedor (250px en este caso) */
   object-fit: cover; /* Cubre completamente el contenedor, cortando los excesos */
-  position: absolute; /* Posiciona la imagen de manera absoluta dentro de su contenedor */
-  top: 0; /* Alinea la parte superior de la imagen con la parte superior del contenedor */
+}
+
+.puntuacion {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
 }
