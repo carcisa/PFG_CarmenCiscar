@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './Components/header/header.component';
 import { ButtonComponent } from './Components/button/button.component';
@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { SelectComponent } from './Components/select/select.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { initFlowbite } from 'flowbite';
 
 
 
@@ -41,7 +42,11 @@ import { CommonModule } from '@angular/common';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'Planazo';
+
+  ngOnInit(): void {
+    initFlowbite();
+  }
 
 }

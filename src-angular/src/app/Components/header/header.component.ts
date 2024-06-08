@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 import { AuthService } from '../../services/auth.service';
 import { TokenService } from '../../services/token.service';
 import { Router, RouterModule } from '@angular/router';
+import { Usuario } from '../../models/usuario.model';
 
 
 
@@ -38,6 +39,8 @@ export class HeaderComponent implements OnInit{
 
   isAuthenticated: boolean = false;
   isAdmin: boolean = false;
+  usuario: Usuario = { firstName: '', lastName: '', email: '', password: '' };
+  isProfileMenuVisible: boolean = false;
 
   constructor(
     public authService: AuthService,
@@ -46,10 +49,14 @@ export class HeaderComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    // Verificar el estado de autenticación al cargar el componente y suscribirse a cambios
     this.updateAuthenticationState();
     this.authService.authenticationState.subscribe(() => {
       this.updateAuthenticationState();
+    });
+
+    this.authService.usuario$.subscribe((user: Usuario) => {
+      this.usuario = user;
+      console.log('Usuario actualizado en el componente:', this.usuario);
     });
   }
 
@@ -60,45 +67,44 @@ export class HeaderComponent implements OnInit{
     }
   }
 
+  onLogoutClicked() {
+    Swal.fire({
+      title: 'Cerrar sesión',
+      text: '¿Estás seguro de que deseas cerrar sesión?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, cerrar sesión',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.authService.logout();
+        Swal.fire('Sesión cerrada', 'Has cerrado sesión correctamente', 'success').then(() => {
+          this.router.navigate(['/homeUser']);
+          window.location.reload();
+        });
+      }
+    });
+  }
+
   onLoginClicked() {
     if (this.isAuthenticated) {
-      // Si el usuario está autenticado, realizar logout
       this.onLogoutClicked();
     } else {
-      // Si el usuario no está autenticado, redirigir al componente de inicio de sesión
       this.router.navigate(['/login']);
     }
   }
 
-  onLogoutClicked() {
-    Swal.fire({
-        title: 'Cerrar sesión',
-        text: '¿Estás seguro de que deseas cerrar sesión?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, cerrar sesión',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            this.tokenService.removeUserDetails();
-            this.authService.logout(); // Notificar al servicio de autenticación que el usuario ha cerrado sesión
-            Swal.fire('Sesión cerrada', 'Has cerrado sesión correctamente', 'success').then(() => {
-                this.router.navigate(['/homeUser']); // Redirigir a la página de inicio
-                window.location.reload();
-            });
-        }
-    });
-}
-
-onRegisterClicked(){
-  if (this.isAuthenticated) {
-    this.router.navigate(['/mi-perfil']);
-  } else {
-    this.router.navigate(['/registro']);
+  onRegisterClicked() {
+    if (this.isAuthenticated) {
+      this.router.navigate(['/mi-perfil']);
+    } else {
+      this.router.navigate(['/registro']);
+    }
   }
-}
 
-
+  onProfileClicked() {
+    this.isProfileMenuVisible = !this.isProfileMenuVisible;
+  }
 }

@@ -232,3 +232,23 @@ body, html {
   padding: 0;
   height: 100%;
 }
+
+
+.menu-link {
+  padding: 4px 25px;
+  font-size: 12px;
+  // color: rgb(247, 191, 0);
+  // background-color: rgb(20, 16, 79);
+  color:rgb(20, 16, 79);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  margin-right: 12px;
+}
+
+.menu-link:hover {
+  background-color: rgb(20, 16, 79);
+  color: rgb(247, 165, 0);
+}

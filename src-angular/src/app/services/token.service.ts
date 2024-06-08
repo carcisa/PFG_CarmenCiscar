@@ -20,6 +20,7 @@ export class TokenService {
     //y lo almacena en la sesión
     sessionStorage.setItem('token', token);
     sessionStorage.setItem('roles', JSON.stringify(roles));
+
   }
 
   //obtiene los roles almacenados en la sesión
@@ -36,4 +37,19 @@ export class TokenService {
     sessionStorage.removeItem('roles');
   }
 
+  getUserEmail(): string | null {
+    const token = this.getToken();
+    if (token) {
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        console.log('Payload:', payload);
+        // Usa 'sub' si 'email' no está presente
+        return payload.email || payload.sub || null;
+      } catch (error) {
+        console.error('Error decodificando el token:', error);
+        return null;
+      }
+    }
+    return null;
+  }
 }
