@@ -25,30 +25,56 @@ export class AuthService {
     return this.isAuthenticatedSubject.asObservable();
   }
 
-  // Envia una solicitud POST con los datos del usuario
+  // // Envia una solicitud POST con los datos del usuario
+  // login(user: { email: string; password: string }): Observable<{ token: string; roles: string[] }> {
+  //   return this.http.post<any>(this.apiUrl, user).pipe(
+  //     map((response: { token: string; roles: string[] }) => {
+  //       // Si tiene éxito, se almacena
+  //       if (response && response.token && response.roles) {
+  //         // Almacenar detalles del usuario
+  //         this.tokenService.setUserDetails(response.token, response.roles);
+  //         // Se actualiza el estado de autenticación
+  //         this.usuario = { firstName: '', lastName: '', email: user.email, password: user.password };
+  //         console.log(this.usuario);
+  //         // Emite el nuevo estado de autenticación
+  //         this.isAuthenticatedSubject.next(true);
+  //         return response;
+  //       } else {
+  //         throw new Error('Token o roles no presentes en la respuesta');
+  //       }
+  //     }),
+  //     catchError(error => {
+  //       console.error('Error en el login:', error);
+  //       return throwError(() => new Error('Error en el login'));
+  //     })
+  //   );
+  // }
+
   login(user: { email: string; password: string }): Observable<{ token: string; roles: string[] }> {
     return this.http.post<any>(this.apiUrl, user).pipe(
       map((response: { token: string; roles: string[] }) => {
-        // Si tiene éxito, se almacena
         if (response && response.token && response.roles) {
-          // Almacenar detalles del usuario
           this.tokenService.setUserDetails(response.token, response.roles);
-          // Se actualiza el estado de autenticación
-          this.usuario = { firstName: '', lastName: '', email: user.email, password: user.password };
-          console.log(this.usuario);
-          // Emite el nuevo estado de autenticación
           this.isAuthenticatedSubject.next(true);
           return response;
         } else {
           throw new Error('Token o roles no presentes en la respuesta');
         }
       }),
-      catchError(error => {
-        console.error('Error en el login:', error);
-        return throwError(() => new Error('Error en el login'));
-      })
+      catchError(error => this.handleErrorLogin(error))
     );
   }
+
+  private handleErrorLogin(error: HttpErrorResponse) {
+    console.error('Error en el login:', error);
+    if (error.error instanceof ErrorEvent) {
+      return throwError(() => new Error('Error: ' + error.error.message));
+    } else {
+      const errorMessage = error.error?.message || 'Error en el login';
+      return throwError(() => new Error(errorMessage));
+    }
+  }
+
 
   isAuthenticated(): boolean {
     const token = this.tokenService.getToken();

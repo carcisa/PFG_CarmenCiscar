@@ -7,18 +7,18 @@ import { AuthService } from '../../services/auth.service';
 import { TokenService } from '../../services/token.service';
 import { UserService } from '../../services/usuario.service';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  user: Usuario = new Usuario('', '', "", "");
-  token: string | null = null;
-  users: any[] = [];
+  user: Usuario = new Usuario('', '', '', '');
+  errorMessage: string | null = null;
 
   constructor(
     private http: HttpClient,
@@ -28,10 +28,10 @@ export class LoginComponent implements OnInit {
     private tokenService: TokenService
   ) {}
 
-  onLogin(event: any) {
-    event.preventDefault();
+  onLogin() {
     console.log('Email:', this.user.email); // Debugging
-    console.log('Password:', this.user.password);// Debugging
+    console.log('Password:', this.user.password); // Debugging
+
     const existingToken = this.tokenService.getToken();
     if (existingToken) {
       Swal.fire('Ya estás autenticado', 'Tu sesión ya está abierta', 'info');
@@ -39,17 +39,15 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    // Proceso de inicio de sesión normal
     this.authService.login(this.user).subscribe({
       next: (tokenResponse) => {
         const token = tokenResponse.token;
-        this.token = token;
         if (typeof window !== 'undefined') {
           sessionStorage.setItem('token', token);
         }
         const isAdmin = tokenResponse.roles.includes('admin');
         const navigateTo = isAdmin ? '/bandeja' : '/inicio';
-        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
           this.router.navigate([navigateTo]).then(() => {
             Swal.fire('Login correcto').then(() => {
               window.location.reload();
@@ -58,7 +56,7 @@ export class LoginComponent implements OnInit {
         });
       },
       error: (error) => {
-        Swal.fire('Error en la petición', 'No hemos podido conectar', 'error');
+        this.errorMessage = error.message;
       },
     });
   }
@@ -68,7 +66,7 @@ export class LoginComponent implements OnInit {
     if (token) {
       this.userService.getUsers(token).subscribe({
         next: (response) => {
-          this.users = response.data;
+          this.user = response.data;
         },
         error: (err) => {
           console.error('Error:', err);
