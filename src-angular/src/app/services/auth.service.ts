@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -73,7 +73,7 @@ export class AuthService {
   }
 
   signup(user: Usuario): Observable<{ token: string; roles: string[] }> {
-    return this.http.post<any>(`${this.apiUrlSignup}`, user).pipe(
+    return this.http.post<any>(this.apiUrlSignup, user).pipe(
       map(response => {
         if (response && response.token) {
           this.tokenService.setUserDetails(response.token, response.roles);
@@ -82,10 +82,20 @@ export class AuthService {
           throw new Error('Respuesta de registro no válida');
         }
       }),
-      catchError(error => {
-        console.error('Error en el registro:', error);
-        return throwError(() => new Error('Error en el registro'));
-      })
+      catchError(error => this.handleError(error))
     );
   }
+
+  private handleError(error: HttpErrorResponse) {
+    console.error('Error en el registro:', error);
+    if (error.error instanceof ErrorEvent) {
+      // Error del cliente
+      return throwError(() => new Error('Error: ' + error.error.message));
+    } else {
+      // Error del servidor
+      const errorMessage = error.error?.message || 'Error en el registro';
+      return throwError(() => new Error(errorMessage));
+    }
+  }
+
 }
