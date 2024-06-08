@@ -1,37 +1,44 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { Usuario } from '../../models/usuario.model';
 import { AuthService } from '../../services/auth.service';
 import { TokenService } from '../../services/token.service';
 import { UserService } from '../../services/usuario.service';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  user: Usuario = new Usuario('', '', '', '');
+  loginForm: FormGroup;
   errorMessage: string | null = null;
 
   constructor(
-    private http: HttpClient,
+    private fb: FormBuilder,
     private router: Router,
     private authService: AuthService,
-    private userService: UserService,
-    private tokenService: TokenService
-  ) {}
+    private tokenService: TokenService,
+    private userService: UserService
+  ) {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+    });
+  }
 
   onLogin() {
-    console.log('Email:', this.user.email); // Debugging
-    console.log('Password:', this.user.password); // Debugging
+    if (this.loginForm.invalid) {
+      return;
+    }
 
+    const { email, password } = this.loginForm.value;
     const existingToken = this.tokenService.getToken();
     if (existingToken) {
       Swal.fire('Ya estás autenticado', 'Tu sesión ya está abierta', 'info');
@@ -39,7 +46,7 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.authService.login(this.user).subscribe({
+    this.authService.login({ email, password }).subscribe({
       next: (tokenResponse) => {
         const token = tokenResponse.token;
         if (typeof window !== 'undefined') {
@@ -66,7 +73,7 @@ export class LoginComponent implements OnInit {
     if (token) {
       this.userService.getUsers(token).subscribe({
         next: (response) => {
-          this.user = response.data;
+          // Handle response
         },
         error: (err) => {
           console.error('Error:', err);
