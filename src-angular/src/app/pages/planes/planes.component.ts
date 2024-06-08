@@ -1,30 +1,3 @@
-// import { Component, OnInit } from '@angular/core';
-// import { ActivatedRoute } from '@angular/router';
-// import { Actividad } from '../../models/actividad.model';
-// import { DestinoService } from '../../services/destino.service';
-// import { CommonModule } from '@angular/common';
-// import { Destino } from '../../models/destino.model';
-// import { ButtonComponent } from '../../Components/button/button.component';
-
-// @Component({
-//   selector: 'app-planes',
-//   standalone: true,
-//   imports: [ButtonComponent, CommonModule],
-//   templateUrl: './planes.component.html',
-//   styleUrls: ['./planes.component.scss']
-// })
-// export class PlanesComponent implements OnInit {
-//   destinos: Destino[] = [];
-
-//   constructor(private destinoService: DestinoService) { }
-
-//   ngOnInit(): void {
-//     this.destinoService.getAllDestinos().subscribe({
-//       next: (destinos) => this.destinos = destinos,
-//       error: (err) => console.error('Error fetching destinos:', err)
-//     });
-//   }
-// }
 
 
 import { Component, OnInit } from '@angular/core';
@@ -77,19 +50,29 @@ export class PlanesComponent implements OnInit {
   }
 
   obtenerActividadesAleatorias(): Actividad[] {
-    const actividadesTemp = [...this.actividades]; // Copiar la lista de actividades para manipular
+    const actividadesTemp = [...this.actividades];
     const actividadesFiltradas: Actividad[] = [];
     const categoriasUsadas = new Set<string>();
 
-    while (actividadesFiltradas.length < 3 && actividadesTemp.length > 0) {
+    // Seleccionamos las dos primeras actividades de diferentes categorías
+    while (actividadesFiltradas.length < 2 && actividadesTemp.length > 0) {
       const randomIndex = Math.floor(Math.random() * actividadesTemp.length);
       const actividad = actividadesTemp[randomIndex];
 
-      if (!categoriasUsadas.has(actividad.categoria)) {
+      if (!categoriasUsadas.has(actividad.categoria) && actividad.categoria !== 'GASTRONOMIA') {
         categoriasUsadas.add(actividad.categoria);
         actividadesFiltradas.push(actividad);
-        actividadesTemp.splice(randomIndex, 1); // Eliminar para no volver a seleccionarla
+        actividadesTemp.splice(randomIndex, 1);
       }
+    }
+
+    // Seleccionamos una actividad aleatoria de la categoría "gastronomía"
+    const actividadesGastronomia = actividadesTemp.filter(actividad => actividad.categoria === 'GASTRONOMIA');
+    if (actividadesGastronomia.length > 0) {
+      const randomIndexGastronomia = Math.floor(Math.random() * actividadesGastronomia.length);
+      actividadesFiltradas.push(actividadesGastronomia[randomIndexGastronomia]);
+    } else {
+      console.error('No se encontró una actividad de la categoría "gastronomía"');
     }
 
     return actividadesFiltradas;
