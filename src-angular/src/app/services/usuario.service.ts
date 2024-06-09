@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { Usuario } from '../models/usuario.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,8 @@ export class UserService {
     return false;
   }
 
-  devolverUsuario(token: string) {
-    return this.http.get<any>(this.apiUrl+'miusuario', { headers: this.getHeaders(token) }).pipe(
+  devolverUsuario(token: string): Observable<Usuario> {
+    return this.http.get<Usuario>(`${this.apiUrl}miusuario`, { headers: this.getHeaders(token) }).pipe(
       catchError((e) => {
         this.isNoAutorizado(e);
         return throwError(() => new Error('Unauthorized or forbidden access'));
@@ -54,15 +55,29 @@ export class UserService {
     );
   }
 
-  updateUser(token: string, userId: number, user: any): Observable<any> {
+  // updateUser(token: string, userId: number, user: Usuario): Observable<Usuario> {
+  //   const url = `${this.apiUrl}${userId}`;
+  //   return this.http.put<Usuario>(url, user, { headers: this.getHeaders(token) }).pipe(
+  //     catchError(this.handleError)
+  //   );
+  // }
+
+  updateUser(token: string, userId: number, user: Usuario): Observable<Usuario> {
     const url = `${this.apiUrl}${userId}`;
-    return this.http.put<any>(url, user, { headers: this.getHeaders(token) }).pipe(
-      catchError((e) => {
-        this.isNoAutorizado(e);
-        return throwError(() => new Error('Error updating user'));
-      })
+    return this.http.put<Usuario>(url, user, { headers: this.getHeaders(token) }).pipe(
+      catchError(this.handleError)
     );
   }
+
+  private handleError(error: HttpErrorResponse) {
+    console.error('Error actualizando el usuario:', error);
+    if (error.error instanceof ErrorEvent) {
+      return throwError(() => new Error('Error del lado del cliente: ' + error.error.message));
+    } else {
+      return throwError(() => new Error('Error del servidor: ' + error.message));
+    }
+  }
+
 
 
   deleteUser(token: string, userId: number): Observable<any> {

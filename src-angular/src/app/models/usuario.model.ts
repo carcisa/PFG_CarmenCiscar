@@ -1,17 +1,19 @@
 
 
-// src/app/models/usuario.model.ts
-
 export class Usuario {
-  public firstName: string = '';
-  public lastName: string = '';
-  public email: string = '';
-  public password: string = '';
+  public id: number;
+  public nombreUsuario: string;
+  public apellidoUsuario: string;
+  public email: string;
+  public password: string;
+  public roles: Set<string>;
 
-  constructor(firstName: string, lastName: string, email: string, password: string) {
-    this.firstName = firstName;
-    this.lastName = lastName;
+  constructor(id: number, nombreUsuario: string, apellidoUsuario: string, email: string, password: string, roles: Set<string>) {
+    this.id = id;
+    this.nombreUsuario = nombreUsuario;
+    this.apellidoUsuario = apellidoUsuario;
     this.email = email;
     this.password = password;
+    this.roles = roles;
   }
 }

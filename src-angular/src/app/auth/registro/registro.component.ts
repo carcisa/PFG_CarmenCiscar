@@ -36,12 +36,14 @@ export class RegistroComponent implements OnInit {
       return;
     }
 
-    const newUser: Usuario = {
-      firstName: this.registerForm.value.firstName,
-      lastName: this.registerForm.value.lastName,
-      email: this.registerForm.value.email,
-      password: this.registerForm.value.password
-    };
+    const newUser: Usuario = new Usuario(
+      0, // id predeterminado
+      this.registerForm.value.firstName,
+      this.registerForm.value.lastName,
+      this.registerForm.value.email,
+      this.registerForm.value.password,
+      new Set(['user']) // Asignar el rol 'user' por defecto
+    );
 
     this.authService.signup(newUser).subscribe({
       next: (response) => {

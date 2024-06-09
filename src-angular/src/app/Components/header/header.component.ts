@@ -44,7 +44,7 @@ import { MisOpinionesComponent } from '../../user/mis-opiniones/mis-opiniones.co
 export class HeaderComponent implements OnInit {
   isAuthenticated: boolean = false;
   isAdmin: boolean = false;
-  usuario: Usuario = { firstName: '', lastName: '', email: '', password: '' };
+  usuario: Usuario = new Usuario(0, '', '', '', '', new Set());
   isProfileMenuVisible: boolean = false;
 
   constructor(
@@ -56,19 +56,23 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Solo ejecutar esta lógica en el navegador
+
       this.updateAuthenticationState();
       this.authService.authenticationState.subscribe(() => {
         this.updateAuthenticationState();
       });
 
-      this.authService.usuario$.subscribe((user: Usuario) => {
-        this.usuario = user;
+      this.authService.usuario$.subscribe((user: Usuario | null) => {
+        if (user) {
+          this.usuario = user;
+        } else {
+
+          this.usuario = new Usuario(0, '', '', '', '', new Set());
+        }
         console.log('Usuario actualizado en el componente:', this.usuario);
       });
     }
   }
-
   updateAuthenticationState() {
     this.isAuthenticated = this.authService.isAuthenticated();
     if (this.isAuthenticated) {
@@ -76,7 +80,6 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  // Los métodos que interactúan con elementos del DOM o que lanzan alertas deben revisarse también
   onLogoutClicked() {
     if (isPlatformBrowser(this.platformId)) {  // Asegurarse que Swal sólo se ejecute en el cliente
       Swal.fire({
