@@ -22,6 +22,8 @@ import { SevillaComponent } from './pages/destinos/sevilla/sevilla.component';
 import { ActividadComponent } from './pages/actividad/actividad.component';
 import { PlanSeleccionadoComponent } from './pages/plan-seleccionado/plan-seleccionado.component';
 import { MisDatosComponent } from './user/mis-datos/mis-datos.component';
+import { NuevaActividadComponent } from './user/nueva-actividad/nueva-actividad.component';
+import { MisOpinionesComponent } from './user/mis-opiniones/mis-opiniones.component';
 
 export const routes: Routes = [
 
@@ -44,11 +46,13 @@ export const routes: Routes = [
   { path: 'jaen', component: JaenComponent},
   { path: 'malaga', component: MalagaComponent},
   { path: 'sevilla', component: SevillaComponent},
-  { path: 'mis-datos', component: MisDatosComponent, canActivate: [RoleGuard], data: { expectedRoles: ['user'] } },
-  { path: 'bandeja', component: BandejaComponent, canActivate: [RoleGuard], data: { expectedRoles: ['admin'] } },
-  { path: 'estadisticas', component: EstadisticasComponent, canActivate: [RoleGuard], data: { expectedRoles: ['admin'] } },
-  { path: 'moderador', component: ModeradorComponent, canActivate: [RoleGuard], data: { expectedRoles: ['admin'] } },
-  { path: 'perfiles', component: PerfilesComponent, canActivate: [RoleGuard], data: { expectedRoles: ['admin'] } },
+  { path: 'mis-datos', component: MisDatosComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_USER'] } },
+  { path: 'nueva-actividad', component: NuevaActividadComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_USER'] } },
+  { path: 'mis-opiniones', component: MisOpinionesComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_USER'] } },
+  { path: 'bandeja', component: BandejaComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_ADMIN'] } },
+  { path: 'estadisticas', component: EstadisticasComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_ADMIN'] } },
+  { path: 'moderador', component: ModeradorComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_ADMIN'] } },
+  { path: 'perfiles', component: PerfilesComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_ADMIN'] } },
 
   { path: '**', redirectTo: "", pathMatch:"full" },
 

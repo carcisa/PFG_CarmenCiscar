@@ -16,6 +16,9 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { initFlowbite } from 'flowbite';
 import { PlanSeleccionadoComponent } from './pages/plan-seleccionado/plan-seleccionado.component';
 import { ActividadComponent } from './pages/actividad/actividad.component';
+import { MisDatosComponent } from './user/mis-datos/mis-datos.component';
+import { MisOpinionesComponent } from './user/mis-opiniones/mis-opiniones.component';
+import { NuevaActividadComponent } from './user/nueva-actividad/nueva-actividad.component';
 
 
 
@@ -25,7 +28,8 @@ import { ActividadComponent } from './pages/actividad/actividad.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,
+  imports: [
+    RouterOutlet,
     HeaderComponent,
     ButtonComponent,
     FooterComponent,
@@ -40,7 +44,10 @@ import { ActividadComponent } from './pages/actividad/actividad.component';
     HttpClientModule,
     CommonModule,
     PlanSeleccionadoComponent,
-    ActividadComponent
+    ActividadComponent,
+    MisDatosComponent,
+    MisOpinionesComponent,
+    NuevaActividadComponent
 
 
   ],

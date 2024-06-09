@@ -12,6 +12,9 @@ import { AuthService } from '../../services/auth.service';
 import { TokenService } from '../../services/token.service';
 import { Router, RouterModule } from '@angular/router';
 import { Usuario } from '../../models/usuario.model';
+import { MisDatosComponent } from '../../user/mis-datos/mis-datos.component';
+import { NuevaActividadComponent } from '../../user/nueva-actividad/nueva-actividad.component';
+import { MisOpinionesComponent } from '../../user/mis-opiniones/mis-opiniones.component';
 
 
 
@@ -29,7 +32,10 @@ import { Usuario } from '../../models/usuario.model';
     FlexLayoutModule,
     CommonModule,
     ButtonComponent,
-    RouterModule
+    RouterModule,
+    MisDatosComponent,
+    NuevaActividadComponent,
+    MisOpinionesComponent
 
   ],
   templateUrl: './header.component.html',
@@ -104,7 +110,7 @@ export class HeaderComponent implements OnInit {
 
   onRegisterClicked() {
     if (this.isAuthenticated) {
-      this.router.navigate(['/mi-perfil']);
+      this.router.navigate(['/mis-datos']);
     } else {
       this.router.navigate(['/registro']);
     }

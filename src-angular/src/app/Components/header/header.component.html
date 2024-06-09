@@ -1,9 +1,7 @@
-
-
 <header>
   <div class="bg-white flex justify-between items-center p-3 border-b border-gray-200">
     <div>
-      <a href="/"><img src="assets/img/LogoPlanazoAzulconLetrasRosa.png" alt="Logo" class="logo"></a>
+      <a routerLink="/"><img src="assets/img/LogoPlanazoAzulconLetrasRosa.png" alt="Logo" class="logo"></a>
     </div>
     <div>
       <ng-container *ngIf="!isAuthenticated; else loggedIn">
@@ -12,18 +10,18 @@
       </ng-container>
       <ng-template #loggedIn>
         <ng-container *ngIf="isAdmin; else userMenu">
-          <a class="menu-link px-3" routerLink="/moderador">Moderador</a>
-          <a class="menu-link px-3" routerLink="/bandeja">Bandeja de Entrada</a>
-          <a class="menu-link px-3" routerLink="/perfiles">Usuarios</a>
-          <a class="menu-link px-3" routerLink="/estadisticas">Estadísticas</a>
+          <a routerLink="/moderador" class="menu-link px-3">Moderador</a>
+          <a routerLink="/bandeja" class="menu-link px-3">Bandeja de Entrada</a>
+          <a routerLink="/perfiles" class="menu-link px-3">Usuarios</a>
+          <a routerLink="/estadisticas" class="menu-link px-3">Estadísticas</a>
           <a (click)="onLogoutClicked()" class="button_dark px-3">Logout</a>
         </ng-container>
         <ng-template #userMenu>
-          <a class="menu-link px-3" routerLink="/mis-datos">Mis datos</a>
-          <a class="menu-link px-3" routerLink="/planes">Planes</a>
-          <a class="menu-link px-3" routerLink="/actividades">Actividades</a>
-          <a class="menu-link px-3" routerLink="/nueva-actividad">Nueva Actividad</a>
-          <a class="menu-link px-3" routerLink="/mis-resenas">Mis Reseñas</a>
+          <a routerLink="/mis-datos" class="menu-link px-3">Mis datos</a>
+          <a routerLink="/planes" class="menu-link px-3">Planes</a>
+          <a routerLink="/actividades" class="menu-link px-3">Actividades</a>
+          <a routerLink="/nueva-actividad" class="menu-link px-3">Nueva Actividad</a>
+          <a routerLink="/mis-opiniones" class="menu-link px-3">Mis Opiniones</a>
           <a (click)="onLogoutClicked()" class="button_dark px-3">Logout</a>
         </ng-template>
       </ng-template>
@@ -39,4 +37,3 @@
     </div>
   </div>
 </header>
-
