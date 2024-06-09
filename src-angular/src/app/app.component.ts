@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './Components/header/header.component';
 import { ButtonComponent } from './Components/button/button.component';
@@ -12,10 +12,11 @@ import { PlanesComponent } from './pages/planes/planes.component';
 import { FormsModule } from '@angular/forms';
 import { SelectComponent } from './Components/select/select.component';
 import { HttpClientModule } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { initFlowbite } from 'flowbite';
 import { PlanSeleccionadoComponent } from './pages/plan-seleccionado/plan-seleccionado.component';
 import { ActividadComponent } from './pages/actividad/actividad.component';
+
 
 
 
@@ -49,8 +50,12 @@ import { ActividadComponent } from './pages/actividad/actividad.component';
 export class AppComponent implements OnInit{
   title = 'Planazo';
 
-  ngOnInit(): void {
-    initFlowbite();
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
+  ngOnInit() {
+    if (isPlatformBrowser(this.platformId)) {
+      initFlowbite();
+    }
   }
 
 }

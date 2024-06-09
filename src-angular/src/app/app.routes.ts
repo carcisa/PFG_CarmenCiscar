@@ -21,6 +21,7 @@ import { MalagaComponent } from './pages/destinos/malaga/malaga.component';
 import { SevillaComponent } from './pages/destinos/sevilla/sevilla.component';
 import { ActividadComponent } from './pages/actividad/actividad.component';
 import { PlanSeleccionadoComponent } from './pages/plan-seleccionado/plan-seleccionado.component';
+import { MisDatosComponent } from './user/mis-datos/mis-datos.component';
 
 export const routes: Routes = [
 
@@ -43,6 +44,7 @@ export const routes: Routes = [
   { path: 'jaen', component: JaenComponent},
   { path: 'malaga', component: MalagaComponent},
   { path: 'sevilla', component: SevillaComponent},
+  { path: 'mis-datos', component: MisDatosComponent, canActivate: [RoleGuard], data: { expectedRoles: ['user'] } },
   { path: 'bandeja', component: BandejaComponent, canActivate: [RoleGuard], data: { expectedRoles: ['admin'] } },
   { path: 'estadisticas', component: EstadisticasComponent, canActivate: [RoleGuard], data: { expectedRoles: ['admin'] } },
   { path: 'moderador', component: ModeradorComponent, canActivate: [RoleGuard], data: { expectedRoles: ['admin'] } },

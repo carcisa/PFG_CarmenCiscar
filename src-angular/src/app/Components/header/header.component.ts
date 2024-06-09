@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ButtonComponent } from '../button/button.component';
 import Swal from 'sweetalert2';
 import { AuthService } from '../../services/auth.service';
@@ -35,8 +35,7 @@ import { Usuario } from '../../models/usuario.model';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit{
-
+export class HeaderComponent implements OnInit {
   isAuthenticated: boolean = false;
   isAdmin: boolean = false;
   usuario: Usuario = { firstName: '', lastName: '', email: '', password: '' };
@@ -45,19 +44,23 @@ export class HeaderComponent implements OnInit{
   constructor(
     public authService: AuthService,
     private router: Router,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) { }
 
   ngOnInit(): void {
-    this.updateAuthenticationState();
-    this.authService.authenticationState.subscribe(() => {
+    if (isPlatformBrowser(this.platformId)) {
+      // Solo ejecutar esta lógica en el navegador
       this.updateAuthenticationState();
-    });
+      this.authService.authenticationState.subscribe(() => {
+        this.updateAuthenticationState();
+      });
 
-    this.authService.usuario$.subscribe((user: Usuario) => {
-      this.usuario = user;
-      console.log('Usuario actualizado en el componente:', this.usuario);
-    });
+      this.authService.usuario$.subscribe((user: Usuario) => {
+        this.usuario = user;
+        console.log('Usuario actualizado en el componente:', this.usuario);
+      });
+    }
   }
 
   updateAuthenticationState() {
@@ -67,25 +70,28 @@ export class HeaderComponent implements OnInit{
     }
   }
 
+  // Los métodos que interactúan con elementos del DOM o que lanzan alertas deben revisarse también
   onLogoutClicked() {
-    Swal.fire({
-      title: 'Cerrar sesión',
-      text: '¿Estás seguro de que deseas cerrar sesión?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, cerrar sesión',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.authService.logout();
-        Swal.fire('Sesión cerrada', 'Has cerrado sesión correctamente', 'success').then(() => {
-          this.router.navigate(['/homeUser']);
-          window.location.reload();
-        });
-      }
-    });
+    if (isPlatformBrowser(this.platformId)) {  // Asegurarse que Swal sólo se ejecute en el cliente
+      Swal.fire({
+        title: 'Cerrar sesión',
+        text: '¿Estás seguro de que deseas cerrar sesión?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, cerrar sesión',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.authService.logout();
+          Swal.fire('Sesión cerrada', 'Has cerrado sesión correctamente', 'success').then(() => {
+            this.router.navigate(['/homeUser']);
+            window.location.reload();
+          });
+        }
+      });
+    }
   }
 
   onLoginClicked() {
