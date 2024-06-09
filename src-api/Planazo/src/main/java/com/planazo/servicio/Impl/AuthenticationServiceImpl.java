@@ -62,8 +62,8 @@ public class AuthenticationServiceImpl implements AuthenticationServicio {
 				throw new UsuarioDuplicadoException("El email ya existe.");
 			}
 			Usuario user = new Usuario();
-			user.setNombreUsuario(request.getFirstName());
-			user.setApellidoUsuario(request.getLastName());
+			user.setNombreUsuario(request.getnombreUsuario());
+			user.setApellidoUsuario(request.getapellidoUsuario());
 			user.setEmail(request.getEmail());
 			user.setPassword(passwordEncoder.encode(request.getPassword()));
 

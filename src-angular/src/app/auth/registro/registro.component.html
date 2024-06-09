@@ -14,28 +14,28 @@
           <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="px-8 pt-6 pb-8 mb-4 bg-white rounded">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div class="mb-4">
-                <label class="block mb-2 text-sm font-bold text-gray-700" for="firstName">Nombre</label>
+                <label class="block mb-2 text-sm font-bold text-gray-700" for="nombreUsuario">Nombre</label>
                 <input
                   class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                  id="firstName"
+                  id="nombreUsuario"
                   type="text"
-                  formControlName="firstName"
+                  formControlName="nombreUsuario"
                   placeholder="Nombre"
                 />
-                <div *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched" class="text-xs italic text-red-500 mt-1">
+                <div *ngIf="registerForm.get('nombreUsuario')?.invalid && registerForm.get('nombreUsuario')?.touched" class="text-xs italic text-red-500 mt-1">
                   El nombre es requerido
                 </div>
               </div>
               <div class="mb-4">
-                <label class="block mb-2 text-sm font-bold text-gray-700" for="lastName">Apellido</label>
+                <label class="block mb-2 text-sm font-bold text-gray-700" for="apellidoUsuario">Apellido</label>
                 <input
                   class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                  id="lastName"
+                  id="apellidoUsuario"
                   type="text"
-                  formControlName="lastName"
+                  formControlName="apellidoUsuario"
                   placeholder="Apellido"
                 />
-                <div *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched" class="text-xs italic text-red-500 mt-1">
+                <div *ngIf="registerForm.get('apellidoUsuario')?.invalid && registerForm.get('apellidoUsuario')?.touched" class="text-xs italic text-red-500 mt-1">
                   El apellido es requerido
                 </div>
               </div>

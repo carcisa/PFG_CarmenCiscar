@@ -11,10 +11,10 @@ import jakarta.validation.constraints.Size;
 public class SignUpRequest {
 
     @NotBlank(message = "El primer nombre no puede estar vacío")
-    private String firstName;
+    private String nombreUsuario;
 
     @NotBlank(message = "El apellido no puede estar vacío")
-    private String lastName;
+    private String apellidoUsuario;
 
     @NotBlank(message = "El correo electrónico no puede estar vacío")
     @Email(message = "Formato de correo electrónico inválido")
@@ -25,27 +25,27 @@ public class SignUpRequest {
 
     public SignUpRequest() {}
 
-    public SignUpRequest(String firstName, String lastName, String email, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public SignUpRequest(String nombreUsuario, String apellidoUsuario, String email, String password) {
+        this.nombreUsuario = nombreUsuario;
+        this.apellidoUsuario = apellidoUsuario;
         this.email = email;
         this.password = password;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getnombreUsuario() {
+        return nombreUsuario;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setnombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getapellidoUsuario() {
+        return apellidoUsuario;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setapellidoUsuario(String apellidoUsuario) {
+        this.apellidoUsuario = apellidoUsuario;
     }
 
     public String getEmail() {

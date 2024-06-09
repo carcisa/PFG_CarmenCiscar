@@ -23,8 +23,8 @@ export class RegistroComponent implements OnInit {
     private router: Router
   ) {
     this.registerForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      nombreUsuario: ['', Validators.required],
+      apellidoUsuario: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
@@ -38,25 +38,29 @@ export class RegistroComponent implements OnInit {
 
     const newUser: Usuario = new Usuario(
       0, // id predeterminado
-      this.registerForm.value.firstName,
-      this.registerForm.value.lastName,
+      this.registerForm.value.nombreUsuario,
+      this.registerForm.value.apellidoUsuario,
       this.registerForm.value.email,
       this.registerForm.value.password,
       new Set(['user']) // Asignar el rol 'user' por defecto
     );
 
+    console.log('Datos enviados:', newUser);  // Log para verificar los datos que se envían
+
     this.authService.signup(newUser).subscribe({
       next: (response) => {
         console.log('Registro exitoso:', response);
-        this.router.navigate(['/login']).then(() => {
+        this.router.navigate(['/']).then(() => {
           window.location.reload();
         });
       },
       error: (err) => {
         this.errorMessage = err.message;
+        console.error('Error en el registro:', err);
       }
     });
   }
+
 
   ngOnInit(): void {}
 }
