@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ActividadService } from '../../services/actividad.service';
-import { Actividad } from '../../models/actividad.model';
+import { Actividad, Categoria } from '../../models/actividad.model';
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ButtonComponent } from '../../Components/button/button.component';
@@ -18,7 +18,7 @@ import { ButtonComponent } from '../../Components/button/button.component';
   styleUrls: ['./actividad.component.scss']
 })
 export class ActividadComponent implements OnInit {
-  actividad: Actividad | undefined;
+  @Input() actividad?: Actividad;
   error: string | undefined;
 
   constructor(
@@ -27,23 +27,29 @@ export class ActividadComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getActividad();
+    if (!this.actividad) {
+      this.getActividad();
+    }
   }
 
   getActividad(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.actividadService.getActividadById(id)
-      .subscribe(
-        actividad => {
-          this.actividad = actividad;
-          this.error = undefined;
-        },
-        (error: HttpErrorResponse) => {
-          console.error('Error al cargar la actividad', error);
-          this.actividad = undefined;
-          this.error = 'La actividad no existe';
-        }
-      );
+    if (id) {
+      this.actividadService.getActividadById(id)
+        .subscribe(
+          actividad => {
+            this.actividad = actividad;
+            this.error = undefined;
+          },
+          (error: HttpErrorResponse) => {
+            console.error('Error al cargar la actividad', error);
+            this.actividad = undefined;
+            this.error = 'La actividad no existe';
+          }
+        );
+    } else {
+      this.error = 'ID de actividad no válido';
+    }
   }
 
   getGoogleMapsLink(direccion: string): string {

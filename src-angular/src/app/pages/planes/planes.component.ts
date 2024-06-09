@@ -1,7 +1,5 @@
-
-
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Actividad } from '../../models/actividad.model';
 import { DestinoService } from '../../services/destino.service';
 import { CommonModule } from '@angular/common';
@@ -23,7 +21,7 @@ export class PlanesComponent implements OnInit {
   destinoId!: number;
   destino?: Destino;
 
-  constructor(private destinoService: DestinoService, private route: ActivatedRoute) {}
+  constructor(private destinoService: DestinoService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -54,7 +52,6 @@ export class PlanesComponent implements OnInit {
     const actividadesFiltradas: Actividad[] = [];
     const categoriasUsadas = new Set<string>();
 
-    // Seleccionamos las dos primeras actividades de diferentes categorías
     while (actividadesFiltradas.length < 2 && actividadesTemp.length > 0) {
       const randomIndex = Math.floor(Math.random() * actividadesTemp.length);
       const actividad = actividadesTemp[randomIndex];
@@ -66,7 +63,6 @@ export class PlanesComponent implements OnInit {
       }
     }
 
-    // Seleccionamos una actividad aleatoria de la categoría "gastronomía"
     const actividadesGastronomia = actividadesTemp.filter(actividad => actividad.categoria === 'GASTRONOMIA');
     if (actividadesGastronomia.length > 0) {
       const randomIndexGastronomia = Math.floor(Math.random() * actividadesGastronomia.length);
@@ -76,5 +72,11 @@ export class PlanesComponent implements OnInit {
     }
 
     return actividadesFiltradas;
+  }
+
+  seleccionarPlan(actividades: Actividad[]): void {
+    this.router.navigate(['/planSeleccionado'], {
+      queryParams: { actividades: JSON.stringify(actividades) }
+    });
   }
 }

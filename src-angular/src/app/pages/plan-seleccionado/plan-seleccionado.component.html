@@ -1,0 +1,21 @@
+<section class="text-gray-600 body-font">
+  <div class="container px-5 py-10 mx-auto mb-24">
+    <div class="cabecera mb-4 bg-primaryt">
+      <div class="container px-5 py-2 mx-auto">
+        <div class="lg:w-2/3 flex flex-col sm:flex-row sm:items-center items-start mx-auto">
+          <button (click)="goBack()" class="mr-4 text-gray-900 btn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <h1 class="flex-grow sm:pr-16 text-2xl font-medium title-font text-secondaryt">PLAN SELECCIONADO</h1>
+        </div>
+      </div>
+    </div>
+    <div class="divide-y-2 divide-gray-200">
+      <div *ngFor="let actividad of actividades" class="py-4">
+        <app-actividad [actividad]="actividad"></app-actividad>
+      </div>
+    </div>
+  </div>
+</section>

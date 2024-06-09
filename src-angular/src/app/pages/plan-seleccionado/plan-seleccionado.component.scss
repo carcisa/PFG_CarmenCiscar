@@ -1,0 +1,19 @@
+.cabecera {
+  background-color: #f3f4f6;
+}
+
+.img-container {
+  position: relative;
+}
+
+.img-responsive {
+  width: 100%;
+  height: auto;
+}
+
+.puntuacion {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+}

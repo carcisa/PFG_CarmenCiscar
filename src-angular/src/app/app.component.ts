@@ -14,6 +14,8 @@ import { SelectComponent } from './Components/select/select.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { initFlowbite } from 'flowbite';
+import { PlanSeleccionadoComponent } from './pages/plan-seleccionado/plan-seleccionado.component';
+import { ActividadComponent } from './pages/actividad/actividad.component';
 
 
 
@@ -35,7 +37,9 @@ import { initFlowbite } from 'flowbite';
     FormsModule,
     SelectComponent,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    PlanSeleccionadoComponent,
+    ActividadComponent
 
 
   ],
