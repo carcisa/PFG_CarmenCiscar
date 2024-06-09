@@ -4,55 +4,45 @@
     <div class="grid grid-cols-2 gap-4 mb-4">
       <div>
         <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
-        <input type="text" id="nombre" [(ngModel)]="usuario.nombreUsuario"
+        <input type="text" id="nombre" [(ngModel)]="usuario.nombreUsuario" name="nombre"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           placeholder="Nombre">
       </div>
       <div>
         <label for="apellido" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido</label>
-        <input type="text" id="apellido" [(ngModel)]="usuario.apellidoUsuario"
+        <input type="text" id="apellido" [(ngModel)]="usuario.apellidoUsuario" name="apellido"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           placeholder="Apellido">
       </div>
-
-
-
     </div>
     <div class="flex flex-wrap items-center justify-start gap-4">
       <div class="mb-4">
         <button id="updateUserButton" class="button" (click)="openModal()">Modificar contraseña</button>
       </div>
-
     </div>
-
-
     <div class="mb-4">
       <h2 class="text-lg font-bold mb-2 text-decoration-underline">Preferencias de comunicación</h2>
       <p class="mb-0 text-sm text-gray-600">Indica cuáles son tus preferencias a la hora de recibir nuestras
         comunicaciones comerciales y ofertas. </p>
         <p class="mb-4 mt-0 text-sm text-gray-600">Las preferencias de comunicación pueden tardar en efectuarse completamente
           entre 12 y 24 horas.</p>
-
         <div class="flex items-center mb-4">
-          <input id="default-checkbox" type="checkbox" value=""
+          <input id="default-checkbox" type="checkbox" [(ngModel)]="preferenciaGeneral" name="preferenciaGeneral"
             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
           <label for="default-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
             Quiero recibir emails con ofertas generales</label>
         </div>
         <div class="flex items-center">
-          <input checked id="checked-checkbox" type="checkbox" value=""
+          <input checked id="checked-checkbox" type="checkbox" [(ngModel)]="preferenciaPersonalizada" name="preferenciaPersonalizada"
             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
           <label for="checked-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
             Quiero recibir emails con ofertas personalizadas</label>
         </div>
-
     </div>
     <div class="mb-4">
       <button id="updateUserButton" class="button" (click)="saveChanges()">Guardar cambios</button>
     </div>
-
   </div>
-
   <!-- Modal -->
   <div *ngIf="isModalOpen" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
     <div class="bg-white rounded-lg shadow dark:bg-gray-800 p-6 sm:max-w-md">
@@ -60,17 +50,17 @@
       <form class="mt-4 space-y-4 lg:mt-5 md:space-y-5" (ngSubmit)="changePassword()">
         <div>
           <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-          <input type="email" id="email" [(ngModel)]="usuario.email"
+          <input type="email" id="email" [(ngModel)]="usuario.email" name="email"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             placeholder="Email">
         </div>
         <div>
           <label for="new-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nueva Contraseña</label>
-          <input type="password" id="new-password" [(ngModel)]="newPassword" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="••••••••" required>
+          <input type="password" id="new-password" [(ngModel)]="newPassword" name="newPassword" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="••••••••" required>
         </div>
         <div>
           <label for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirmar Contraseña</label>
-          <input type="password" id="confirm-password" [(ngModel)]="confirmPassword" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="••••••••" required>
+          <input type="password" id="confirm-password" [(ngModel)]="confirmPassword" name="confirmPassword" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="••••••••" required>
         </div>
         <button type="submit" class="w-full button">Restablecer Contraseña</button>
         <button type="button" (click)="closeModal()" class="w-full mt-2 text-gray-700 bg-gray-200 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-800">Cancelar</button>

@@ -21,6 +21,8 @@ export class MisDatosComponent implements OnInit {
   isModalOpen = false;
   newPassword: string = '';
   confirmPassword: string = '';
+  preferenciaGeneral: boolean = false;
+  preferenciaPersonalizada: boolean = true;
 
   constructor(
     private authService: AuthService,
@@ -36,7 +38,6 @@ export class MisDatosComponent implements OnInit {
       if (usuario) {
         this.usuario = usuario;
       } else {
-
         this.usuario = new Usuario(0, '', '', '', '', new Set());
       }
     });
@@ -51,23 +52,28 @@ export class MisDatosComponent implements OnInit {
   }
 
   changePassword() {
+    if (!this.newPassword || !this.confirmPassword) {
+        console.error('La nueva contraseña y la confirmación de la contraseña no pueden estar vacías');
+        return;
+    }
+
     if (this.newPassword !== this.confirmPassword) {
-      console.error('Las contraseñas no coinciden');
-      return;
+        console.error('Las contraseñas no coinciden');
+        return;
     }
 
     const token = this.tokenService.getToken();
     if (token) {
-      const updatedUser = { ...this.usuario, password: this.newPassword };
-      this.userService.updateUser(token, this.usuario.id, updatedUser).subscribe(
-        response => {
-          console.log('Contraseña actualizada:', response);
-          this.closeModal();
-        },
-        error => {
-          console.error('Error al actualizar la contraseña:', error);
-        }
-      );
+        const updatedUser = { ...this.usuario, password: this.newPassword };
+        this.userService.updateUser(token, this.usuario.id, updatedUser).subscribe(
+            response => {
+                console.log('Contraseña actualizada:', response);
+                this.closeModal();
+            },
+            error => {
+                console.error('Error al actualizar la contraseña:', error);
+            }
+        );
     }
   }
 
