@@ -1,0 +1,37 @@
+<section *ngIf="actividadesFavoritas.length > 0; else noActividades" class="text-gray-600 body-font">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-gray-900 text-lg font-medium">Mis Planes</h2>
+    </div>
+    <div class="flex flex-wrap -m-4 mt-4">
+      <div *ngFor="let actividad of actividadesFavoritas" class="lg:w-1/4 md:w-1/2 p-4 w-full">
+        <div class="relative h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+          <a (click)="verDetalleActividad(actividad.id)" class="block relative h-48 rounded overflow-hidden">
+            <img [src]="actividad.imagen" alt="imagen de actividad" class="object-cover object-center w-full h-full block">
+          </a>
+          <div class="mt-4 p-4">
+            <div class="flex justify-between items-center">
+              <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">{{ actividad.categoria }}</h3>
+              <span class="bg-gray-200 bg-opacity-75 p-1 rounded text-gray-500 text-xs tracking-widest title-font mb-1">{{ actividad.puntuacion }}</span>
+            </div>
+            <h2 class="text-gray-900 title-font text-lg font-medium">{{ actividad.nombre }}</h2>
+            <button (click)="eliminarActividadFavorita(actividad.id!)" class="absolute bottom-2 right-2 text-gray-500 hover:text-gray-700 focus:outline-none">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <!-- <button (click)="eliminarActividadFavorita(actividad.id!)" class="mt-2 text-red-500">Eliminar de Favoritos</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #noActividades>
+  <div class="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased text-center">
+    <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
+      No tienes actividades guardadas.
+    </h1>
+  </div>
+</ng-template>

@@ -24,6 +24,7 @@ import { PlanSeleccionadoComponent } from './pages/plan-seleccionado/plan-selecc
 import { MisDatosComponent } from './user/mis-datos/mis-datos.component';
 import { NuevaActividadComponent } from './user/nueva-actividad/nueva-actividad.component';
 import { MisOpinionesComponent } from './user/mis-opiniones/mis-opiniones.component';
+import { MisPlanesComponent } from './user/mis-planes/mis-planes.component';
 
 export const routes: Routes = [
 
@@ -47,6 +48,7 @@ export const routes: Routes = [
   { path: 'malaga', component: MalagaComponent},
   { path: 'sevilla', component: SevillaComponent},
   { path: 'mis-datos', component: MisDatosComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_USER'] } },
+  { path: 'mis-planes', component: MisPlanesComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_USER'] } },
   { path: 'nueva-actividad', component: NuevaActividadComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_USER'] } },
   { path: 'mis-opiniones', component: MisOpinionesComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_USER'] } },
   { path: 'bandeja', component: BandejaComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_ADMIN'] } },

@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { Usuario } from '../models/usuario.model';
+import { Actividad } from '../models/actividad.model';
 
 @Injectable({
   providedIn: 'root'
@@ -55,13 +56,6 @@ export class UserService {
     );
   }
 
-  // updateUser(token: string, userId: number, user: Usuario): Observable<Usuario> {
-  //   const url = `${this.apiUrl}${userId}`;
-  //   return this.http.put<Usuario>(url, user, { headers: this.getHeaders(token) }).pipe(
-  //     catchError(this.handleError)
-  //   );
-  // }
-
   updateUser(token: string, userId: number, user: Usuario): Observable<Usuario> {
     const url = `${this.apiUrl}${userId}`;
     return this.http.put<Usuario>(url, user, { headers: this.getHeaders(token) }).pipe(
@@ -74,11 +68,13 @@ export class UserService {
     if (error.error instanceof ErrorEvent) {
       return throwError(() => new Error('Error del lado del cliente: ' + error.error.message));
     } else {
-      return throwError(() => new Error('Error del servidor: ' + error.message));
+      let errorMessage = 'Error del servidor';
+      if (error.error) {
+        errorMessage = error.error.message || errorMessage;
+      }
+      return throwError(() => new Error(errorMessage));
     }
   }
-
-
 
   deleteUser(token: string, userId: number): Observable<any> {
     const url = `${this.apiUrl}${userId}`;
@@ -88,5 +84,35 @@ export class UserService {
         return throwError(() => new Error('Error deleting user'));
       })
     );
+  }
+
+  addActividadFavorita(token: string, usuarioId: number, actividadId: number): Observable<any> {
+    const url = `${this.apiUrl}${usuarioId}/actividades`;
+    return this.http.post<any>(url, { id: actividadId }, { headers: this.getHeaders(token) }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getActividadesFavoritas(token: string, usuarioId: number): Observable<Actividad[]> {
+    const url = `${this.apiUrl}${usuarioId}/actividades`;
+    return this.http.get<Actividad[]>(url, { headers: this.getHeaders(token) }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  removeActividadFavorita(token: string, usuarioId: number, actividadId: number): Observable<any> {
+    const url = `${this.apiUrl}${usuarioId}/favoritos/${actividadId}`;
+    return this.http.delete<any>(url, { headers: this.getHeaders(token) }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  saveActividadesFavoritasToLocalStorage(actividades: Actividad[]): void {
+    localStorage.setItem('actividadesFavoritas', JSON.stringify(actividades));
+  }
+
+  loadActividadesFavoritasFromLocalStorage(): Actividad[] {
+    const actividades = localStorage.getItem('actividadesFavoritas');
+    return actividades ? JSON.parse(actividades) : [];
   }
 }

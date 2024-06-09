@@ -12,7 +12,7 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class AuthService {
 
-  private usuarioSubject = new BehaviorSubject<Usuario | null>(this.getUsuarioFromLocalStorage());
+  public usuarioSubject = new BehaviorSubject<Usuario | null>(this.getUsuarioFromLocalStorage());
   usuario$ = this.usuarioSubject.asObservable();
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.isTokenInLocalStorage());
 
@@ -25,6 +25,10 @@ export class AuthService {
 
   get authenticationState(): Observable<boolean> {
     return this.isAuthenticatedSubject.asObservable();
+  }
+
+  public getUsuarioId(): number | null {
+    return this.usuarioSubject.value?.id ?? null;
   }
 
   private isTokenInLocalStorage(): boolean {

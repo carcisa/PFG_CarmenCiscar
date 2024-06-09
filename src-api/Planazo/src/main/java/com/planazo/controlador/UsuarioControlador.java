@@ -24,11 +24,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.planazo.DTO.UsuarioDto;
+import com.planazo.entidad.Actividad;
+import com.planazo.entidad.Destino;
 import com.planazo.entidad.Rol;
 import com.planazo.entidad.Usuario;
 import com.planazo.error.usuario.ListaUsuariosVaciaException;
 import com.planazo.error.usuario.UsuarioNoEncontradoException;
 import com.planazo.repositorio.UsuarioRepositorio;
+import com.planazo.servicio.ActividadServicio;
 import com.planazo.servicio.UsuarioServicio;
 import com.planazo.servicio.Impl.UsuarioMapper;
 
@@ -43,13 +46,14 @@ import jakarta.validation.Valid;
 public class UsuarioControlador {
 
 	private final UsuarioServicio usuarioService;
-	
+	private final ActividadServicio actividaServicio;
+
 	@Autowired
 	private UsuarioRepositorio usuarioRepository;
-	
+
 	@Autowired
-    private UsuarioMapper usuarioMapper;
-	
+	private UsuarioMapper usuarioMapper;
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
@@ -59,8 +63,9 @@ public class UsuarioControlador {
 	 * @param usuarioService El servicio para manejar operaciones de usuarios.
 	 */
 	@Autowired
-	public UsuarioControlador(UsuarioServicio usuarioService) {
+	public UsuarioControlador(UsuarioServicio usuarioService, ActividadServicio actividadServicio) {
 		this.usuarioService = usuarioService;
+		this.actividaServicio = actividadServicio;
 	}
 
 	/**
@@ -70,14 +75,13 @@ public class UsuarioControlador {
 	 */
 	@GetMapping("/")
 	public ResponseEntity<List<Usuario>> getAllUsuarios() {
-	    List<Usuario> usuarios = usuarioService.findAll(); 
-	    if (usuarios.isEmpty()) {
-	         throw new ListaUsuariosVaciaException("El listado de usuarios está vacío");
-	    }
-	    return ResponseEntity.ok(usuarios);
+		List<Usuario> usuarios = usuarioService.findAll();
+		if (usuarios.isEmpty()) {
+			throw new ListaUsuariosVaciaException("El listado de usuarios está vacío");
+		}
+		return ResponseEntity.ok(usuarios);
 	}
-	
-	
+
 	/**
 	 * Obtiene un usuario por su ID.
 	 * 
@@ -87,7 +91,8 @@ public class UsuarioControlador {
 	@GetMapping("/{id}")
 	public ResponseEntity<Usuario> getUsuarioById(@PathVariable Integer id) {
 		Optional<Usuario> usuario = usuarioService.findById(id);
-		return usuario.map(ResponseEntity::ok).orElseThrow(() ->  new UsuarioNoEncontradoException("El usuario no existe" + id));
+		return usuario.map(ResponseEntity::ok)
+				.orElseThrow(() -> new UsuarioNoEncontradoException("El usuario no existe" + id));
 	}
 
 	/**
@@ -100,13 +105,13 @@ public class UsuarioControlador {
 	public ResponseEntity<Usuario> createUsuario(@Valid @RequestBody UsuarioDto usuarioDto) {
 		Usuario usuario = new Usuario();
 		usuario.setEmail(usuarioDto.getEmail());
-        usuario.setNombreUsuario(usuarioDto.getNombreUsuario());
-        usuario.setPassword(passwordEncoder.encode(usuarioDto.getPassword()));
-        usuario.setRoles(Collections.singleton(Rol.ROL_USER));
-        Usuario nuevoUsuario = usuarioService.save(usuario);
-        return ResponseEntity.ok(nuevoUsuario);
+		usuario.setNombreUsuario(usuarioDto.getNombreUsuario());
+		usuario.setPassword(passwordEncoder.encode(usuarioDto.getPassword()));
+		usuario.setRoles(Collections.singleton(Rol.ROL_USER));
+		Usuario nuevoUsuario = usuarioService.save(usuario);
+		return ResponseEntity.ok(nuevoUsuario);
 	}
-	
+
 	/**
 	 * Crea un nuevo usuario administrador
 	 * 
@@ -115,28 +120,21 @@ public class UsuarioControlador {
 	 */
 	@PostMapping("/admin/createUser")
 	public ResponseEntity<Usuario> createUsuarioAdmin(@Valid @RequestBody UsuarioDto usuarioDto) {
-	    Usuario usuario = new Usuario();
-	    usuario.setEmail(usuarioDto.getEmail());
-	    usuario.setNombreUsuario(usuarioDto.getNombreUsuario());
-	    usuario.setPassword(passwordEncoder.encode(usuarioDto.getPassword()));
+		Usuario usuario = new Usuario();
+		usuario.setEmail(usuarioDto.getEmail());
+		usuario.setNombreUsuario(usuarioDto.getNombreUsuario());
+		usuario.setPassword(passwordEncoder.encode(usuarioDto.getPassword()));
 
-	
-	    Set<Rol> roles = usuarioDto.getRoles().stream()
-	        .map(roleStr -> Rol.valueOf(roleStr)) // Convierte el String a Role
-	        .collect(Collectors.toSet());
+		Set<Rol> roles = usuarioDto.getRoles().stream().map(roleStr -> Rol.valueOf(roleStr)) // Convierte el String a
+																								// Role
+				.collect(Collectors.toSet());
 
-	    usuario.setRoles(roles.isEmpty() ? Collections.singleton(Rol.ROL_USER) : roles);
+		usuario.setRoles(roles.isEmpty() ? Collections.singleton(Rol.ROL_USER) : roles);
 
-	    Usuario nuevoUsuario = usuarioService.save(usuario);
-	    return ResponseEntity.ok(nuevoUsuario);
+		Usuario nuevoUsuario = usuarioService.save(usuario);
+		return ResponseEntity.ok(nuevoUsuario);
 	}
 
-
-
-
-
-
-	
 	/**
 	 * Actualiza un usuario existente.
 	 * 
@@ -156,28 +154,27 @@ public class UsuarioControlador {
 //		Usuario updatedUsuario = usuarioService.save(us);
 //		return ResponseEntity.ok(updatedUsuario);
 //	}
-	
-	 @PutMapping("/{id}")
-	    public ResponseEntity<Usuario> updateUsuario(@PathVariable Integer id, @RequestBody UsuarioDto usuarioDto) {
-	        Optional<Usuario> usuarioOptional = usuarioService.findById(id);
-	        if (!usuarioOptional.isPresent()) {
-	            return ResponseEntity.notFound().build();
-	        }
 
-	        try {
-	            Usuario usuario = usuarioOptional.get();
-	            usuario.setNombreUsuario(usuarioDto.getNombreUsuario());
-	            usuario.setApellidoUsuario(usuarioDto.getApellidoUsuario());
-	            usuario.setEmail(usuarioDto.getEmail());
-	            usuario.setPassword(usuarioDto.getPassword());
+	@PutMapping("/{id}")
+	public ResponseEntity<Usuario> updateUsuario(@PathVariable Integer id, @RequestBody UsuarioDto usuarioDto) {
+		Optional<Usuario> usuarioOptional = usuarioService.findById(id);
+		if (!usuarioOptional.isPresent()) {
+			return ResponseEntity.notFound().build();
+		}
 
-	            Usuario updatedUsuario = usuarioService.save(usuario);
-	            return ResponseEntity.ok(updatedUsuario);
-	        } catch (Exception e) {
-	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-	        }
-	    }
-	
+		try {
+			Usuario usuario = usuarioOptional.get();
+			usuario.setNombreUsuario(usuarioDto.getNombreUsuario());
+			usuario.setApellidoUsuario(usuarioDto.getApellidoUsuario());
+			usuario.setEmail(usuarioDto.getEmail());
+			usuario.setPassword(usuarioDto.getPassword());
+
+			Usuario updatedUsuario = usuarioService.save(usuario);
+			return ResponseEntity.ok(updatedUsuario);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+		}
+	}
 
 	/**
 	 * Elimina un usuario por su ID.
@@ -194,16 +191,87 @@ public class UsuarioControlador {
 		usuarioService.deleteById(id);
 		return ResponseEntity.ok().build();
 	}
+
+	@GetMapping("/detalles")
+	public ResponseEntity<Usuario> getUsuarioByEmail(@RequestParam String email) {
+		try {
+			Usuario usuario = (Usuario) usuarioService.userDetailsService().loadUserByUsername(email);
+			return ResponseEntity.ok(usuario);
+		} catch (UsernameNotFoundException ex) {
+			return ResponseEntity.notFound().build();
+		}
+	}
 	
-	
-	 @GetMapping("/detalles")
-	    public ResponseEntity<Usuario> getUsuarioByEmail(@RequestParam String email) {
-	        try {
-	            Usuario usuario = (Usuario) usuarioService.userDetailsService().loadUserByUsername(email);
-	            return ResponseEntity.ok(usuario);
-	        } catch (UsernameNotFoundException ex) {
-	            return ResponseEntity.notFound().build();
-	        }
+
+	@PostMapping("/{usuarioId}/actividades")
+	public ResponseEntity<Actividad> addActividadFavoritos(@PathVariable Integer usuarioId, @RequestBody Actividad actividad) {
+	    Optional<Usuario> usuarioOptional = usuarioService.findById(usuarioId);
+	    if (!usuarioOptional.isPresent()) {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 	    }
+	    
+	    Optional<Actividad> actividadOptional = actividaServicio.findById(actividad.getId());
+	    if (!actividadOptional.isPresent()) {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+	    }
+	    
+	    Usuario usuario = usuarioOptional.get();
+	    Actividad actividadEntidad = actividadOptional.get();
+	    
+	    usuario.agregarActividad(actividadEntidad);
+	    usuarioService.save(usuario);
+
+	    return ResponseEntity.status(HttpStatus.CREATED).body(actividadEntidad);
+	}
+
+
+	
+	
+	@GetMapping("/{id}/actividades")
+	public ResponseEntity<?> ActividadesGetUsuarioById(@PathVariable Integer id) {
+	    Optional<Usuario> usuarioOptional = usuarioService.findById(id);
+	    if (!usuarioOptional.isPresent()) {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
+	    }
+
+	    Usuario usuario = usuarioOptional.get();
+	    Set<Actividad> actividades = usuario.getActividadesFavoritas();
+	    return ResponseEntity.ok(actividades);
+	}
+
+
+//	  @PostMapping("/{usuarioId}/favoritos/{actividadId}")
+//	    public ResponseEntity<Usuario> addActividadFavorita(@PathVariable Integer usuarioId, @PathVariable Integer actividadId) {
+//	        Usuario usuario = usuarioService.addActividadFavorita(usuarioId, actividadId);
+//	        if (usuario != null) {
+//	            return ResponseEntity.ok(usuario);
+//	        }
+//	        return ResponseEntity.badRequest().build();
+//	    }
+
+	@DeleteMapping("/{usuarioId}/favoritos/{actividadId}")
+	public ResponseEntity<Usuario> removeActividadFavorita(@PathVariable Integer usuarioId,
+			@PathVariable Integer actividadId) {
+		Optional<Usuario> usuarioOptional = usuarioService.findById(usuarioId);
+	    if (!usuarioOptional.isPresent()) {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+	    }
+	    
+	    Optional<Actividad> actividadOptional = actividaServicio.findById(actividadId);
+	    if (!actividadOptional.isPresent()) {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+	    }
+
+	    Usuario usuario = usuarioOptional.get();
+	    Actividad actividad = actividadOptional.get();
+
+	    if (usuario.getActividadesFavoritas().contains(actividad)) {
+	        usuario.getActividadesFavoritas().remove(actividad);
+	        usuarioService.save(usuario);
+	        return ResponseEntity.ok(usuario);
+	    } else {
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+	    }
+	}
 
 }

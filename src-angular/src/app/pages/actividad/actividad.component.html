@@ -43,10 +43,11 @@
           </div>
         </div>
 
-        <div class="mt-6">
+        <div class="mt-6 flex justify-between">
           <a [href]="getGoogleSearchLink(actividad.nombre)" target="_blank" class="text-blue-500 underline hover:no-underline">
             Más información
           </a>
+          <app-button *ngIf="isUserLoggedIn" (click)="addActividadFavorita()">GUARDAR ACTIVIDAD</app-button>
         </div>
       </div>
     </div>

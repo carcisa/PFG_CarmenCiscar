@@ -5,12 +5,14 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.planazo.entidad.Actividad;
 import com.planazo.entidad.Usuario;
+import com.planazo.repositorio.ActividadRepositorio;
 import com.planazo.repositorio.UsuarioRepositorio;
 import com.planazo.servicio.UsuarioServicio;
 
@@ -26,6 +28,9 @@ public class UsuarioServiceImpl implements UsuarioServicio {
 	 private static final Logger logger = LoggerFactory.getLogger(UsuarioServiceImpl.class);
 
     private final UsuarioRepositorio usuarioRepository;
+    
+    @Autowired
+    private ActividadRepositorio actividadRepositorio;
 
     /**
      * Constructor que inyecta el repositorio de usuarios.
@@ -106,6 +111,34 @@ public class UsuarioServiceImpl implements UsuarioServicio {
     public UserDetailsService userDetailsService() {
         return email -> usuarioRepository.findByEmail(email)
                         .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con el correo: " + email));
+    }
+    
+    @Override
+    public Usuario addActividadFavorita(Integer usuarioId, Integer actividadId) {
+        Optional<Usuario> usuarioOpt = usuarioRepository.findById(usuarioId);
+        Optional<Actividad> actividadOpt = actividadRepositorio.findById(actividadId);
+
+        if (usuarioOpt.isPresent() && actividadOpt.isPresent()) {
+            Usuario usuario = usuarioOpt.get();
+            Actividad actividad = actividadOpt.get();
+            usuario.getActividadesFavoritas().add(actividad);
+            return usuarioRepository.save(usuario);
+        }
+        return null;
+    }
+
+    @Override
+    public Usuario removeActividadFavorita(Integer usuarioId, Integer actividadId) {
+        Optional<Usuario> usuarioOpt = usuarioRepository.findById(usuarioId);
+        Optional<Actividad> actividadOpt = actividadRepositorio.findById(actividadId);
+
+        if (usuarioOpt.isPresent() && actividadOpt.isPresent()) {
+            Usuario usuario = usuarioOpt.get();
+            Actividad actividad = actividadOpt.get();
+            usuario.getActividadesFavoritas().remove(actividad);
+            return usuarioRepository.save(usuario);
+        }
+        return null;
     }
 
 	

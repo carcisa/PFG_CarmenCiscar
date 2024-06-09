@@ -56,7 +56,7 @@ public class SecurityConfig {
 				.hasAnyAuthority(Rol.ROL_USER.toString(), Rol.ROL_ADMIN.toString())
 				.requestMatchers(HttpMethod.PUT, "/api/usuarios/**").permitAll()
 //				.hasAnyAuthority(Rol.ROL_USER.toString(), Rol.ROL_ADMIN.toString())
-				.requestMatchers(HttpMethod.DELETE, "/api/usuarios/**").hasAnyAuthority(Rol.ROL_ADMIN.toString())
+				.requestMatchers(HttpMethod.DELETE, "/api/usuarios/**").hasAnyAuthority(Rol.ROL_USER.toString(), Rol.ROL_ADMIN.toString())
 
 				//El usuario solo puede listar
 				.requestMatchers("/api/destinos/**").permitAll()

@@ -98,8 +98,12 @@ import { ButtonComponent } from '../../Components/button/button.component';
 import { CommonModule } from '@angular/common';
 import { Actividad } from '../../models/actividad.model';
 import { ActividadService } from '../../services/actividad.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SearchComponent } from '../../Components/search/search.component';
+import { HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from '../../services/auth.service';
+import { TokenService } from '../../services/token.service';
+import { UserService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-actividades',
@@ -194,6 +198,4 @@ export class ActividadesComponent implements OnInit {
       this.router.navigate(['/']);
     }
   }
-
-
 }

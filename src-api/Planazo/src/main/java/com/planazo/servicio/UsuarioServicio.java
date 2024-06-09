@@ -20,5 +20,11 @@ public interface UsuarioServicio {
 	Optional<Usuario> findByNombreUsuario(String nombreUsuario);
 
 	UserDetailsService userDetailsService();
+	
+	 Usuario addActividadFavorita(Integer usuarioId, Integer actividadId);
+	 
+	 Usuario removeActividadFavorita(Integer usuarioId, Integer actividadId);
+	 
+	
 
 }

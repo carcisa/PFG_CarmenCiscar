@@ -1,6 +1,7 @@
 package com.planazo.entidad;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -18,6 +19,9 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -68,6 +72,13 @@ public class Usuario implements UserDetails {
     @Column(nullable = false)
 	@Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres")
     private String password;
+    
+    @ManyToMany
+    @JoinTable(
+      name = "usuario_actividad_favorita", 
+      joinColumns = @JoinColumn(name = "usuario_id"), 
+      inverseJoinColumns = @JoinColumn(name = "actividad_id"))
+    private Set<Actividad> actividadesFavoritas = new HashSet<>();
 
     /**
      * Roles de seguridad asignados al usuario, representados por el enum Role.
@@ -142,6 +153,14 @@ public class Usuario implements UserDetails {
         this.password = contraseña;
     }
     
+    public Set<Actividad> getActividadesFavoritas() {
+        return actividadesFavoritas;
+    }
+
+    public void setActividadesFavoritas(Set<Actividad> actividadesFavoritas) {
+        this.actividadesFavoritas = actividadesFavoritas;
+    }
+    
    
 
 	public Set<Rol> getRoles() {
@@ -187,19 +206,22 @@ public class Usuario implements UserDetails {
 
 	@Override
 	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
 		return true;
 	}
+
+	public void agregarActividad(Actividad actividad) {
+		actividadesFavoritas.add(actividad);
+	}
+	
+	
 }
