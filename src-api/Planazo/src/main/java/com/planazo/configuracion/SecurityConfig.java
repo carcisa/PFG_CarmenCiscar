@@ -46,13 +46,16 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(request -> request
+				
+				.requestMatchers("/api/usuarios/detalles").authenticated()
+				
 				//El usuario puede hacer el crud entero
 				.requestMatchers("/authenticate/**").permitAll().requestMatchers(HttpMethod.GET, "/api/usuarios/**")
 				.hasAnyAuthority(Rol.ROL_USER.toString(), Rol.ROL_ADMIN.toString())
 				.requestMatchers(HttpMethod.POST, "/api/usuarios/**")
 				.hasAnyAuthority(Rol.ROL_USER.toString(), Rol.ROL_ADMIN.toString())
-				.requestMatchers(HttpMethod.PUT, "/api/usuarios/**")
-				.hasAnyAuthority(Rol.ROL_USER.toString(), Rol.ROL_ADMIN.toString())
+				.requestMatchers(HttpMethod.PUT, "/api/usuarios/**").permitAll()
+//				.hasAnyAuthority(Rol.ROL_USER.toString(), Rol.ROL_ADMIN.toString())
 				.requestMatchers(HttpMethod.DELETE, "/api/usuarios/**").hasAnyAuthority(Rol.ROL_ADMIN.toString())
 
 				//El usuario solo puede listar

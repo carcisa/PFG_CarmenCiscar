@@ -3,6 +3,9 @@ package com.planazo.servicio.Impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -19,6 +22,8 @@ import jakarta.transaction.Transactional;
  */
 @Service
 public class UsuarioServiceImpl implements UsuarioServicio {
+	
+	 private static final Logger logger = LoggerFactory.getLogger(UsuarioServiceImpl.class);
 
     private final UsuarioRepositorio usuarioRepository;
 
@@ -69,7 +74,18 @@ public class UsuarioServiceImpl implements UsuarioServicio {
     @Transactional
     @Override
     public Usuario save(Usuario usuario) {
-        return usuarioRepository.save(usuario);
+        try {
+            if (usuario.getPassword() == null || usuario.getPassword().isEmpty()) {
+                throw new IllegalArgumentException("El password no puede estar vacío");
+            }
+            logger.debug("Actualizando usuario: {}", usuario);
+            Usuario updatedUser = usuarioRepository.save(usuario);
+            logger.debug("Usuario actualizado: {}", updatedUser);
+            return updatedUser;
+        } catch (Exception e) {
+            logger.error("Error al actualizar el usuario: {}", e.getMessage(), e);
+            throw e;
+        }
     }
 
     /**

@@ -41,8 +41,8 @@ public class InicializarDatos implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		insertarUsuarioSiNoExiste("admin@example.com", "admin", "admin1234", Rol.ROL_ADMIN);
-		insertarUsuarioSiNoExiste("user@example.com", "user", "user1234", Rol.ROL_USER);
+		insertarUsuarioSiNoExiste("admin@example.com", "admin","admin", "admin1234", Rol.ROL_ADMIN);
+		insertarUsuarioSiNoExiste("user@example.com", "user","user", "user1234", Rol.ROL_USER);
 		
 		
 	    }
@@ -50,11 +50,12 @@ public class InicializarDatos implements CommandLineRunner {
 		    
 	
 
-	private void insertarUsuarioSiNoExiste(String email, String nombreUsuario, String contraseña, Rol role) {
+	private void insertarUsuarioSiNoExiste(String email, String nombreUsuario,String apellidoUsuario, String contraseña, Rol role) {
 		usuarioRepository.findByEmail(email).orElseGet(() -> {
 			Usuario usuario = new Usuario();
 			usuario.setEmail(email);
 			usuario.setNombreUsuario(nombreUsuario);
+			usuario.setApellidoUsuario(apellidoUsuario);
 			usuario.setPassword(passwordEncoder.encode(contraseña));
 			usuario.setRoles(Collections.singleton(role));
 			return usuarioRepository.save(usuario);

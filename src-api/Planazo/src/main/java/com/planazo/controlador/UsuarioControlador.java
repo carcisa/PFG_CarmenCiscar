@@ -9,7 +9,9 @@ import java.util.stream.Collectors;
 import javax.management.relation.Role;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.planazo.DTO.UsuarioDto;
@@ -27,6 +30,7 @@ import com.planazo.error.usuario.ListaUsuariosVaciaException;
 import com.planazo.error.usuario.UsuarioNoEncontradoException;
 import com.planazo.repositorio.UsuarioRepositorio;
 import com.planazo.servicio.UsuarioServicio;
+import com.planazo.servicio.Impl.UsuarioMapper;
 
 import jakarta.validation.Valid;
 
@@ -42,6 +46,9 @@ public class UsuarioControlador {
 	
 	@Autowired
 	private UsuarioRepositorio usuarioRepository;
+	
+	@Autowired
+    private UsuarioMapper usuarioMapper;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -113,7 +120,7 @@ public class UsuarioControlador {
 	    usuario.setNombreUsuario(usuarioDto.getNombreUsuario());
 	    usuario.setPassword(passwordEncoder.encode(usuarioDto.getPassword()));
 
-	    // Asumiendo que tienes un método o una forma de convertir String a Role
+	
 	    Set<Rol> roles = usuarioDto.getRoles().stream()
 	        .map(roleStr -> Rol.valueOf(roleStr)) // Convierte el String a Role
 	        .collect(Collectors.toSet());
@@ -137,16 +144,40 @@ public class UsuarioControlador {
 	 * @param usuarioDetails Los detalles actualizados del usuario.
 	 * @return ResponseEntity con el usuario actualizado(200) o no encontrado (404).
 	 */
-	@PutMapping("/{id}")
-	public ResponseEntity<Usuario> updateUsuario(@PathVariable Integer id, @RequestBody Usuario usuarioDetails) {
-		Optional<Usuario> usuarioOptional = usuarioService.findById(id);
-		if (!usuarioOptional.isPresent()) {
-			return ResponseEntity.notFound().build();
-		}
-		usuarioDetails.setId(id);
-		Usuario updatedUsuario = usuarioService.save(usuarioDetails);
-		return ResponseEntity.ok(updatedUsuario);
-	}
+//	@PutMapping("/{id}")
+//	public ResponseEntity<Usuario> updateUsuario(@PathVariable Integer id, @RequestBody UsuarioDto usuario) {
+//		Optional<Usuario> usuarioOptional = usuarioService.findById(id);
+//		if (!usuarioOptional.isPresent()) {
+//			return ResponseEntity.notFound().build();
+//		}
+//		Usuario us = usuarioOptional.get();
+//		us.setNombreUsuario(usuario.getNombreUsuario());
+//		us.setApellidoUsuario(usuario.getApellidoUsuario());
+//		Usuario updatedUsuario = usuarioService.save(us);
+//		return ResponseEntity.ok(updatedUsuario);
+//	}
+	
+	 @PutMapping("/{id}")
+	    public ResponseEntity<Usuario> updateUsuario(@PathVariable Integer id, @RequestBody UsuarioDto usuarioDto) {
+	        Optional<Usuario> usuarioOptional = usuarioService.findById(id);
+	        if (!usuarioOptional.isPresent()) {
+	            return ResponseEntity.notFound().build();
+	        }
+
+	        try {
+	            Usuario usuario = usuarioOptional.get();
+	            usuario.setNombreUsuario(usuarioDto.getNombreUsuario());
+	            usuario.setApellidoUsuario(usuarioDto.getApellidoUsuario());
+	            usuario.setEmail(usuarioDto.getEmail());
+	            usuario.setPassword(usuarioDto.getPassword());
+
+	            Usuario updatedUsuario = usuarioService.save(usuario);
+	            return ResponseEntity.ok(updatedUsuario);
+	        } catch (Exception e) {
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+	        }
+	    }
+	
 
 	/**
 	 * Elimina un usuario por su ID.
@@ -163,4 +194,16 @@ public class UsuarioControlador {
 		usuarioService.deleteById(id);
 		return ResponseEntity.ok().build();
 	}
+	
+	
+	 @GetMapping("/detalles")
+	    public ResponseEntity<Usuario> getUsuarioByEmail(@RequestParam String email) {
+	        try {
+	            Usuario usuario = (Usuario) usuarioService.userDetailsService().loadUserByUsername(email);
+	            return ResponseEntity.ok(usuario);
+	        } catch (UsernameNotFoundException ex) {
+	            return ResponseEntity.notFound().build();
+	        }
+	    }
+
 }

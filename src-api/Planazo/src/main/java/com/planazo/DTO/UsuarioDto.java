@@ -10,6 +10,9 @@ public class UsuarioDto {
 
 	@NotBlank(message = "El nombre de usuario no puede estar vacío")
 	private String nombreUsuario;
+	
+	@NotBlank(message = "El apellido de usuario no puede estar vacío")
+	private String apellidoUsuario;
 
 	@NotBlank(message = "El correo electrónico no puede estar vacío")
 	@Email(message = "Formato de correo electrónico inválido")
@@ -27,6 +30,7 @@ public class UsuarioDto {
 	}
 
 	public UsuarioDto(@NotBlank(message = "El nombre de usuario no puede estar vacío") String nombreUsuario,
+			@NotBlank(message = "El apellido de usuario no puede estar vacío") String apellidoUsuario,
 			@NotBlank(message = "El correo electrónico no puede estar vacío") 
 	        @Email(message = "Formato de correo electrónico inválido") String email,
 			@Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres") String password) {
@@ -43,6 +47,14 @@ public class UsuarioDto {
 
 	public void setNombreUsuario(String nombreUsuario) {
 		this.nombreUsuario = nombreUsuario;
+	}
+	
+	public String getApellidoUsuario() {
+		return apellidoUsuario;
+	}
+
+	public void setApellidoUsuario(String apellidoUsuario) {
+		this.apellidoUsuario = apellidoUsuario;
 	}
 
 	public String getEmail() {

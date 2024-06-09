@@ -41,16 +41,23 @@ public class Usuario implements UserDetails {
     private Integer id;
 
     /**
-     * Nombre de usuario, único y no nulo.
+     * Nombre de usuario,  no nulo.
      */
-    @Column(name = "nombre", nullable = false, unique = true)
+    @Column(name = "nombre", nullable = false)
     @NotBlank(message = "El nombre de usuario no puede estar vacío")
     private String nombreUsuario;
+    
+    /**
+     * Apellido de usuario, no nulo.
+     */
+    @Column(name = "apellido", nullable = false)
+    @NotBlank(message = "El apellido de usuario no puede estar vacío")
+    private String apellidoUsuario;
 
     /**
      * Correo electrónico del usuario, único y no nulo.
      */
-    @Column(nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true)
     @NotBlank(message = "El correo electrónico no puede estar vacío")
 	@Email(message = "Formato de correo electrónico inválido")
     private String email;
@@ -84,8 +91,9 @@ public class Usuario implements UserDetails {
      * @param correoElectronico El correo electrónico del usuario, debe ser único.
      * @param password La contraseña del usuario.
      */
-    public Usuario(String nombreUsuario, String correoElectronico, String password) {
+    public Usuario(String nombreUsuario,String apellidoUsuario, String correoElectronico, String password) {
         this.nombreUsuario = nombreUsuario;
+        this.apellidoUsuario = apellidoUsuario;
         this.email = correoElectronico;
         this.password = password;
     }
@@ -106,7 +114,13 @@ public class Usuario implements UserDetails {
         this.nombreUsuario = nombreUsuario;
     }
 
-   
+    public String getApellidoUsuario() {
+        return apellidoUsuario;
+    }
+
+    public void setApellidoUsuario(String apellidoUsuario) {
+        this.apellidoUsuario = apellidoUsuario;
+    }
 
     public String getEmail() {
 		return email;
