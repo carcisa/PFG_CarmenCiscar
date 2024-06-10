@@ -52,7 +52,7 @@ export const routes: Routes = [
   { path: 'mis-planes', component: MisPlanesComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_USER'] } },
   { path: 'nueva-actividad', component: NuevaActividadComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_ADMIN'] } },
   { path: 'mis-opiniones', component: MisOpinionesComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_USER'] } },
-  { path: 'actividad/:id/opiniones', component: FormOpinionComponent },
+
   { path: 'mis-opiniones', component: MisOpinionesComponent },
   { path: 'bandeja', component: BandejaComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_ADMIN'] } },
   { path: 'estadisticas', component: EstadisticasComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_ADMIN'] } },

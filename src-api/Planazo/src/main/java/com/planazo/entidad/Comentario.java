@@ -1,6 +1,7 @@
 package com.planazo.entidad;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -53,10 +54,10 @@ public class Comentario {
     @NotNull(message = "Debe existir una actividad asociada")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "actividad_id", nullable = false)
-    @JsonBackReference
+    @JsonIgnore
     private Actividad actividad;
 
-    // Constructor por defecto
+ 
     public Comentario() {
     }
     

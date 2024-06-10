@@ -24,7 +24,6 @@ import jakarta.validation.constraints.NotBlank;
  */
 @Entity
 @Table(name = "destino")
-@JsonIgnoreProperties()
 public class Destino {
 
     /**
@@ -56,7 +55,6 @@ public class Destino {
      * la referencia inversa en la serialización JSON para evitar la recursión infinita.
      */
     @OneToMany(mappedBy = "destino", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
     private List<Actividad> actividades;
 
     /**

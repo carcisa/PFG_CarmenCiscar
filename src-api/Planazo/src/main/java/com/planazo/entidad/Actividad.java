@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
@@ -97,7 +98,6 @@ public class Actividad {
 	private Destino destino;
 
 	@OneToMany(mappedBy = "actividad", orphanRemoval = true)
-	@JsonManagedReference
 	private List<Comentario> comentarios = new ArrayList<>();
 
 	/**
