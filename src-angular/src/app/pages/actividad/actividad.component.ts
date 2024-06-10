@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ActividadService } from '../../services/actividad.service';
 import { Actividad, Categoria } from '../../models/actividad.model';
@@ -8,6 +8,9 @@ import { ButtonComponent } from '../../Components/button/button.component';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/usuario.service';
 import { TokenService } from '../../services/token.service';
+import { FormOpinionComponent } from '../../user/form-opinion/form-opinion.component';
+import { ComentarioService } from '../../services/comentario.service';
+import { Comentario } from '../../models/comentario.model';
 
 @Component({
   selector: 'app-actividad',
@@ -15,7 +18,8 @@ import { TokenService } from '../../services/token.service';
   imports: [
     CommonModule,
     RouterModule,
-    ButtonComponent
+    ButtonComponent,
+    FormOpinionComponent
   ],
   templateUrl: './actividad.component.html',
   styleUrls: ['./actividad.component.scss']
@@ -25,6 +29,9 @@ export class ActividadComponent implements OnInit {
   error: string | undefined;
   isUserLoggedIn: boolean = false;
   token: string | null = null;
+  isOpinionModalOpen: boolean = false;
+  editMode: boolean = false;
+  opinionForm: Partial<Comentario> = {};
 
   constructor(
     private route: ActivatedRoute,
@@ -32,6 +39,7 @@ export class ActividadComponent implements OnInit {
     private userService: UserService,
     private authService: AuthService,
     private tokenService: TokenService,
+    private comentarioService: ComentarioService,
     private router: Router
   ) {}
 
@@ -94,7 +102,54 @@ export class ActividadComponent implements OnInit {
     }
   }
 
+  openOpinionModal(): void {
+    this.isOpinionModalOpen = true;
+    this.editMode = false;
+    this.opinionForm = {};
+  }
 
+  closeOpinionModal(): void {
+    this.isOpinionModalOpen = false;
+  }
+
+  submitOpinion(event: Event): void {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const titulo = (form.querySelector('#titulo') as HTMLInputElement).value;
+    const rating = (form.querySelector('input[name="rating"]:checked') as HTMLInputElement)?.value;
+    const message = (form.querySelector('#message') as HTMLTextAreaElement)?.value;
+
+    if (titulo && rating && message && this.actividad && this.token) {
+      const comentario: Comentario = {
+        id: this.opinionForm.id,
+        actividadId: this.actividad.id!,
+        usuarioId: this.authService.getUsuarioId()!,
+        titulo: titulo,
+        puntuacion: parseInt(rating, 10),
+        descripcion: message
+      };
+
+      if (this.editMode) {
+        this.comentarioService.updateComentario(comentario.id!, comentario).subscribe(() => {
+          this.closeOpinionModal();
+          // Recargar la página de opiniones
+          this.router.navigate(['/mis-opiniones']);
+        });
+      } else {
+        this.comentarioService.createComentario(comentario).subscribe(nuevoComentario => {
+          this.closeOpinionModal();
+          // Recargar la página de opiniones
+          this.router.navigate(['/mis-opiniones']);
+        });
+      }
+    }
+  }
+
+  editComentario(comentario: Comentario): void {
+    this.opinionForm = { ...comentario };
+    this.isOpinionModalOpen = true;
+    this.editMode = true;
+  }
 
   getGoogleMapsLink(direccion: string): string {
     return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(direccion)}`;

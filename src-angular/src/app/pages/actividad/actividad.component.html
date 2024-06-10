@@ -23,10 +23,16 @@
           <a [href]="getGoogleMapsLink(actividad.direccion)" target="_blank">
             <app-button> VER UBICACIÓN </app-button>
           </a>
-          <app-button>OPINIONES</app-button>
+          <a href="formOpinion" target="_blank">
+            <app-button> OPINIONES </app-button>
+          </a>
+          <app-button *ngIf="isUserLoggedIn" (click)="openOpinionModal()">
+            AÑADIR OPINIÓN</app-button>
         </div>
 
-        <hr class="my-6 md:my-8  dark:border-gray-800" />
+
+
+        <hr class="my-6 md:my-8 dark:border-gray-800" />
 
         <div class="grid grid-cols-2 gap-4">
           <div>
@@ -48,6 +54,7 @@
             Más información
           </a>
           <app-button *ngIf="isUserLoggedIn" (click)="addActividadFavorita()">GUARDAR ACTIVIDAD</app-button>
+
         </div>
       </div>
     </div>
@@ -61,3 +68,37 @@
     </h1>
   </div>
 </ng-template>
+
+<!-- Modal para añadir opinión -->
+<div *ngIf="isOpinionModalOpen" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+  <div class="bg-white p-6 rounded shadow-lg max-w-md w-full">
+    <h2 class="text-2xl font-bold mb-4">Añadir Opinión</h2>
+    <form (submit)="submitOpinion($event)">
+      <div class="mb-4">
+        <label for="titulo" class="block mb-1">Título</label>
+        <input type="text" id="titulo" name="titulo" class="w-full py-2 px-4 rounded border border-gray-300" required>
+      </div>
+      <div class="mb-4">
+        <label class="block mb-1">Puntuación</label>
+        <div class="flex items-center space-x-2">
+          <input type="radio" name="rating" id="rating1" value="1">
+          <label for="rating1">1</label>
+          <input type="radio" name="rating" id="rating2" value="2">
+          <label for="rating2">2</label>
+          <input type="radio" name="rating" id="rating3" value="3">
+          <label for="rating3">3</label>
+          <input type="radio" name="rating" id="rating4" value="4">
+          <label for="rating4">4</label>
+          <input type="radio" name="rating" id="rating5" value="5">
+          <label for="rating5">5</label>
+        </div>
+      </div>
+      <div class="mb-4">
+        <label for="message" class="block mb-1">Comentario</label>
+        <textarea id="message" name="message" class="w-full py-2 px-4 rounded border border-gray-300" required></textarea>
+      </div>
+      <button type="submit" class="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600">Enviar</button>
+    </form>
+    <button class="mt-4 py-2 px-4 bg-gray-500 text-white rounded hover:bg-gray-600" (click)="closeOpinionModal()">Cancelar</button>
+  </div>
+</div>
