@@ -3,21 +3,15 @@ package com.planazo.servicio;
 import java.util.List;
 import java.util.Optional;
 
-import com.planazo.entidad.Actividad;
+import com.planazo.DTO.ComentarioDTO;
 import com.planazo.entidad.Comentario;
 
 public interface ComentarioServicio {
-
-	Comentario guardarComentario(Comentario comentario);
-
-	Optional<Comentario> obtenerComentarioPorId(Integer id);
-	
-	List<Comentario> findAll();
-
-	List<Comentario> obtenerComentariosPorActividadId(Integer actividadId);
-
-	List<Comentario> obtenerComentariosPorUsuarioId(Integer usuarioId);
-
-	void eliminarComentario(Integer id);
-
+    List<ComentarioDTO> findAll();
+    Optional<ComentarioDTO> obtenerComentarioPorId(Integer id);
+    Optional<Comentario> obtenerComentarioPorIdEntidad(Integer id); 
+    ComentarioDTO guardarComentario(Comentario comentario);
+    void eliminarComentario(Integer id);
+    List<ComentarioDTO> obtenerComentariosPorUsuarioId(Integer usuarioId);
+    List<ComentarioDTO> obtenerComentariosPorActividadId(Integer actividadId);
 }

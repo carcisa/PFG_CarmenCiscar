@@ -7,6 +7,7 @@ import { Usuario } from '../../models/usuario.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Destino } from '../../models/destino.model';
 
 @Component({
   selector: 'app-mis-planes',
@@ -17,6 +18,8 @@ import { Router } from '@angular/router';
 })
 export class MisPlanesComponent implements OnInit {
   actividadesFavoritas: Actividad[] = [];
+  destino: Destino | null = null;
+  actividadesPorDestino: { [key: string]: Actividad[] } = {};
   token: string | null = null;
   usuario: Usuario | null = null;
 

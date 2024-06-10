@@ -108,7 +108,9 @@ public class Actividad {
 
 	}
 
-	
+	public Actividad(Integer id) {
+        this.id = id;
+    }
 
 	public Actividad(Integer id, @NotBlank(message = "El nombre no puede estar vacío") String nombre,
 			@Size(max = 1000, message = "La descripción no puede superar los 1000 caracteres") String descripcion,

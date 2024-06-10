@@ -108,6 +108,10 @@ public class Usuario implements UserDetails {
         this.email = correoElectronico;
         this.password = password;
     }
+    
+    public Usuario(Integer id) {
+        this.id = id;
+    }
 
     public Integer getId() {
         return id;

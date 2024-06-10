@@ -1,11 +1,9 @@
-import { Usuario } from './usuario.model';
-import { Actividad } from './actividad.model';
-
+// src/app/models/comentario.model.ts
 export interface Comentario {
   id?: number;
   titulo: string;
   descripcion: string;
   puntuacion: number;
-  usuario: Usuario;
-  actividad: Actividad;
+  usuarioId: number;
+  actividadId: number;
 }

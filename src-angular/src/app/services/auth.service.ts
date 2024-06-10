@@ -22,13 +22,16 @@ export class AuthService {
 
   constructor(private http: HttpClient, private tokenService: TokenService, private router: Router, @Inject(PLATFORM_ID) private platformId: Object) {}
 
-
   get authenticationState(): Observable<boolean> {
     return this.isAuthenticatedSubject.asObservable();
   }
 
-  public getUsuarioId(): number | null {
-    return this.usuarioSubject.value?.id ?? null;
+  getUsuarioId(): number | null {
+    if (isPlatformBrowser(this.platformId)) {
+      const usuarioId = localStorage.getItem('usuarioId');
+      return usuarioId ? parseInt(usuarioId, 10) : null;
+    }
+    return null;
   }
 
   private isTokenInLocalStorage(): boolean {
@@ -49,12 +52,14 @@ export class AuthService {
   private saveUsuarioToLocalStorage(usuario: Usuario) {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem('usuario', JSON.stringify(usuario));
+      localStorage.setItem('usuarioId', usuario.id.toString());
     }
   }
 
   private removeUsuarioFromLocalStorage() {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem('usuario');
+      localStorage.removeItem('usuarioId');
     }
   }
 
@@ -63,6 +68,9 @@ export class AuthService {
       map((response: { token: string; roles: string[] }) => {
         if (response && response.token && response.roles) {
           this.tokenService.setUserDetails(response.token, response.roles);
+          if (isPlatformBrowser(this.platformId)) {
+            localStorage.setItem('token', response.token); // Asegúrate de que el token se guarde en localStorage
+          }
           this.isAuthenticatedSubject.next(true);
           this.updateUsuarioFromToken();
           return response;
@@ -104,6 +112,7 @@ export class AuthService {
   logout() {
     this.tokenService.removeUserDetails();
     this.isAuthenticatedSubject.next(false);
+    this.removeUsuarioFromLocalStorage();
     this.router.navigate(['/']);
   }
 
@@ -147,6 +156,7 @@ export class AuthService {
           };
           console.log('Usuario obtenido del backend:', usuario);
           this.usuarioSubject.next(usuario);
+          this.saveUsuarioToLocalStorage(usuario);
         },
         (error) => {
           console.error('Error al obtener los detalles del usuario:', error);

@@ -11,7 +11,7 @@ import { ActividadesComponent } from './pages/actividades/actividades.component'
 import { PlanesComponent } from './pages/planes/planes.component';
 import { FormsModule } from '@angular/forms';
 import { SelectComponent } from './Components/select/select.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { initFlowbite } from 'flowbite';
 import { PlanSeleccionadoComponent } from './pages/plan-seleccionado/plan-seleccionado.component';
@@ -19,6 +19,7 @@ import { ActividadComponent } from './pages/actividad/actividad.component';
 import { MisDatosComponent } from './user/mis-datos/mis-datos.component';
 import { MisOpinionesComponent } from './user/mis-opiniones/mis-opiniones.component';
 import { NuevaActividadComponent } from './user/nueva-actividad/nueva-actividad.component';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
 
 
 
@@ -41,7 +42,6 @@ import { NuevaActividadComponent } from './user/nueva-actividad/nueva-actividad.
     PlanesComponent,
     FormsModule,
     SelectComponent,
-    HttpClientModule,
     CommonModule,
     PlanSeleccionadoComponent,
     ActividadComponent,
@@ -50,6 +50,9 @@ import { NuevaActividadComponent } from './user/nueva-actividad/nueva-actividad.
     NuevaActividadComponent
 
 
+  ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

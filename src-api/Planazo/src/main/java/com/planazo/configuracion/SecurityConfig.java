@@ -83,7 +83,7 @@ public class SecurityConfig {
 				.hasAnyAuthority(Rol.ROL_USER.toString(), Rol.ROL_ADMIN.toString())
 				.requestMatchers(HttpMethod.PUT, "/api/comentario/**")
 				.hasAnyAuthority(Rol.ROL_USER.toString(), Rol.ROL_ADMIN.toString())
-				.requestMatchers(HttpMethod.DELETE, "/api/comentario/**").hasAnyAuthority(Rol.ROL_ADMIN.toString())
+				.requestMatchers(HttpMethod.DELETE, "/api/comentario/**").hasAnyAuthority(Rol.ROL_USER.toString(), Rol.ROL_ADMIN.toString())
 				
 				//Solo el admin puede entrar en la vista administrador
 				.requestMatchers(HttpMethod.GET, "/api/admin/**").hasAnyAuthority(Rol.ROL_ADMIN.toString())

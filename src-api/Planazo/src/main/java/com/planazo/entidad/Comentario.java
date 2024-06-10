@@ -47,6 +47,7 @@ public class Comentario {
     @NotNull(message = "Debe existir un usuario asociado")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usuario_id", nullable = false)
+    @JsonBackReference
     private Usuario usuario;
 
     @NotNull(message = "Debe existir una actividad asociada")
