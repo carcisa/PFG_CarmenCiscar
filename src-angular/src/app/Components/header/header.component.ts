@@ -13,7 +13,6 @@ import { TokenService } from '../../services/token.service';
 import { Router, RouterModule } from '@angular/router';
 import { Usuario } from '../../models/usuario.model';
 import { MisDatosComponent } from '../../user/mis-datos/mis-datos.component';
-import { NuevaActividadComponent } from '../../user/nueva-actividad/nueva-actividad.component';
 import { MisOpinionesComponent } from '../../user/mis-opiniones/mis-opiniones.component';
 
 
@@ -34,7 +33,6 @@ import { MisOpinionesComponent } from '../../user/mis-opiniones/mis-opiniones.co
     ButtonComponent,
     RouterModule,
     MisDatosComponent,
-    NuevaActividadComponent,
     MisOpinionesComponent
 
   ],

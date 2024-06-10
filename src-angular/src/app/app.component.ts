@@ -18,7 +18,6 @@ import { PlanSeleccionadoComponent } from './pages/plan-seleccionado/plan-selecc
 import { ActividadComponent } from './pages/actividad/actividad.component';
 import { MisDatosComponent } from './user/mis-datos/mis-datos.component';
 import { MisOpinionesComponent } from './user/mis-opiniones/mis-opiniones.component';
-import { NuevaActividadComponent } from './user/nueva-actividad/nueva-actividad.component';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 
 
@@ -47,8 +46,6 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
     ActividadComponent,
     MisDatosComponent,
     MisOpinionesComponent,
-    NuevaActividadComponent
-
 
   ],
   providers: [
