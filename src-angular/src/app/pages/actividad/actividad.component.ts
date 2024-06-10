@@ -8,9 +8,10 @@ import { ButtonComponent } from '../../Components/button/button.component';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/usuario.service';
 import { TokenService } from '../../services/token.service';
-import { FormOpinionComponent } from '../../user/form-opinion/form-opinion.component';
 import { ComentarioService } from '../../services/comentario.service';
 import { Comentario } from '../../models/comentario.model';
+import { forkJoin, map } from 'rxjs';
+import { Usuario } from '../../models/usuario.model';
 
 @Component({
   selector: 'app-actividad',
@@ -19,7 +20,7 @@ import { Comentario } from '../../models/comentario.model';
     CommonModule,
     RouterModule,
     ButtonComponent,
-    FormOpinionComponent
+
   ],
   templateUrl: './actividad.component.html',
   styleUrls: ['./actividad.component.scss']
@@ -32,6 +33,9 @@ export class ActividadComponent implements OnInit {
   isOpinionModalOpen: boolean = false;
   editMode: boolean = false;
   opinionForm: Partial<Comentario> = {};
+  mostrarOpiniones: boolean = false;
+  comentarios: Comentario[] = [];
+  usuarioNombres: { [key: number]: string } = {};
 
   constructor(
     private route: ActivatedRoute,
@@ -73,6 +77,47 @@ export class ActividadComponent implements OnInit {
     }
   }
 
+  toggleOpiniones(): void {
+    this.mostrarOpiniones = !this.mostrarOpiniones;
+    if (this.mostrarOpiniones && this.actividad) {
+      this.getComentariosPorActividadId(this.actividad.id!);
+    }
+  }
+
+  getComentariosPorActividadId(id: number): void {
+    this.comentarioService.getComentariosPorActividadId(id).subscribe(
+      comentarios => {
+        this.comentarios = comentarios;
+        this.addUsuarioNamesToComentarios();
+      },
+      error => console.error('Error fetching comentarios:', error)
+    );
+  }
+
+  addUsuarioNamesToComentarios(): void {
+    const observables = this.comentarios.map(comentario =>
+      this.userService.getUsers(this.token!).pipe(
+        map(users => {
+          const user = users.find((user: Usuario) => user.id === comentario.usuarioId);
+          if (user) {
+            this.usuarioNombres[comentario.usuarioId] = user.nombreUsuario;
+          } else {
+            this.usuarioNombres[comentario.usuarioId] = 'Desconocido';
+          }
+          return comentario;
+        })
+      )
+    );
+
+    forkJoin(observables).subscribe(
+      () => {
+        // No necesitamos hacer nada aquí porque el mapa se actualiza dentro del observable
+      },
+      error => console.error('Error fetching usuario names:', error)
+    );
+  }
+
+
   addActividadFavorita(): void {
     if (this.actividad && this.token) {
       const usuarioId = this.authService.getUsuarioId();
@@ -110,6 +155,12 @@ export class ActividadComponent implements OnInit {
 
   closeOpinionModal(): void {
     this.isOpinionModalOpen = false;
+  }
+
+  redirectToOpiniones(): void {
+    if (this.actividad) {
+      this.router.navigate(['/opiniones', this.actividad.id]);
+    }
   }
 
   submitOpinion(event: Event): void {

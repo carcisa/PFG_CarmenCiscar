@@ -23,14 +23,9 @@
           <a [href]="getGoogleMapsLink(actividad.direccion)" target="_blank">
             <app-button> VER UBICACIÓN </app-button>
           </a>
-          <a href="formOpinion" target="_blank">
-            <app-button> OPINIONES </app-button>
-          </a>
-          <app-button *ngIf="isUserLoggedIn" (click)="openOpinionModal()">
-            AÑADIR OPINIÓN</app-button>
+          <app-button class="button" (click)="toggleOpiniones()">OPINIONES</app-button>
+          <app-button *ngIf="isUserLoggedIn" (click)="openOpinionModal()">AÑADIR OPINIÓN</app-button>
         </div>
-
-
 
         <hr class="my-6 md:my-8 dark:border-gray-800" />
 
@@ -54,11 +49,30 @@
             Más información
           </a>
           <app-button *ngIf="isUserLoggedIn" (click)="addActividadFavorita()">GUARDAR ACTIVIDAD</app-button>
+        </div>
 
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <br>
+  <div class="container">
+    <div *ngIf="mostrarOpiniones" class="mt-8">
+      <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-3">Opiniones</h2>
+      <hr>
+      <br>
+      <div *ngFor="let comentario of comentarios.slice().reverse()" class="w-full mb-4">
+        <div class="h-full bg-gray-100 p-4 rounded text-left relative">
+          <p class="leading-relaxed mb-2 text-left">{{ comentario.descripcion }}</p>
+          <div class="absolute top-6 right-4 bg-secondaryt text-primaryt rounded-full px-3 py-2 text-sm ">{{ comentario.puntuacion }}</div>
+          <span class="block text-gray-500 text-sm mt-2">{{ comentario.titulo }}</span>
+          <span class="block text-gray-500 text-sm">Usuario: {{ usuarioNombres[comentario.usuarioId] || 'Desconocido' }}</span>
         </div>
       </div>
     </div>
   </div>
+
 </section>
 
 <ng-template #errorTemplate>

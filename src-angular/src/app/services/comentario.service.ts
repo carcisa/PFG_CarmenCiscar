@@ -34,7 +34,7 @@ export class ComentarioService {
 
   // Obtener comentarios por ID de actividad
   getComentariosPorActividadId(actividadId: number): Observable<Comentario[]> {
-    return this.http.get<Comentario[]>(`${this.apiUrl}/actividades/${actividadId}/comentario`);
+    return this.http.get<Comentario[]>(`${this.apiUrl}/actividades/${actividadId}/comentarios`);
   }
 
   // Obtener comentarios por ID de usuario

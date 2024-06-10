@@ -1,0 +1,39 @@
+<section class="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased" *ngIf="actividad; else noComentariosTemplate">
+  <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
+    <div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
+      <div class="shrink-0 max-w-md lg:max-w-lg mx-auto">
+        <img class="w-full" [src]="actividad.imagen || 'ruta/de/imagen/por/defecto.jpg'"
+          [alt]="actividad.nombre || 'Nombre de la actividad'" />
+      </div>
+
+      <div class="container px-5 py-24 mx-auto">
+        <h1 class="text-3xl font-medium title-font text-gray-900 mb-12 text-center">Opiniones de {{ actividad.nombre }}</h1>
+
+
+      </div>
+    </div>
+  </div>
+  <div *ngFor="let comentario of comentarios" class="p-4 md:w-1/2 w-full">
+    <div class="h-full bg-gray-100 p-8 rounded">
+
+
+      <p class="leading-relaxed mb-6">{{ comentario.descripcion }}</p>
+      <a class="inline-flex items-center">
+        <img alt="testimonial" src="https://dummyimage.com/106x106"
+          class="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center">
+        <span class="flex-grow flex flex-col pl-4">
+          <span class="title-font font-medium text-gray-900">{{ comentario.titulo }}</span>
+          <span class="text-gray-500 text-sm">Usuario: {{ comentario.usuarioId }}</span>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<ng-template #noComentariosTemplate>
+  <div class="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased text-center">
+    <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
+      No hay opiniones disponibles para esta actividad.
+    </h1>
+  </div>
+</ng-template>

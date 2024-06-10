@@ -24,7 +24,8 @@ import { PlanSeleccionadoComponent } from './pages/plan-seleccionado/plan-selecc
 import { MisDatosComponent } from './user/mis-datos/mis-datos.component';
 import { MisOpinionesComponent } from './user/mis-opiniones/mis-opiniones.component';
 import { MisPlanesComponent } from './user/mis-planes/mis-planes.component';
-import { FormOpinionComponent } from './user/form-opinion/form-opinion.component';
+import { OpinionesComponent } from './pages/opiniones/opiniones.component';
+
 
 
 export const routes: Routes = [
@@ -51,7 +52,7 @@ export const routes: Routes = [
   { path: 'mis-datos', component: MisDatosComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_USER'] } },
   { path: 'mis-planes', component: MisPlanesComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_USER'] } },
   { path: 'mis-opiniones', component: MisOpinionesComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_USER'] } },
-  { path: 'formOpinion', component: FormOpinionComponent},
+  { path: 'opiniones/:id', component: OpinionesComponent},
   { path: 'bandeja', component: BandejaComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_ADMIN'] } },
   { path: 'estadisticas', component: EstadisticasComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_ADMIN'] } },
   { path: 'moderador', component: ModeradorComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_ADMIN'] } },
