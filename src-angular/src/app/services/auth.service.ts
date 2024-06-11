@@ -28,7 +28,7 @@ export class AuthService {
 
   getUsuarioId(): number | null {
     if (isPlatformBrowser(this.platformId)) {
-      const usuarioId = localStorage.getItem('usuarioId');
+      const usuarioId = sessionStorage.getItem('usuarioId');
       return usuarioId ? parseInt(usuarioId, 10) : null;
     }
     return null;
@@ -36,14 +36,14 @@ export class AuthService {
 
   private isTokenInLocalStorage(): boolean {
     if (isPlatformBrowser(this.platformId)) {
-      return !!localStorage.getItem('token');
+      return !!sessionStorage.getItem('token');
     }
     return false;
   }
 
   private getUsuarioFromLocalStorage(): Usuario | null {
     if (isPlatformBrowser(this.platformId)) {
-      const user = localStorage.getItem('usuario');
+      const user = sessionStorage.getItem('usuario');
       return user ? JSON.parse(user) : null;
     }
     return null;
@@ -51,15 +51,15 @@ export class AuthService {
 
   private saveUsuarioToLocalStorage(usuario: Usuario) {
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem('usuario', JSON.stringify(usuario));
-      localStorage.setItem('usuarioId', usuario.id.toString());
+      sessionStorage.setItem('usuario', JSON.stringify(usuario));
+      sessionStorage.setItem('usuarioId', usuario.id.toString());
     }
   }
 
   private removeUsuarioFromLocalStorage() {
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.removeItem('usuario');
-      localStorage.removeItem('usuarioId');
+      sessionStorage.removeItem('usuario');
+      sessionStorage.removeItem('usuarioId');
     }
   }
 

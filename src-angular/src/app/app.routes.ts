@@ -6,11 +6,7 @@ import { CategoriasComponent } from './pages/categorias/categorias.component';
 import { ActividadesComponent } from './pages/actividades/actividades.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegistroComponent } from './auth/registro/registro.component';
-import { BandejaComponent } from './pages/admin/bandeja/bandeja.component';
 import { RoleGuard } from './guards/RoleGuard. guards';
-import { EstadisticasComponent } from './pages/admin/estadisticas/estadisticas.component';
-import { ModeradorComponent } from './pages/admin/moderador/moderador.component';
-import { PerfilesComponent } from './pages/admin/perfiles/perfiles.component';
 import { AlmeriaComponent } from './pages/destinos/almeria/almeria.component';
 import { CadizComponent } from './pages/destinos/cadiz/cadiz.component';
 import { CordobaComponent } from './pages/destinos/cordoba/cordoba.component';
@@ -25,6 +21,9 @@ import { MisDatosComponent } from './user/mis-datos/mis-datos.component';
 import { MisOpinionesComponent } from './user/mis-opiniones/mis-opiniones.component';
 import { MisPlanesComponent } from './user/mis-planes/mis-planes.component';
 import { OpinionesComponent } from './pages/opiniones/opiniones.component';
+import { NuevaActividadComponent } from './pages/admin/nueva-actividad/nueva-actividad.component';
+import { Usuario } from './models/usuario.model';
+import { UsuariosComponent } from './pages/admin/usuarios/usuarios.component';
 
 
 
@@ -53,11 +52,8 @@ export const routes: Routes = [
   { path: 'mis-planes', component: MisPlanesComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_USER'] } },
   { path: 'mis-opiniones', component: MisOpinionesComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_USER'] } },
   { path: 'opiniones/:id', component: OpinionesComponent},
-  { path: 'bandeja', component: BandejaComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_ADMIN'] } },
-  { path: 'estadisticas', component: EstadisticasComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_ADMIN'] } },
-  { path: 'moderador', component: ModeradorComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_ADMIN'] } },
-  { path: 'perfiles', component: PerfilesComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_ADMIN'] } },
-
+  { path: 'nuevaActividad', component: NuevaActividadComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_ADMIN'] } },
+  { path: 'usuarios', component: UsuariosComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_ADMIN'] } },
   { path: '**', redirectTo: "", pathMatch:"full" },
 
 ];

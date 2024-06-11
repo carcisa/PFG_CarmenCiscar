@@ -10,10 +10,8 @@
       </ng-container>
       <ng-template #loggedIn>
         <ng-container *ngIf="isAdmin; else userMenu">
-          <a routerLink="/moderador" class="menu-link px-3">Moderador</a>
-          <a routerLink="/bandeja" class="menu-link px-3">Bandeja de Entrada</a>
-          <a routerLink="/perfiles" class="menu-link px-3">Usuarios</a>
-          <a routerLink="/estadisticas" class="menu-link px-3">Estadísticas</a>
+          <a routerLink="/nuevaActividad" class="menu-link px-3">Nueva Actividad</a>
+          <a routerLink="/usuarios" class="menu-link px-3">Usuarios</a>
           <a (click)="onLogoutClicked()" class="button_dark px-3">Logout</a>
         </ng-container>
         <ng-template #userMenu>

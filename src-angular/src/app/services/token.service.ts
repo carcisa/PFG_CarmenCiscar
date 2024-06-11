@@ -33,6 +33,7 @@ export class TokenService {
   removeUserDetails(): void {
     if (isPlatformBrowser(this.platformId)) {
       sessionStorage.removeItem('token');
+      localStorage.removeItem('token');
       sessionStorage.removeItem('roles');
     }
   }
