@@ -24,7 +24,7 @@
             <app-button> VER UBICACIÓN </app-button>
           </a>
           <app-button class="button" (click)="toggleOpiniones()">OPINIONES</app-button>
-          <app-button *ngIf="isUserLoggedIn" (click)="openOpinionModal()">AÑADIR OPINIÓN</app-button>
+          <app-button *ngIf="isUserLoggedIn && !isAdmin" (click)="openOpinionModal()">AÑADIR OPINIÓN</app-button>
           <app-button *ngIf="isAdmin" (click)="deleteActividad()">ELIMINAR ACTIVIDAD</app-button>
         </div>
 
@@ -49,7 +49,8 @@
           <a [href]="getGoogleSearchLink(actividad.nombre)" target="_blank" class="text-blue-500 underline hover:no-underline">
             Más información
           </a>
-          <app-button *ngIf="isUserLoggedIn" (click)="addActividadFavorita()">GUARDAR ACTIVIDAD</app-button>
+          <app-button *ngIf="isUserLoggedIn && !isAdmin" (click)="addActividadFavorita()">GUARDAR ACTIVIDAD</app-button>
+          <app-button *ngIf="isAdmin" [routerLink]="['/editar-actividad', actividad.id]">EDITAR ACTIVIDAD</app-button>
         </div>
       </div>
     </div>

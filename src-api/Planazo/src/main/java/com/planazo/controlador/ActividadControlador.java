@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
+
+
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -119,7 +122,7 @@ public class ActividadControlador {
 //		return actividadService.save(actividad);
 //	}
 	
-	 @PostMapping
+	@PostMapping(consumes = "multipart/form-data")
 	    public Actividad crearActividad(@RequestParam("actividad") String actividadString,
 	                                    @RequestParam("file") MultipartFile file) {
 	        return actividadService.crearActividad(actividadString, file);
@@ -134,18 +137,48 @@ public class ActividadControlador {
 	 * @return ResponseEntity con la actividad actualizada si se encuentra, o no
 	 *         encontrado (404) si no se encuentra.
 	 */
-	@PutMapping("/{id}")
-	public ResponseEntity<Actividad> updateActividad(@Valid @PathVariable Integer id,
-			@RequestBody Actividad actividadDetails) {
-		return actividadService.findById(id).map(actividad -> {
-			actividad.setNombre(actividadDetails.getNombre());
-			actividad.setDescripcion(actividadDetails.getDescripcion());
-			actividad.setCategoria(actividadDetails.getCategoria());
-			actividad.setDireccion(actividadDetails.getDireccion());
-			Actividad updatedActividad = actividadService.save(actividad);
-			return ResponseEntity.ok(updatedActividad);
-		}).orElseGet(() -> ResponseEntity.notFound().build());
+//	@PutMapping("/{id}")
+//	public ResponseEntity<Actividad> updateActividad(@Valid @PathVariable Integer id,
+//			@RequestBody Actividad actividadDetails) {
+//		return actividadService.findById(id).map(actividad -> {
+//			actividad.setNombre(actividadDetails.getNombre());
+//			actividad.setDescripcion(actividadDetails.getDescripcion());
+//			actividad.setCategoria(actividadDetails.getCategoria());
+//			actividad.setDireccion(actividadDetails.getDireccion());
+//			Actividad updatedActividad = actividadService.save(actividad);
+//			return ResponseEntity.ok(updatedActividad);
+//		}).orElseGet(() -> ResponseEntity.notFound().build());
+//	}
+	
+	@PutMapping(path = "/{id}", consumes = "multipart/form-data")
+	public ResponseEntity<?> updateActividad(@PathVariable Integer id,
+	                                         @RequestParam("actividad") String actividadString,
+	                                         @RequestParam(value = "file", required = false) MultipartFile file) {
+	    return actividadService.findById(id).map(existingActividad -> {
+	        try {
+	            Actividad actividad = objectMapper.readValue(actividadString, Actividad.class);
+
+	            // Copiar propiedades que no están en `actividadString` pero necesitas mantener (si hay)
+	            actividad.setPuntuacion(existingActividad.getPuntuacion());
+	            // Otros campos pueden ser copiados de manera similar si no son parte del JSON enviado
+
+	            if (file != null && !file.isEmpty()) {
+	                String fileName = fileStorageService.storeFile(file);
+	                actividad.setImagen(fileName); // Establece la nueva imagen solo si se sube una nueva
+	            } else {
+	                actividad.setImagen(existingActividad.getImagen()); // Mantener la imagen anterior si no se proporciona una nueva
+	            }
+
+	            actividad.setId(id); // Asegúrate de establecer el ID para actualizar la entidad existente
+	            Actividad updatedActividad = actividadService.save(actividad);
+	            return ResponseEntity.ok(updatedActividad);
+	        } catch (IOException e) {
+	            logger.error("Error updating activity", e);
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	        }
+	    }).orElseGet(() -> ResponseEntity.notFound().build());
 	}
+
 
 	/**
 	 * Elimina una actividad por su identificador.

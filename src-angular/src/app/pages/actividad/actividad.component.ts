@@ -52,7 +52,7 @@ export class ActividadComponent implements OnInit {
     console.log('isUserLoggedIn:', this.isUserLoggedIn);
 
     this.isAdmin = this.authService.hasRole('ROL_ADMIN');
-    console.log('isAdmin:', this.isAdmin);  // Verificar si isAdmin es true
+    console.log('isAdmin:', this.isAdmin);
 
     if (this.isUserLoggedIn) {
       this.token = this.tokenService.getToken();

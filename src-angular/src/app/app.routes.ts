@@ -23,6 +23,7 @@ import { MisPlanesComponent } from './user/mis-planes/mis-planes.component';
 import { OpinionesComponent } from './pages/opiniones/opiniones.component';
 import { NuevaActividadComponent } from './pages/admin/nueva-actividad/nueva-actividad.component';
 import { UsuariosComponent } from './pages/admin/usuarios/usuarios.component';
+import { EditarActividadComponent } from './pages/admin/editar-actividad/editar-actividad.component';
 
 
 
@@ -51,6 +52,7 @@ export const routes: Routes = [
   { path: 'mis-planes', component: MisPlanesComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_USER'] } },
   { path: 'mis-opiniones', component: MisOpinionesComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_USER'] } },
   { path: 'opiniones/:id', component: OpinionesComponent},
+  { path: 'editar-actividad/:id', component: EditarActividadComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_ADMIN'] } },
   { path: 'nuevaActividad', component: NuevaActividadComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_ADMIN'] } },
   { path: 'usuarios', component: UsuariosComponent, canActivate: [RoleGuard], data: { expectedRoles: ['ROL_ADMIN'] } },
   { path: '**', redirectTo: "", pathMatch:"full" },
