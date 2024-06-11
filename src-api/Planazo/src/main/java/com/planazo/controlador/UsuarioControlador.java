@@ -106,6 +106,7 @@ public class UsuarioControlador {
 		Usuario usuario = new Usuario();
 		usuario.setEmail(usuarioDto.getEmail());
 		usuario.setNombreUsuario(usuarioDto.getNombreUsuario());
+		usuario.setApellidoUsuario(usuarioDto.getApellidoUsuario());
 		usuario.setPassword(passwordEncoder.encode(usuarioDto.getPassword()));
 		usuario.setRoles(Collections.singleton(Rol.ROL_USER));
 		Usuario nuevoUsuario = usuarioService.save(usuario);
@@ -123,6 +124,7 @@ public class UsuarioControlador {
 		Usuario usuario = new Usuario();
 		usuario.setEmail(usuarioDto.getEmail());
 		usuario.setNombreUsuario(usuarioDto.getNombreUsuario());
+		usuario.setApellidoUsuario(usuarioDto.getApellidoUsuario());
 		usuario.setPassword(passwordEncoder.encode(usuarioDto.getPassword()));
 
 		Set<Rol> roles = usuarioDto.getRoles().stream().map(roleStr -> Rol.valueOf(roleStr)) // Convierte el String a

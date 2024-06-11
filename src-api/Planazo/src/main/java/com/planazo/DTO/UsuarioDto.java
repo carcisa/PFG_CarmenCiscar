@@ -35,6 +35,7 @@ public class UsuarioDto {
 	        @Email(message = "Formato de correo electrónico inválido") String email,
 			@Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres") String password) {
 		this.nombreUsuario = nombreUsuario;
+		this.apellidoUsuario = apellidoUsuario;
 		this.email = email;
 		this.password = password;
 	}

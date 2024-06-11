@@ -70,7 +70,20 @@
     <div class="mb-4">
       <label for="imagen" class="block text-sm font-medium text-gray-700">Imagen</label>
       <input type="file" id="imagen" (change)="onFileSelected($event)" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+      <!-- Mostrar vista previa de la imagen seleccionada o la imagen actual si no hay archivo seleccionado -->
+      <div *ngIf="previewUrl; else noImage" class="mt-2">
+        <img [src]="previewUrl" alt="Vista previa de la imagen" style="width: 100%; max-width: 400px; height: auto;">
+      </div>
+      <ng-template #noImage>
+        <div *ngIf="actividad.imagen" class="mt-2">
+          <img [src]="getImageUrl(actividad.imagen)" alt="Imagen actual de la actividad" style="width: 100%; max-width: 400px; height: auto;">
+        </div>
+        <div *ngIf="!actividad.imagen" class="mt-2 text-gray-600">
+          No hay imagen disponible.
+        </div>
+      </ng-template>
     </div>
+
     <div class="mb-4">
       <label for="destino" class="block text-sm font-medium text-gray-700">Destino</label>
       <select id="destino" [(ngModel)]="actividad.destino" name="destino"

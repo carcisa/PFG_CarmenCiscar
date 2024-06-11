@@ -32,6 +32,8 @@ export class EditarActividadComponent implements OnInit {
   selectedFile: File | null = null;
   destinos: Destino[] = [];
   actividadId: number | null = null;
+  previewUrl: string | null = null;
+
 
   constructor(
     private http: HttpClient,
@@ -71,9 +73,29 @@ export class EditarActividadComponent implements OnInit {
     });
   }
 
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
+  onFileSelected(event: any): void {
+    if (event.target.files && event.target.files[0]) {
+      this.selectedFile = event.target.files[0];
+
+      // Asegúrate de que selectedFile no es null antes de usarlo
+      if (this.selectedFile) {
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          this.previewUrl = e.target.result;
+        };
+        reader.readAsDataURL(this.selectedFile); // Este método espera un Blob, no null
+      }
+    } else {
+      this.selectedFile = null;
+      this.previewUrl = null; // Limpia la vista previa si no hay archivo seleccionado
+    }
   }
+
+  getImageUrl(filename: string): string {
+    return `http://localhost:8081/files/${filename}`;
+  }
+
+
 
   onSubmit() {
     const formData: FormData = new FormData();
