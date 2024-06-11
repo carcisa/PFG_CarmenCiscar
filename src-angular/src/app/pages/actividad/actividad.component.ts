@@ -20,7 +20,6 @@ import { Usuario } from '../../models/usuario.model';
     CommonModule,
     RouterModule,
     ButtonComponent,
-
   ],
   templateUrl: './actividad.component.html',
   styleUrls: ['./actividad.component.scss']
@@ -29,6 +28,7 @@ export class ActividadComponent implements OnInit {
   @Input() actividad?: Actividad;
   error: string | undefined;
   isUserLoggedIn: boolean = false;
+  isAdmin: boolean = false;
   token: string | null = null;
   isOpinionModalOpen: boolean = false;
   editMode: boolean = false;
@@ -49,6 +49,11 @@ export class ActividadComponent implements OnInit {
 
   ngOnInit(): void {
     this.isUserLoggedIn = this.authService.isAuthenticated();
+    console.log('isUserLoggedIn:', this.isUserLoggedIn);
+
+    this.isAdmin = this.authService.hasRole('ROL_ADMIN');
+    console.log('isAdmin:', this.isAdmin);  // Verificar si isAdmin es true
+
     if (this.isUserLoggedIn) {
       this.token = this.tokenService.getToken();
     }
@@ -75,6 +80,10 @@ export class ActividadComponent implements OnInit {
     } else {
       this.error = 'ID de actividad no válido';
     }
+  }
+
+  getImagenUrl(imagen: string | undefined): string {
+    return imagen ? `http://localhost:8081/files/${imagen}` : 'ruta/de/imagen/por/defecto.jpg';
   }
 
   toggleOpiniones(): void {
@@ -116,7 +125,6 @@ export class ActividadComponent implements OnInit {
       error => console.error('Error fetching usuario names:', error)
     );
   }
-
 
   addActividadFavorita(): void {
     if (this.actividad && this.token) {
@@ -200,6 +208,21 @@ export class ActividadComponent implements OnInit {
     this.opinionForm = { ...comentario };
     this.isOpinionModalOpen = true;
     this.editMode = true;
+  }
+
+  deleteActividad(): void {
+    if (this.actividad && this.actividad.id) {
+      this.actividadService.deleteActividad(this.actividad.id).subscribe({
+        next: () => {
+          console.log('Actividad eliminada');
+          this.router.navigate(['/actividades']);
+        },
+        error: (error: HttpErrorResponse) => {
+          console.error('Error eliminando actividad', error);
+          alert(`Error eliminando actividad: ${error.message}`);
+        }
+      });
+    }
   }
 
   getGoogleMapsLink(direccion: string): string {

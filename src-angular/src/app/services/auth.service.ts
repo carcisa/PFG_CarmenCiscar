@@ -106,6 +106,7 @@ export class AuthService {
 
   hasRole(role: string): boolean {
     let roles = this.tokenService.getRoles();
+    console.log('Roles del usuario:', roles);  // Agregar este log para depuración
     return roles ? roles.includes(role) : false;
   }
 

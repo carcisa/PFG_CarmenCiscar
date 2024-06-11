@@ -20,6 +20,7 @@ import { MisDatosComponent } from './user/mis-datos/mis-datos.component';
 import { MisOpinionesComponent } from './user/mis-opiniones/mis-opiniones.component';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { OpinionesComponent } from './pages/opiniones/opiniones.component';
+import { NuevaActividadComponent } from './pages/admin/nueva-actividad/nueva-actividad.component';
 
 
 
@@ -47,7 +48,9 @@ import { OpinionesComponent } from './pages/opiniones/opiniones.component';
     ActividadComponent,
     MisDatosComponent,
     MisOpinionesComponent,
-    OpinionesComponent
+    OpinionesComponent,
+    FormsModule,
+    NuevaActividadComponent
 
   ],
   providers: [

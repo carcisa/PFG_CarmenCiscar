@@ -10,6 +10,7 @@
       </ng-container>
       <ng-template #loggedIn>
         <ng-container *ngIf="isAdmin; else userMenu">
+          <a routerLink="/actividades" class="menu-link px-3">Actividades</a>
           <a routerLink="/nuevaActividad" class="menu-link px-3">Nueva Actividad</a>
           <a routerLink="/usuarios" class="menu-link px-3">Usuarios</a>
           <a (click)="onLogoutClicked()" class="button_dark px-3">Logout</a>

@@ -1,4 +1,4 @@
-<!-- nueva-actividad.component.html -->
+<!--
 <div class="max-w-2xl mx-auto p-4 bg-white shadow-md rounded-lg">
   <h2 class="text-2xl font-bold mb-4">Nueva Actividad</h2>
   <form (ngSubmit)="onSubmit()">
@@ -39,5 +39,106 @@
       </select>
     </div>
     <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Guardar</button>
+  </form>
+</div> -->
+
+<div class="max-w-2xl mx-auto p-4 bg-white shadow-md rounded-lg">
+  <h2 class="text-2xl font-bold mb-4">Nueva Actividad</h2>
+  <form (ngSubmit)="onSubmit()" #actividadForm="ngForm" novalidate>
+    <div class="mb-4">
+      <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
+      <input type="text" id="nombre" [(ngModel)]="actividad.nombre" name="nombre"
+        class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        required minlength="3" maxlength="50" #nombre="ngModel">
+      <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="text-red-600 text-sm">
+        <div *ngIf="nombre.errors?.['required']">Nombre es requerido.</div>
+        <div *ngIf="nombre.errors?.['minlength']">Nombre debe tener al menos 3 caracteres.</div>
+        <div *ngIf="nombre.errors?.['maxlength']">Nombre no puede tener más de 50 caracteres.</div>
+      </div>
+    </div>
+    <div class="mb-4">
+      <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción</label>
+      <textarea id="descripcion" [(ngModel)]="actividad.descripcion" name="descripcion"
+        class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        required minlength="10" maxlength="500" #descripcion="ngModel"></textarea>
+      <div *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)" class="text-red-600 text-sm">
+        <div *ngIf="descripcion.errors?.['required']">Descripción es requerida.</div>
+        <div *ngIf="descripcion.errors?.['minlength']">Descripción debe tener al menos 10 caracteres.</div>
+        <div *ngIf="descripcion.errors?.['maxlength']">Descripción no puede tener más de 500 caracteres.</div>
+      </div>
+    </div>
+    <div class="mb-4">
+      <label for="categoria" class="block text-sm font-medium text-gray-700">Categoría</label>
+      <select id="categoria" [(ngModel)]="actividad.categoria" name="categoria"
+        class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        required #categoria="ngModel">
+        <option *ngFor="let cat of categorias" [value]="cat">{{cat}}</option>
+      </select>
+      <div *ngIf="categoria.invalid && (categoria.dirty || categoria.touched)" class="text-red-600 text-sm">
+        <div *ngIf="categoria.errors?.['required']">Categoría es requerida.</div>
+      </div>
+    </div>
+    <div class="mb-4">
+      <label for="puntuacion" class="block text-sm font-medium text-gray-700">Puntuación</label>
+      <input type="number" id="puntuacion" [(ngModel)]="actividad.puntuacion" name="puntuacion"
+        class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        required min="1" max="5" #puntuacion="ngModel">
+      <div *ngIf="puntuacion.invalid && (puntuacion.dirty || puntuacion.touched)" class="text-red-600 text-sm">
+        <div *ngIf="puntuacion.errors?.['required']">Puntuación es requerida.</div>
+        <div *ngIf="puntuacion.errors?.['min']">Puntuación debe ser al menos 1.</div>
+        <div *ngIf="puntuacion.errors?.['max']">Puntuación no puede ser más de 5.</div>
+      </div>
+    </div>
+    <div class="mb-4">
+      <label for="direccion" class="block text-sm font-medium text-gray-700">Dirección</label>
+      <input type="text" id="direccion" [(ngModel)]="actividad.direccion" name="direccion"
+        class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        required minlength="5" maxlength="100" #direccion="ngModel">
+      <div *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)" class="text-red-600 text-sm">
+        <div *ngIf="direccion.errors?.['required']">Dirección es requerida.</div>
+        <div *ngIf="direccion.errors?.['minlength']">Dirección debe tener al menos 5 caracteres.</div>
+        <div *ngIf="direccion.errors?.['maxlength']">Dirección no puede tener más de 100 caracteres.</div>
+      </div>
+    </div>
+    <div class="mb-4">
+      <label for="horario" class="block text-sm font-medium text-gray-700">Horario</label>
+      <input type="text" id="horario" [(ngModel)]="actividad.horario" name="horario"
+        class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        required minlength="3" maxlength="50" #horario="ngModel">
+      <div *ngIf="horario.invalid && (horario.dirty || horario.touched)" class="text-red-600 text-sm">
+        <div *ngIf="horario.errors?.['required']">Horario es requerido.</div>
+        <div *ngIf="horario.errors?.['minlength']">Horario debe tener al menos 3 caracteres.</div>
+        <div *ngIf="horario.errors?.['maxlength']">Horario no puede tener más de 50 caracteres.</div>
+      </div>
+    </div>
+    <!-- <div class="mb-4">
+      <label for="imagen" class="block text-sm font-medium text-gray-700">Imagen</label>
+      <input type="file" id="imagen" (change)="onFileSelected($event)"
+        class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        required accept="image/*" #imagen="ngModel">
+      <div *ngIf="imagen.invalid && (imagen.dirty || imagen.touched)" class="text-red-600 text-sm">
+        <div *ngIf="imagen.errors?.['required']">Imagen es requerida.</div>
+      </div>
+    </div> -->
+    <div class="mb-4">
+      <label for="imagen" class="block text-sm font-medium text-gray-700">Imagen</label>
+      <input type="file" id="imagen" (change)="onFileSelected($event)" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+    </div>
+    <div class="mb-4">
+      <label for="destino" class="block text-sm font-medium text-gray-700">Destino</label>
+      <select id="destino" [(ngModel)]="actividad.destino" name="destino"
+        class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        required #destino="ngModel">
+        <option *ngFor="let destino of destinos" [ngValue]="destino">{{destino.nombre}}</option>
+      </select>
+      <div *ngIf="destino.invalid && (destino.dirty || destino.touched)" class="text-red-600 text-sm">
+        <div *ngIf="destino.errors?.['required']">Destino es requerido.</div>
+      </div>
+    </div>
+    <button type="submit"
+      class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+      [disabled]="actividadForm.invalid">
+      Guardar
+    </button>
   </form>
 </div>

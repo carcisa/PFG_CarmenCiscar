@@ -22,7 +22,6 @@ import { MisOpinionesComponent } from './user/mis-opiniones/mis-opiniones.compon
 import { MisPlanesComponent } from './user/mis-planes/mis-planes.component';
 import { OpinionesComponent } from './pages/opiniones/opiniones.component';
 import { NuevaActividadComponent } from './pages/admin/nueva-actividad/nueva-actividad.component';
-import { Usuario } from './models/usuario.model';
 import { UsuariosComponent } from './pages/admin/usuarios/usuarios.component';
 
 
