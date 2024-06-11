@@ -2,6 +2,7 @@ package com.planazo.configuracion;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
@@ -15,5 +16,12 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Métodos permitidos
                 .allowedHeaders("*") // Cabeceras permitidas
                 .allowCredentials(true); // Permitir credenciales
+    }
+    
+ // Configuración para servir archivos estáticos
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/files/**")
+                .addResourceLocations("file:C:/Users/carme/OneDrive/Escritorio/PROYECTO/PFG_CarmenCiscar/docs/assets/actividades/");
     }
 }

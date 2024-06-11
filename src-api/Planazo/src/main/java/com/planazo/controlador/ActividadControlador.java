@@ -1,8 +1,20 @@
 package com.planazo.controlador;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,13 +23,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.planazo.entidad.Actividad;
+import com.planazo.entidad.Destino;
 import com.planazo.error.actividad.ActividadNoEncontradaException;
 import com.planazo.error.actividad.ListaActividadesVaciaException;
+import com.planazo.repositorio.ActividadRepositorio;
+import com.planazo.repositorio.DestinoRepositorio;
 import com.planazo.servicio.ActividadServicio;
 import com.planazo.servicio.DestinoServicio;
+import com.planazo.servicio.Impl.FileStorageService;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -29,11 +48,27 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/actividades")
 public class ActividadControlador {
+	
+    private static final Logger logger = LoggerFactory.getLogger(ActividadControlador.class);
+	
+	
 
 	private final ActividadServicio actividadService;
 
 	@Autowired
 	private DestinoServicio destinoService;
+	
+	@Autowired
+	private DestinoRepositorio destinoRepositorio;
+	
+	@Autowired
+	private ActividadRepositorio actividadRepositorio;
+	
+	 @Autowired
+	 private FileStorageService fileStorageService;
+	 
+	 @Autowired
+	 private final ObjectMapper objectMapper = new ObjectMapper();
 
 	/**
 	 * Constructor para inyectar el servicio de actividades.
@@ -79,11 +114,18 @@ public class ActividadControlador {
 	 * @param actividad Los detalles de la actividad a crear.
 	 * @return La actividad creada.
 	 */
-	@PostMapping
-	public Actividad createActividad(@Valid @RequestBody Actividad actividad) {
-		return actividadService.save(actividad);
-	}
-
+//	@PostMapping
+//	public Actividad createActividad(@Valid @RequestBody Actividad actividad) {
+//		return actividadService.save(actividad);
+//	}
+	
+	 @PostMapping
+	    public Actividad crearActividad(@RequestParam("actividad") String actividadString,
+	                                    @RequestParam("file") MultipartFile file) {
+	        return actividadService.crearActividad(actividadString, file);
+	    }
+	
+	
 	/**
 	 * Actualiza una actividad existente.
 	 * 

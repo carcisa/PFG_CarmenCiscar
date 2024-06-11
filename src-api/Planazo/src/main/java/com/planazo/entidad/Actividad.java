@@ -18,6 +18,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -63,9 +65,10 @@ public class Actividad {
 	/**
 	 * Puntuación de la actividad. No puede ser nulo.
 	 */
-	@NotBlank(message = "La puntuación no puede estar vacía")
-	@Column(nullable = false)
-	private Double puntuacion;
+	@NotNull
+    @Min(0)
+    @Max(5)
+    private Double puntuacion;
 
 	/**
 	 * Dirección física de la actividad.

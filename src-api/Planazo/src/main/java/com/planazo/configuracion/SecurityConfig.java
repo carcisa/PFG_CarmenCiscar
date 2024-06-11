@@ -48,6 +48,7 @@ public class SecurityConfig {
 		http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(request -> request
 				
 				.requestMatchers("/api/usuarios/detalles").authenticated()
+				.requestMatchers("/files/**").permitAll()
 				
 				//El usuario puede hacer el crud entero
 				.requestMatchers("/authenticate/**").permitAll().requestMatchers(HttpMethod.GET, "/api/usuarios/**")

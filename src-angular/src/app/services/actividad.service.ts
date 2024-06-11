@@ -20,8 +20,12 @@ export class ActividadService {
     return this.http.get<Actividad>(`${this.apiUrl}/${id}`);
   }
 
-  createActividad(actividad: Actividad): Observable<Actividad> {
-    return this.http.post<Actividad>(this.apiUrl, actividad);
+  // createActividad(actividad: Actividad): Observable<Actividad> {
+  //   return this.http.post<Actividad>(this.apiUrl, actividad);
+  // }
+
+  createActividad(actividadData: FormData): Observable<any> {
+    return this.http.post<Actividad>(this.apiUrl, actividadData);
   }
 
   updateActividad(id: number, actividad: Actividad): Observable<Actividad> {

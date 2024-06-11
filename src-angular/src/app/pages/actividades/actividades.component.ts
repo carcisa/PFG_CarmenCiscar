@@ -152,6 +152,10 @@ export class ActividadesComponent implements OnInit {
     });
   }
 
+  getImagenUrl(imagen: string): string {
+    return `http://localhost:8081/files/${imagen}`;
+  }
+
   verDetalleActividad(id: number | undefined): void {
     if (id !== undefined) {
       this.router.navigate(['/actividad', id]);
