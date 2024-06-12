@@ -33,11 +33,13 @@ public class UsuarioDto {
 			@NotBlank(message = "El apellido de usuario no puede estar vacío") String apellidoUsuario,
 			@NotBlank(message = "El correo electrónico no puede estar vacío") 
 	        @Email(message = "Formato de correo electrónico inválido") String email,
-			@Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres") String password) {
+			@Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres") String password,
+			Set<String> roles) {
 		this.nombreUsuario = nombreUsuario;
 		this.apellidoUsuario = apellidoUsuario;
 		this.email = email;
 		this.password = password;
+		this.roles = roles;
 	}
 	
 	
