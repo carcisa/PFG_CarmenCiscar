@@ -1,0 +1,48 @@
+version: "3.9"
+services:
+  db:
+    container_name: db
+    image: mysql:8
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: sasa
+      MYSQL_DATABASE: planazo
+    volumes:
+      - data-mysql:/var/lib/mysql
+    restart: always
+    networks:
+      - planazo_network
+
+  backend:
+    container_name: backend
+    build:
+      context: ./src-api
+    ports:
+      - "8081:8001"
+    env_file: .env
+    networks:
+      - planazo_network
+    depends_on:
+      - db
+    restart: always
+
+  frontend:
+    container_name: frontend
+    build:
+      context: ./src-angular
+    ports:
+      - "80:4000"
+    networks:
+      - planazo_network
+    depends_on:
+      - backend
+    restart: always
+
+volumes:
+  data-mysql:
+    name: data-mysql
+
+networks:
+  planazo_network:
+    name: planazo_network

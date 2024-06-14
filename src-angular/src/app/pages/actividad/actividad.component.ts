@@ -83,7 +83,7 @@ export class ActividadComponent implements OnInit {
   }
 
   getImagenUrl(imagen: string | undefined): string {
-    return imagen ? `http://localhost:8081/files/${imagen}` : 'ruta/de/imagen/por/defecto.jpg';
+    return imagen ? `${imagen}` : 'ruta/de/imagen/por/defecto.jpg';
   }
 
   toggleOpiniones(): void {
