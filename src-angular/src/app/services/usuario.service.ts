@@ -4,6 +4,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { Usuario } from '../models/usuario.model';
 import { Actividad } from '../models/actividad.model';
+import { UserToSend } from '../models/userToSend.model';
 
 @Injectable({
   providedIn: 'root'
@@ -38,28 +39,31 @@ export class UserService {
     });
   }
 
-  getUsers(token: string): Observable<any> {
-    return this.http.get<any>(this.apiUrl, { headers: this.getHeaders(token) }).pipe(
-      catchError((e) => {
+  getUsers(token: string): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(this.apiUrl, { headers: this.getHeaders(token) }).pipe(
+      catchError((e: HttpErrorResponse) => {
         this.isNoAutorizado(e);
         return throwError(() => new Error('Unauthorized or forbidden access'));
       })
     );
   }
 
-  createUser(token: string, user: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, user, { headers: this.getHeaders(token) }).pipe(
-      catchError((e) => {
+  createUser(token: string, user: UserToSend): Observable<Usuario> {
+    return this.http.post<Usuario>(this.apiUrl, user, { headers: this.getHeaders(token) }).pipe(
+      catchError((e: HttpErrorResponse) => {
         this.isNoAutorizado(e);
         return throwError(() => new Error('Error creating user'));
       })
     );
   }
 
-  updateUser(token: string, userId: number, user: Usuario): Observable<Usuario> {
+  updateUser(token: string, userId: number, user: UserToSend): Observable<Usuario> {
     const url = `${this.apiUrl}${userId}`;
     return this.http.put<Usuario>(url, user, { headers: this.getHeaders(token) }).pipe(
-      catchError(this.handleError)
+      catchError((e: HttpErrorResponse) => {
+        this.isNoAutorizado(e);
+        return throwError(() => new Error('Error updating user'));
+      })
     );
   }
 

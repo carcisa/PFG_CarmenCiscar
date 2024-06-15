@@ -74,8 +74,8 @@ export class PlanesComponent implements OnInit {
     return actividadesFiltradas;
   }
 
-  seleccionarPlan(actividades: Actividad[]): void {
-    this.router.navigate(['/planSeleccionado'], {
+   seleccionarPlan(actividades: Actividad[]): void {
+    this.router.navigate(['/planSeleccionado', this.destinoId], {
       queryParams: { actividades: JSON.stringify(actividades) }
     });
   }

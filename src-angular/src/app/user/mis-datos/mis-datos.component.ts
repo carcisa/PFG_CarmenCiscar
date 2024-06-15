@@ -6,15 +6,14 @@ import { FormsModule } from '@angular/forms';
 import { TokenService } from '../../services/token.service';
 import { UserService } from '../../services/usuario.service';
 import { Router } from '@angular/router';
+import { UserToSend } from '../../models/userToSend.model';
 
 @Component({
   selector: 'app-mis-datos',
   standalone: true,
-  imports: [ CommonModule,
-    FormsModule
-  ],
+  imports: [CommonModule, FormsModule],
   templateUrl: './mis-datos.component.html',
-  styleUrl: './mis-datos.component.scss'
+  styleUrls: ['./mis-datos.component.scss']
 })
 export class MisDatosComponent implements OnInit {
   usuario: Usuario;
@@ -23,6 +22,8 @@ export class MisDatosComponent implements OnInit {
   confirmPassword: string = '';
   preferenciaGeneral: boolean = false;
   preferenciaPersonalizada: boolean = true;
+  rolSeleccionado: string = 'user';
+  rolesDisponibles: string[] = ['admin', 'user'];
 
   constructor(
     private authService: AuthService,
@@ -37,6 +38,7 @@ export class MisDatosComponent implements OnInit {
     this.authService.usuario$.subscribe((usuario: Usuario | null) => {
       if (usuario) {
         this.usuario = usuario;
+        this.rolSeleccionado = Array.from(usuario.roles)[0] || 'user';
       } else {
         this.usuario = new Usuario(0, '', '', '', '', new Set());
       }
@@ -64,13 +66,14 @@ export class MisDatosComponent implements OnInit {
 
     const token = this.tokenService.getToken();
     if (token) {
-        const updatedUser = { ...this.usuario, password: this.newPassword };
+        const rolesArray = Array.from(this.usuario.roles); // Convert Set<string> to string[]
+        const updatedUser: UserToSend = { ...this.usuario, password: this.newPassword, roles: rolesArray };
         this.userService.updateUser(token, this.usuario.id, updatedUser).subscribe(
             response => {
                 console.log('Contraseña actualizada:', response);
                 this.closeModal();
             },
-            error => {
+            (error: any) => {
                 console.error('Error al actualizar la contraseña:', error);
             }
         );
@@ -80,12 +83,14 @@ export class MisDatosComponent implements OnInit {
   saveChanges() {
     const token = this.tokenService.getToken();
     if (token) {
-      this.userService.updateUser(token, this.usuario.id, this.usuario).subscribe(
+      const rolesArray = [this.rolSeleccionado]; // Convert selected role to string[]
+      const userToSend: UserToSend = { ...this.usuario, roles: rolesArray };
+      this.userService.updateUser(token, this.usuario.id, userToSend).subscribe(
         response => {
           this.router.navigate(['/']);
           console.log('Usuario actualizado:', response);
         },
-        error => {
+        (error: any) => {
           console.error('Error al actualizar el usuario:', error);
         }
       );

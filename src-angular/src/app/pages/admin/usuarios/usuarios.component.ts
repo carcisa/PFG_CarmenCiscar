@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { TokenService } from '../../../services/token.service';
+import { UserToSend } from '../../../models/userToSend.model';
 
 @Component({
   selector: 'app-usuarios',
@@ -86,9 +87,15 @@ export class UsuariosComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.usuarioActual.roles = new Set<string>([this.rolSeleccionado]);
+    // Convierte el rol seleccionado en un array antes de enviar al servicio
+    const rolesArray = [this.rolSeleccionado];
+    const userToSend: UserToSend = {
+      ...this.usuarioActual,
+      roles: rolesArray
+    };
+
     if (this.esNuevoUsuario) {
-      this.userService.createUser(this.token, this.usuarioActual).subscribe({
+      this.userService.createUser(this.token, userToSend).subscribe({
         next: () => {
           this.cargarUsuarios();
           this.cerrarModal();
@@ -96,7 +103,7 @@ export class UsuariosComponent implements OnInit {
         error: (error) => console.error('Error al crear usuario:', error)
       });
     } else {
-      this.userService.updateUser(this.token, this.usuarioActual.id, this.usuarioActual).subscribe({
+      this.userService.updateUser(this.token, this.usuarioActual.id, userToSend).subscribe({
         next: () => {
           this.cargarUsuarios();
           this.cerrarModal();

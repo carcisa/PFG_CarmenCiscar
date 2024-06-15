@@ -32,8 +32,8 @@ export const routes: Routes = [
 
   { path: '', component: InicioComponent },
   { path: 'planes', component: PlanesComponent },
-  { path: 'planSeleccionado', component: PlanSeleccionadoComponent},
   { path: 'destinos/:id/planes', component: PlanesComponent },
+  { path: 'planSeleccionado/:id', component: PlanSeleccionadoComponent },
   { path: 'actividades', component: ActividadesComponent },
   { path: 'actividad/:id', component: ActividadComponent },
   { path: 'categorias', component: CategoriasComponent },

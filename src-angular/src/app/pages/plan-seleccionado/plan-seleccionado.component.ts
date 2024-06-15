@@ -4,6 +4,8 @@ import { Actividad } from '../../models/actividad.model';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ActividadComponent } from '../actividad/actividad.component';
+import { PlanStateService } from '../../services/plan-state.service';
+
 
 @Component({
   selector: 'app-plan-seleccionado',
@@ -16,14 +18,22 @@ export class PlanSeleccionadoComponent implements OnInit {
   actividades: Actividad[] = [];
   destinoId!: number;
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private planStateService: PlanStateService
+  ) {}
 
   ngOnInit(): void {
     // Captura el id del destino desde los parámetros de la ruta
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
+      console.log('Destino ID desde paramMap:', id); // Depuración
       if (id) {
         this.destinoId = +id; // Convierte el id a número
+        console.log('Destino ID después de conversión:', this.destinoId); // Depuración
+      } else {
+        console.error('No se pudo capturar el ID del destino desde los parámetros de la ruta.');
       }
     });
 
@@ -32,14 +42,23 @@ export class PlanSeleccionadoComponent implements OnInit {
       const actividades = params['actividades'];
       if (actividades) {
         this.actividades = JSON.parse(actividades);
+        this.planStateService.setActividades(this.actividades);
       } else {
-        console.error('No se recibieron actividades en la navegación');
+        this.actividades = this.planStateService.getActividades();
+        if (this.actividades.length === 0) {
+          console.error('No se recibieron actividades en la navegación y no hay actividades en el estado');
+        }
       }
     });
   }
 
   goBack(): void {
-    // Navega de regreso utilizando el id del destino capturado
-    this.router.navigate([`/destinos/${this.destinoId}/planes`]);
+    if (this.destinoId !== undefined && this.destinoId !== null) {
+      this.router.navigate([`/destinos/${this.destinoId}/planes`], {
+        queryParams: { actividades: JSON.stringify(this.actividades) }
+      });
+    } else {
+      console.error('ID del destino no definido');
+    }
   }
 }
