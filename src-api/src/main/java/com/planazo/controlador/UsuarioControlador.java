@@ -170,7 +170,7 @@ public class UsuarioControlador {
 			usuario.setApellidoUsuario(usuarioDto.getApellidoUsuario());
 			usuario.setEmail(usuarioDto.getEmail());
 			usuario.setPassword(usuarioDto.getPassword());
-
+			usuario.setRoles(usuarioDto.getRoles().stream().map(Rol::fromString).collect(Collectors.toSet()));
 			Usuario updatedUsuario = usuarioService.save(usuario);
 			return ResponseEntity.ok(updatedUsuario);
 		} catch (Exception e) {

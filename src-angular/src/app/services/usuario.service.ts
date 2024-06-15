@@ -11,7 +11,7 @@ import { UserToSend } from '../models/userToSend.model';
 })
 export class UserService {
 
-  private apiUrl = 'http://localhost:8080/api/usuarios/';
+  private apiUrl = 'http://localhost:8081/api/usuarios/';
 
   constructor(private http: HttpClient, private router: Router) { }
 
