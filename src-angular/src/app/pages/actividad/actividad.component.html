@@ -67,7 +67,7 @@
           <p class="leading-relaxed mb-2 text-left">{{ comentario.descripcion }}</p>
           <div class="absolute top-6 right-4 bg-secondaryt text-primaryt rounded-full px-3 py-2 text-sm ">{{ comentario.puntuacion }}</div>
           <span class="block text-gray-500 text-sm mt-2">{{ comentario.titulo }}</span>
-          <span class="block text-gray-500 text-sm">Usuario: {{ usuarioNombres[comentario.usuarioId] || 'Desconocido' }}</span>
+          <span class="block text-gray-500 text-sm">Usuario: {{ comentario.autor || 'Desconocido' }}</span>
         </div>
       </div>
     </div>

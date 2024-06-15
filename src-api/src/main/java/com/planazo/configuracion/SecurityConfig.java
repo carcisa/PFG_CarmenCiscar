@@ -77,7 +77,7 @@ public class SecurityConfig {
 				.requestMatchers(HttpMethod.DELETE, "/api/actividades/**").hasAnyAuthority(Rol.ROL_ADMIN.toString())
 
 				//El usuario puede hacer el crud entero
-				.requestMatchers("/api/comentario/**").permitAll()
+				.requestMatchers("/api/comentarios/**").permitAll()
 				.requestMatchers(HttpMethod.GET, "/api/comentario/**")
 				.hasAnyAuthority(Rol.ROL_USER.toString(), Rol.ROL_ADMIN.toString())
 				.requestMatchers(HttpMethod.POST, "/api/comentario/**")

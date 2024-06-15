@@ -17,12 +17,12 @@ public class DatabaseInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Resource resource = new ClassPathResource("scripts/01_init_data.sql");
-        ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator(resource);
-        try {
-            databasePopulator.execute(dataSource);
-        } catch (ScriptException e) {
-            e.printStackTrace();
-        }
+    //     Resource resource = new ClassPathResource("scripts/01_init_data.sql");
+    //     ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator(resource);
+    //     try {
+    //         databasePopulator.execute(dataSource);
+    //     } catch (ScriptException e) {
+    //         e.printStackTrace();
+    //     }
     }
 }

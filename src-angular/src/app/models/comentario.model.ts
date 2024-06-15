@@ -6,4 +6,5 @@ export interface Comentario {
   puntuacion: number;
   usuarioId: number;
   actividadId: number;
+  autor?: string;
 }

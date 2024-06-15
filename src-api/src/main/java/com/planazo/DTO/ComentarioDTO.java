@@ -2,10 +2,6 @@ package com.planazo.DTO;
 
 import com.planazo.entidad.Comentario;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 public class ComentarioDTO {
     private Integer id;
@@ -14,6 +10,7 @@ public class ComentarioDTO {
     private Double puntuacion;
     private Integer usuarioId;
     private Integer actividadId;
+    private String autor;
 
     public ComentarioDTO() {
     }
@@ -74,5 +71,13 @@ public class ComentarioDTO {
 
     public void setActividadId(Integer actividadId) {
         this.actividadId = actividadId;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public String getAutor() {
+        return autor;
     }
 }

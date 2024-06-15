@@ -3,6 +3,7 @@ package com.planazo.controlador;
 import java.util.List;
 import java.util.Optional;
 
+import com.planazo.servicio.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,10 +28,12 @@ import jakarta.validation.Valid;
 public class ComentarioControlador {
 
     private final ComentarioServicio comentarioServicio;
+    private final UsuarioServicio usuarioServicio;
 
     @Autowired
-    public ComentarioControlador(ComentarioServicio comentarioServicio) {
+    public ComentarioControlador(ComentarioServicio comentarioServicio, UsuarioServicio usuarioServicio) {
         this.comentarioServicio = comentarioServicio;
+        this.usuarioServicio = usuarioServicio;
     }
 
     @GetMapping
@@ -96,6 +99,9 @@ public class ComentarioControlador {
     @GetMapping("/actividades/{actividadId}/comentarios")
     public ResponseEntity<List<ComentarioDTO>> getComentariosPorActividadId(@PathVariable Integer actividadId) {
         List<ComentarioDTO> comentarios = comentarioServicio.obtenerComentariosPorActividadId(actividadId);
+        comentarios.forEach(comentario -> {
+            usuarioServicio.findById(comentario.getUsuarioId()).ifPresent(user -> comentario.setAutor(user.getNombreUsuario()));
+        });
         if (comentarios.isEmpty()) {
             return ResponseEntity.noContent().build();
         }

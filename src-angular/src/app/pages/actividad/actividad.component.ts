@@ -97,32 +97,8 @@ export class ActividadComponent implements OnInit {
     this.comentarioService.getComentariosPorActividadId(id).subscribe(
       comentarios => {
         this.comentarios = comentarios;
-        this.addUsuarioNamesToComentarios();
       },
       error => console.error('Error fetching comentarios:', error)
-    );
-  }
-
-  addUsuarioNamesToComentarios(): void {
-    const observables = this.comentarios.map(comentario =>
-      this.userService.getUsers(this.token!).pipe(
-        map(users => {
-          const user = users.find((user: Usuario) => user.id === comentario.usuarioId);
-          if (user) {
-            this.usuarioNombres[comentario.usuarioId] = user.nombreUsuario;
-          } else {
-            this.usuarioNombres[comentario.usuarioId] = 'Desconocido';
-          }
-          return comentario;
-        })
-      )
-    );
-
-    forkJoin(observables).subscribe(
-      () => {
-        // No necesitamos hacer nada aquí porque el mapa se actualiza dentro del observable
-      },
-      error => console.error('Error fetching usuario names:', error)
     );
   }
 
