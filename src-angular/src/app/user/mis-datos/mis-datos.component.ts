@@ -68,7 +68,7 @@ export class MisDatosComponent implements OnInit {
     if (token) {
         const rolesArray = Array.from(this.usuario.roles); // Convert Set<string> to string[]
         const updatedUser: UserToSend = { ...this.usuario, password: this.newPassword, roles: rolesArray };
-        this.userService.updateUser(token, this.usuario.id, updatedUser).subscribe(
+        this.userService.updateUser(this.usuario.id, updatedUser).subscribe(
             response => {
                 console.log('Contraseña actualizada:', response);
                 this.closeModal();
@@ -85,7 +85,7 @@ export class MisDatosComponent implements OnInit {
     if (token) {
       const rolesArray = [this.rolSeleccionado]; // Convert selected role to string[]
       const userToSend: UserToSend = { ...this.usuario, roles: rolesArray };
-      this.userService.updateUser(token, this.usuario.id, userToSend).subscribe(
+      this.userService.updateUser(this.usuario.id, userToSend).subscribe(
         response => {
           this.router.navigate(['/']);
           console.log('Usuario actualizado:', response);

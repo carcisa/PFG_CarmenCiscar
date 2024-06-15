@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     const token = this.tokenService.getToken();
     if (token) {
-      this.userService.getUsers(token).subscribe({
+      this.userService.getUsers().subscribe({
         next: (response) => {
           // Handle response
         },

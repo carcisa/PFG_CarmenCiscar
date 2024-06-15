@@ -101,7 +101,7 @@ public class UsuarioControlador {
 	 * @param usuario El usuario a crear.
 	 * @return El usuario creado.
 	 */
-	@PostMapping
+	@PostMapping("/createUser")
 	public ResponseEntity<Usuario> createUsuario(@Valid @RequestBody UsuarioDto usuarioDto) {
 		Usuario usuario = new Usuario();
 		usuario.setEmail(usuarioDto.getEmail());
