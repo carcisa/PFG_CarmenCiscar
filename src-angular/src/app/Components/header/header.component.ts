@@ -1,6 +1,6 @@
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -40,6 +40,9 @@ import { MisOpinionesComponent } from '../../user/mis-opiniones/mis-opiniones.co
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+
+  @ViewChild('sidenav') sidenav!: MatSidenav;
+
   isAuthenticated: boolean = false;
   isAdmin: boolean = false;
   usuario: Usuario = new Usuario(0, '', '', '', '', new Set());
@@ -49,12 +52,12 @@ export class HeaderComponent implements OnInit {
     public authService: AuthService,
     private router: Router,
     private tokenService: TokenService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+
   ) { }
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-
       this.updateAuthenticationState();
       this.authService.authenticationState.subscribe(() => {
         this.updateAuthenticationState();
@@ -64,13 +67,13 @@ export class HeaderComponent implements OnInit {
         if (user) {
           this.usuario = user;
         } else {
-
           this.usuario = new Usuario(0, '', '', '', '', new Set());
         }
         console.log('Usuario actualizado en el componente:', this.usuario);
       });
     }
   }
+
   updateAuthenticationState() {
     this.isAuthenticated = this.authService.isAuthenticated();
     if (this.isAuthenticated) {
@@ -79,7 +82,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogoutClicked() {
-    if (isPlatformBrowser(this.platformId)) {  // Asegurarse que Swal sólo se ejecute en el cliente
+    if (isPlatformBrowser(this.platformId)) {
       Swal.fire({
         title: 'Cerrar sesión',
         text: '¿Estás seguro de que deseas cerrar sesión?',
@@ -119,5 +122,9 @@ export class HeaderComponent implements OnInit {
 
   onProfileClicked() {
     this.isProfileMenuVisible = !this.isProfileMenuVisible;
+  }
+
+  closeSidenav() {
+    this.sidenav.close();
   }
 }

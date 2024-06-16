@@ -3,7 +3,7 @@
     <div>
       <a routerLink="/"><img src="assets/img/LogoPlanazoAzulconLetrasRosa.png" alt="Logo" class="logo"></a>
     </div>
-    <div>
+    <div class="hidden md:flex items-center">
       <ng-container *ngIf="!isAuthenticated; else loggedIn">
         <a routerLink="/login" class="menu-link px-3 text-sm">Login</a>
         <a routerLink="/registro" class="menu-link px-3 text-sm">Registro</a>
@@ -24,14 +24,44 @@
         </ng-template>
       </ng-template>
     </div>
+    <button (click)="sidenav.toggle()" class="block md:hidden p-2">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+      </svg>
+    </button>
   </div>
-  <div class="bg-primaryt text-secondaryt p-4">
-    <div class="container mx-auto">
-      <ng-container *ngIf="isAuthenticated">
-        <div class="text-right">
-          Bienvenid&#64;, {{ usuario.nombreUsuario }}
-        </div>
+  <mat-sidenav-container class="example-container">
+    <mat-sidenav #sidenav class="example-sidenav" [mode]="'over'" [fixedInViewport]="true">
+      <ng-container *ngIf="!isAuthenticated; else loggedInMobile">
+        <a mat-list-item routerLink="/login" class="menu-link block py-2" (click)="closeSidenav()">Login</a>
+        <a mat-list-item routerLink="/registro" class="menu-link block py-2" (click)="closeSidenav()">Registro</a>
       </ng-container>
-    </div>
-  </div>
+      <ng-template #loggedInMobile>
+        <ng-container *ngIf="isAdmin; else userMenuMobile">
+          <a mat-list-item routerLink="/actividades" class="menu-link block py-4" (click)="closeSidenav()">Actividades</a>
+          <a mat-list-item routerLink="/nuevaActividad" class="menu-link block py-4" (click)="closeSidenav()">Nueva Actividad</a>
+          <a mat-list-item routerLink="/usuarios" class="menu-link block py-4" (click)="closeSidenav()">Usuarios</a>
+          <a mat-list-item (click)="onLogoutClicked(); closeSidenav()" class="menu-link block py-4">Logout</a>
+        </ng-container>
+        <ng-template #userMenuMobile>
+          <a mat-list-item routerLink="/mis-datos" class="menu-link block py-4" (click)="closeSidenav()">Mis datos</a>
+          <a mat-list-item routerLink="/mis-planes" class="menu-link block py-4" (click)="closeSidenav()">Favoritos</a>
+          <a mat-list-item routerLink="/actividades" class="menu-link block py-4" (click)="closeSidenav()">Actividades</a>
+          <a mat-list-item routerLink="/mis-opiniones" class="menu-link block py-4" (click)="closeSidenav()">Mis Opiniones</a>
+          <a mat-list-item (click)="onLogoutClicked(); closeSidenav()" class="menu-link block py-4">Logout</a>
+        </ng-template>
+      </ng-template>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div class="bg-primaryt text-secondaryt p-4">
+        <div class="container mx-auto">
+          <ng-container *ngIf="isAuthenticated">
+            <div class="text-right">
+              Bienvenid&#64;, {{ usuario.nombreUsuario }}
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </header>
