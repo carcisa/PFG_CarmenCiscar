@@ -32,6 +32,7 @@ import com.planazo.error.usuario.ListaUsuariosVaciaException;
 import com.planazo.error.usuario.UsuarioNoEncontradoException;
 import com.planazo.repositorio.UsuarioRepositorio;
 import com.planazo.servicio.ActividadServicio;
+import com.planazo.servicio.ComentarioServicio;
 import com.planazo.servicio.UsuarioServicio;
 import com.planazo.servicio.Impl.UsuarioMapper;
 
@@ -47,6 +48,7 @@ public class UsuarioControlador {
 
 	private final UsuarioServicio usuarioService;
 	private final ActividadServicio actividaServicio;
+	private ComentarioServicio comentarioServicio;
 
 	@Autowired
 	private UsuarioRepositorio usuarioRepository;
@@ -57,15 +59,19 @@ public class UsuarioControlador {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	
+	
+
 	/**
 	 * Constructor para inyección de dependencias del servicio de usuarios.
 	 * 
 	 * @param usuarioService El servicio para manejar operaciones de usuarios.
 	 */
 	@Autowired
-	public UsuarioControlador(UsuarioServicio usuarioService, ActividadServicio actividadServicio) {
+	public UsuarioControlador(UsuarioServicio usuarioService, ActividadServicio actividadServicio, ComentarioServicio comentarioServicio) {
 		this.usuarioService = usuarioService;
 		this.actividaServicio = actividadServicio;
+		this.comentarioServicio = comentarioServicio;
 	}
 
 	/**
@@ -190,6 +196,7 @@ public class UsuarioControlador {
 		if (!usuarioService.findById(id).isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
+		comentarioServicio.obtenerComentariosPorUsuarioId(id).forEach(comentario -> comentarioServicio.eliminarComentario(comentario.getId()));
 		usuarioService.deleteById(id);
 		return ResponseEntity.ok().build();
 	}
