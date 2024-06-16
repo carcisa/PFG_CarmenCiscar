@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms'
 import { forkJoin } from 'rxjs';
 import { Actividad } from '../../models/actividad.model';
 import { ActividadService } from '../../services/actividad.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mis-opiniones',
@@ -27,7 +28,8 @@ export class MisOpinionesComponent implements OnInit {
   constructor(
     private comentarioService: ComentarioService,
     private authService: AuthService,
-    private actividadService: ActividadService
+    private actividadService: ActividadService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -115,5 +117,13 @@ export class MisOpinionesComponent implements OnInit {
     this.opinionForm = { ...comentario };
     this.isOpinionModalOpen = true;
     this.editMode = true;
+  }
+
+  verDetalleActividad(id: number | undefined): void {
+    if (id !== undefined) {
+      this.router.navigate(['/actividad', id]);
+    } else {
+      console.error('ID de actividad no está definido');
+    }
   }
 }

@@ -1,7 +1,7 @@
 <div class="container mx-auto p-4">
   <h2 class="text-2xl font-bold mb-4">Mis Opiniones</h2>
   <div *ngFor="let comentario of comentarios" class="mb-4 p-4 border rounded-md shadow-sm flex items-start">
-    <img [src]="getActividadImagen(comentario.actividadId)" alt="{{ comentario.titulo }}" class="w-40 h-36 object-cover mr-4 rounded">
+    <img (click)="verDetalleActividad(comentario.actividadId)" [src]="getActividadImagen(comentario.actividadId)" alt="{{ comentario.titulo }}" class="w-40 h-36 object-cover mr-4 rounded cursor-pointer">
     <div>
       <h3 class="text-xl font-semibold">{{ comentario.titulo }}</h3>
       <p class="text-gray-600">{{ comentario.descripcion }}</p>
