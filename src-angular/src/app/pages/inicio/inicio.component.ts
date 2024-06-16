@@ -30,12 +30,14 @@ export class InicioComponent {
     this.cargarDestinos();
   }
   cargarDestinos(): void {
+    // Obtener todos los destinos desde el servicio
     this.destinoService.getAllDestinos().subscribe({
       next: (destinos) => {
+        // Mapear destinos a un formato específico
         this.destinos = destinos.map(destino => ({
           nombre: destino.nombre,
           imagen: destino.imagen,
-          path: `/${this.normalizeName(destino.nombre)}`
+          path: `/${this.normalizeName(destino.nombre)}` // Normalizar el nombre para la URL
         }));
       },
       error: (error) => console.error('Error al cargar destinos', error)
@@ -43,12 +45,15 @@ export class InicioComponent {
   }
 
   normalizeName(name: string): string {
+    // Normalizar el nombre eliminando acentos y convirtiendo a minúsculas
     return name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   }
 
-  buscarDestino() {
+  buscarDestino(): void {
+    // Buscar un destino por nombre
     this.destinoService.getDestinoByNombre(this.destinoBuscado).subscribe(destino => {
       if (destino) {
+        // Navegar a la página de planes del destino encontrado
         this.router.navigate(['/destinos', destino.id, 'planes']);
       } else {
         alert('Destino no encontrado');
@@ -57,5 +62,5 @@ export class InicioComponent {
       console.error('Error al buscar destino', error);
       alert('Error al buscar destino');
     });
-}
+  }
 }

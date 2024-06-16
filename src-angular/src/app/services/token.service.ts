@@ -8,6 +8,7 @@ export class TokenService {
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
+  // Obtiene el token almacenado en sessionStorage si se ejecuta en el navegador
   getToken(): string | null {
     if (isPlatformBrowser(this.platformId)) {
       return sessionStorage.getItem('token');
@@ -15,6 +16,7 @@ export class TokenService {
     return null;
   }
 
+  // Guarda el token y los roles del usuario en sessionStorage
   setUserDetails(token: string, roles: string[]): void {
     if (isPlatformBrowser(this.platformId)) {
       sessionStorage.setItem('token', token);
@@ -22,6 +24,7 @@ export class TokenService {
     }
   }
 
+  // Obtiene los roles del usuario desde sessionStorage
   getRoles(): string[] {
     if (isPlatformBrowser(this.platformId)) {
       const roles = sessionStorage.getItem('roles');
@@ -30,20 +33,22 @@ export class TokenService {
     return [];
   }
 
+  // Elimina los detalles del usuario del almacenamiento local
   removeUserDetails(): void {
     if (isPlatformBrowser(this.platformId)) {
       sessionStorage.removeItem('token');
-      localStorage.removeItem('token');
+      localStorage.removeItem('token'); // Eliminación redundante para asegurarse
       sessionStorage.removeItem('roles');
     }
   }
 
+  // Decodifica el token para obtener el correo electrónico del usuario
   getUserEmail(): string | null {
     const token = this.getToken();
     if (token) {
       try {
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        return payload.email || payload.sub || null;
+        const payload = JSON.parse(atob(token.split('.')[1])); // Decodifica el payload del token
+        return payload.email || payload.sub || null; // Retorna el correo electrónico o el subject
       } catch (error) {
         console.error('Error decodificando el token:', error);
         return null;

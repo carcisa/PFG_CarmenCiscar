@@ -77,7 +77,7 @@ export class EditarActividadComponent implements OnInit {
     if (event.target.files && event.target.files[0]) {
       this.selectedFile = event.target.files[0];
 
-      // Asegúrate de que selectedFile no es null antes de usarlo
+      // Asegúrarse de que selectedFile no es null antes de usarlo
       if (this.selectedFile) {
         const reader = new FileReader();
         reader.onload = (e: any) => {

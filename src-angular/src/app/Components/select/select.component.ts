@@ -18,11 +18,11 @@ import { ButtonComponent } from '../button/button.component';
   ]
 })
 export class SelectComponent implements ControlValueAccessor {
-  @Input() options: Array<{ value: string, label: string }> = [];
-  @Input() defaultOptionLabel: string = 'Categoría';
-  @Input() defaultOptionValue: string = '';
+  @Input() options: Array<{ value: string, label: string }> = []; // Opciones del select
+  @Input() defaultOptionLabel: string = 'Categoría'; // Etiqueta por defecto
+  @Input() defaultOptionValue: string = ''; // Valor por defecto
 
-  @Output() selectedValueChange = new EventEmitter<string>();
+  @Output() selectedValueChange = new EventEmitter<string>(); // Emite cambios en la selección
 
   private _selectedValue: string | undefined = undefined;
 
@@ -35,24 +35,24 @@ export class SelectComponent implements ControlValueAccessor {
 
   set selectedValue(val: string | undefined) {
     this._selectedValue = val;
-    this.onChange(val);
-    this.onTouched();
+    this.onChange(val); // Notificar cambio de valor
+    this.onTouched(); // Marcar como tocado
   }
 
   writeValue(value: any): void {
-    this.selectedValue = value !== undefined ? value : this.defaultOptionValue;
+    this.selectedValue = value !== undefined ? value : this.defaultOptionValue; // Establecer valor
   }
 
   registerOnChange(fn: any): void {
-    this.onChange = fn;
+    this.onChange = fn;// Registrar función de cambio
   }
 
   registerOnTouched(fn: any): void {
-    this.onTouched = fn;
+    this.onTouched = fn;// Registrar función de toque
   }
 
   onSelectChange(value: string): void {
     this.selectedValue = value;
-    this.selectedValueChange.emit(this.selectedValue);
+    this.selectedValueChange.emit(this.selectedValue);// Emitir cambio de selección
   }
 }

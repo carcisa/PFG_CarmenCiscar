@@ -35,6 +35,7 @@ export class ActividadesComponent implements OnInit {
 
   @Input() selectedCategoria: string = '';
 
+   // Emite cambios en la categoría seleccionada
   @Output() selectedCategoriaChange = new EventEmitter<string>();
 
   searchQuery: string = '';
@@ -48,9 +49,11 @@ export class ActividadesComponent implements OnInit {
   }
 
   loadActividades(): void {
+    // Cargar todas las actividades desde el servicio
     this.actividadService.getAllActividades().subscribe({
       next: (data) => {
         this.actividades = data;
+         // Inicialmente, todas las actividades están filtradas
         this.filteredActividades = data;
       },
       error: (error) => {
@@ -72,13 +75,13 @@ export class ActividadesComponent implements OnInit {
   }
 
   onSearch(query: string): void {
-    this.searchQuery = query;
-    this.filterActividades();
+    this.searchQuery = query; // Actualizar la consulta de búsqueda
+    this.filterActividades(); // Filtrar actividades según la consulta
   }
 
   onCategoriaChange(categoria: string): void {
-    this.selectedCategoria = categoria;
-    this.filterActividades();
+    this.selectedCategoria = categoria; // Actualizar la categoría seleccionada
+    this.filterActividades(); // Filtrar actividades según la categoría
   }
 
   filterActividades(): void {
@@ -89,7 +92,7 @@ export class ActividadesComponent implements OnInit {
   }
 
   getCategoriaOptions() {
-    return this.options;
+    return this.options; // Obtener opciones de categorías
   }
 
   goBack(): void {

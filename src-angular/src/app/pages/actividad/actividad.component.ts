@@ -49,10 +49,9 @@ export class ActividadComponent implements OnInit {
 
   ngOnInit(): void {
     this.isUserLoggedIn = this.authService.isAuthenticated();
-    console.log('isUserLoggedIn:', this.isUserLoggedIn);
-
+    // Verificar si el usuario está autenticado
     this.isAdmin = this.authService.hasRole('ROL_ADMIN');
-    console.log('isAdmin:', this.isAdmin);
+    // Verificar si el usuario tiene rol de administrador
 
     if (this.isUserLoggedIn) {
       this.token = this.tokenService.getToken();
@@ -64,6 +63,7 @@ export class ActividadComponent implements OnInit {
 
   getActividad(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
+    // Obtener el ID de la actividad desde la ruta
     if (id) {
       this.actividadService.getActividadById(id)
         .subscribe(
@@ -84,12 +84,14 @@ export class ActividadComponent implements OnInit {
 
   getImagenUrl(imagen: string | undefined): string {
     return imagen ? `${imagen}` : 'ruta/de/imagen/por/defecto.jpg';
+    // Obtener URL de la imagen o una por defecto
   }
 
   toggleOpiniones(): void {
     this.mostrarOpiniones = !this.mostrarOpiniones;
     if (this.mostrarOpiniones && this.actividad) {
       this.getComentariosPorActividadId(this.actividad.id!);
+      // Cargar comentarios si se muestran
     }
   }
 
@@ -203,9 +205,11 @@ export class ActividadComponent implements OnInit {
 
   getGoogleMapsLink(direccion: string): string {
     return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(direccion)}`;
+    // Obtener enlace a Google Maps
   }
 
   getGoogleSearchLink(nombre: string): string {
     return `https://www.google.com/search?q=${encodeURIComponent(nombre)}`;
+    // Obtener enlace a búsqueda de Google
   }
 }

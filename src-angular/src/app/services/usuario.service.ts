@@ -13,10 +13,9 @@ export class UserService {
 
   private apiUrl = 'http://localhost:8081/api/usuarios/';
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {}
 
-
-
+  // Redirige al login si la respuesta es no autorizada
   private isNoAutorizado(e: HttpErrorResponse): boolean {
     if (e.status === 401 || e.status === 403) {
       this.router.navigate(['/login']);
@@ -25,6 +24,7 @@ export class UserService {
     return false;
   }
 
+  // Devuelve los detalles del usuario
   devolverUsuario(token: string): Observable<Usuario> {
     return this.http.get<Usuario>(`${this.apiUrl}miusuario`, { headers: this.getHeaders() }).pipe(
       catchError((e) => {
@@ -34,11 +34,13 @@ export class UserService {
     );
   }
 
+  // Configura los encabezados de las solicitudes HTTP
   private getHeaders(): HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json'
     });
   }
+
 
   getUsers(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(this.apiUrl, { headers: this.getHeaders() }).pipe(
@@ -48,6 +50,7 @@ export class UserService {
     );
   }
 
+  // Crea un nuevo usuario
   createUser(user: UserToSend): Observable<Usuario> {
     return this.http.post<Usuario>(`${this.apiUrl}createUser`, user, { headers: this.getHeaders() }).pipe(
       catchError((e: HttpErrorResponse) => {
@@ -55,6 +58,8 @@ export class UserService {
       })
     );
   }
+
+  // Crea un nuevo usuario administrador
   createUserAdmin(user: UserToSend): Observable<Usuario> {
     const url = `${this.apiUrl}admin/createUser`;
     return this.http.post<Usuario>(url, user, { headers: this.getHeaders() }).pipe(
@@ -63,6 +68,7 @@ export class UserService {
       })
     );
   }
+
 
   updateUser(userId: number, user: UserToSend): Observable<Usuario> {
     const url = `${this.apiUrl}${userId}`;
@@ -73,6 +79,7 @@ export class UserService {
     );
   }
 
+
   deleteUser(userId: number): Observable<any> {
     const url = `${this.apiUrl}${userId}`;
     return this.http.delete<any>(url, { headers: this.getHeaders() }).pipe(
@@ -81,29 +88,15 @@ export class UserService {
       })
     );
   }
+
+  // Maneja errores de las solicitudes HTTP
   private handleError(error: HttpErrorResponse) {
-    console.error('Error actualizando el usuario:', error);
-    if (error.error instanceof ErrorEvent) {
-      return throwError(() => new Error('Error del lado del cliente: ' + error.error.message));
-    } else {
-      let errorMessage = 'Error del servidor';
-      if (error.error) {
-        errorMessage = error.error.message || errorMessage;
-      }
-      return throwError(() => new Error(errorMessage));
-    }
+    console.error('Error:', error);
+    const errorMessage = error.error?.message || 'Error del servidor';
+    return throwError(() => new Error(errorMessage));
   }
 
-  // deleteUser(userId: number): Observable<any> {
-  //   const url = `${this.apiUrl}${userId}`;
-  //   return this.http.delete<any>(url, { headers: this.getHeaders() }).pipe(
-  //     catchError((e) => {
-  //       this.isNoAutorizado(e);
-  //       return throwError(() => new Error('Error deleting user'));
-  //     })
-  //   );
-  // }
-
+  // Añade una actividad a los favoritos del usuario
   addActividadFavorita(token: string, usuarioId: number, actividadId: number): Observable<any> {
     const url = `${this.apiUrl}${usuarioId}/actividades`;
     return this.http.post<any>(url, { id: actividadId }, { headers: this.getHeaders() }).pipe(
@@ -111,6 +104,7 @@ export class UserService {
     );
   }
 
+  // Obtiene las actividades favoritas del usuario
   getActividadesFavoritas(token: string, usuarioId: number): Observable<Actividad[]> {
     const url = `${this.apiUrl}${usuarioId}/actividades`;
     return this.http.get<Actividad[]>(url, { headers: this.getHeaders() }).pipe(
@@ -118,6 +112,7 @@ export class UserService {
     );
   }
 
+  // Elimina una actividad de los favoritos del usuario
   removeActividadFavorita(token: string, usuarioId: number, actividadId: number): Observable<any> {
     const url = `${this.apiUrl}${usuarioId}/favoritos/${actividadId}`;
     return this.http.delete<any>(url, { headers: this.getHeaders() }).pipe(
@@ -125,10 +120,12 @@ export class UserService {
     );
   }
 
+  // Guarda las actividades favoritas en localStorage
   saveActividadesFavoritasToLocalStorage(actividades: Actividad[]): void {
     localStorage.setItem('actividadesFavoritas', JSON.stringify(actividades));
   }
 
+  // Carga las actividades favoritas desde localStorage
   loadActividadesFavoritasFromLocalStorage(): Actividad[] {
     const actividades = localStorage.getItem('actividadesFavoritas');
     return actividades ? JSON.parse(actividades) : [];

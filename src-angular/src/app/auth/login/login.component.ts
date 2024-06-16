@@ -46,8 +46,10 @@ export class LoginComponent implements OnInit {
       return;
     }
 
+    // Llamar al servicio de autenticación para hacer login
     this.authService.login({ email, password }).subscribe({
       next: (tokenResponse) => {
+        // Guardar token y redirigir según el rol del usuario
         const token = tokenResponse.token;
         if (typeof window !== 'undefined') {
           sessionStorage.setItem('token', token);
@@ -67,13 +69,13 @@ export class LoginComponent implements OnInit {
       },
     });
   }
-
   ngOnInit(): void {
+     // Si hay un token, verificar usuarios
     const token = this.tokenService.getToken();
     if (token) {
       this.userService.getUsers().subscribe({
         next: (response) => {
-          // Handle response
+          console.log('Usuarios obtenidos:', response);
         },
         error: (err) => {
           console.error('Error:', err);

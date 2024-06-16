@@ -9,8 +9,11 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (isPlatformBrowser(this.platformId)) {
+      // Verifica si el código se ejecuta en el navegador
       const token = localStorage.getItem('token');
+      // Obtiene el token de localStorage
       if (token) {
+        // Clona la solicitud y añade el encabezado de autorización si el token existe
         request = request.clone({
           setHeaders: {
             Authorization: `Bearer ${token}`
@@ -19,5 +22,6 @@ export class AuthInterceptor implements HttpInterceptor {
       }
     }
     return next.handle(request);
+    // Pasa la solicitud al siguiente manejador
   }
 }

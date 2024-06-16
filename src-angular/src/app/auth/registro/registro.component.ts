@@ -37,35 +37,38 @@ export class RegistroComponent implements OnInit {
       return;
     }
 
-    const newUser: Usuario = new Usuario(
-      0, // id predeterminado
-      this.registerForm.value.nombreUsuario,
-      this.registerForm.value.apellidoUsuario,
-      this.registerForm.value.email,
-      this.registerForm.value.password,
-      new Set(['user']) // Asignar el rol 'user' por defecto
-    );
+      // Crear un nuevo objeto Usuario con los datos del formulario
+      const newUser: Usuario = new Usuario(
+        0, // id predeterminado
+        this.registerForm.value.nombreUsuario,
+        this.registerForm.value.apellidoUsuario,
+        this.registerForm.value.email,
+        this.registerForm.value.password,
+        new Set(['user']) // Asignar el rol 'user' por defecto
+      );
 
-    console.log('Datos enviados:', newUser);  // Log para verificar los datos que se envían
+      console.log('Datos enviados:', newUser);  // Log para verificar los datos que se envían
 
-    this.authService.signup(newUser).subscribe({
-      next: (response) => {
-        console.log('Registro exitoso:', response);
-        Swal.fire({
-          title: 'Registro Exitoso',
-          text: 'Te has registrado correctamente.',
-          icon: 'success',
-          confirmButtonText: 'Aceptar'
-        }).then(() => {
-          this.router.navigate(['/login']);
-        });
-      },
-      error: (err) => {
-        this.errorMessage = err.message;
-        console.error('Error en el registro:', err);
-      }
-    });
-  }
+      // Llamar al servicio de registro
+      this.authService.signup(newUser).subscribe({
+        next: (response) => {
+          console.log('Registro exitoso:', response);
+          // Mostrar mensaje de éxito y redirigir al login
+          Swal.fire({
+            title: 'Registro Exitoso',
+            text: 'Te has registrado correctamente.',
+            icon: 'success',
+            confirmButtonText: 'Aceptar'
+          }).then(() => {
+            this.router.navigate(['/login']);
+          });
+        },
+        error: (err) => {
+          this.errorMessage = err.message;
+          console.error('Error en el registro:', err);
+        }
+      });
+    }
 
 
   ngOnInit(): void {}

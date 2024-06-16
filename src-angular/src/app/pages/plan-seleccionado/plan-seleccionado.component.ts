@@ -41,10 +41,10 @@ export class PlanSeleccionadoComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       const actividades = params['actividades'];
       if (actividades) {
-        this.actividades = JSON.parse(actividades);
-        this.planStateService.setActividades(this.actividades);
+        this.actividades = JSON.parse(actividades);// Parsear actividades desde queryParams
+        this.planStateService.setActividades(this.actividades);// Guardar en el servicio de estado
       } else {
-        this.actividades = this.planStateService.getActividades();
+        this.actividades = this.planStateService.getActividades();// Obtener actividades desde el estado
         if (this.actividades.length === 0) {
           console.error('No se recibieron actividades en la navegación y no hay actividades en el estado');
         }
@@ -53,6 +53,7 @@ export class PlanSeleccionadoComponent implements OnInit {
   }
 
   goBack(): void {
+    // Navegar de regreso a la página de planes del destino
     if (this.destinoId !== undefined && this.destinoId !== null) {
       this.router.navigate([`/destinos/${this.destinoId}/planes`], {
         queryParams: { actividades: JSON.stringify(this.actividades) }

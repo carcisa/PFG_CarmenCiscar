@@ -24,11 +24,13 @@ export class UsuariosComponent implements OnInit {
 
   constructor(private userService: UserService) {}
 
+
   ngOnInit(): void {
-    this.cargarUsuarios();
+    this.cargarUsuarios(); // Cargar los usuarios al inicializar el componente
   }
 
   cargarUsuarios(): void {
+    // Obtener todos los usuarios del servicio
     this.userService.getUsers().subscribe({
       next: (usuarios) => {
         this.usuarios = usuarios;
@@ -39,9 +41,11 @@ export class UsuariosComponent implements OnInit {
 
   getRol(usuario: Usuario): string {
     return Array.from(usuario.roles)[0] || 'ROL_USER';
+    // Obtener el primer rol del usuario o 'ROL_USER' si no tiene roles
   }
 
   abrirModalCrear(): void {
+    // Abrir el modal para crear un nuevo usuario
     this.usuarioActual = new Usuario(0, '', '', '', '', new Set<string>());
     this.rolSeleccionado = 'ROL_USER';
     this.password = '';
@@ -50,6 +54,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   abrirModalEditar(usuario: Usuario): void {
+    // Abrir el modal para editar un usuario existente
     this.usuarioActual = { ...usuario };
     this.rolSeleccionado = Array.from(usuario.roles)[0] || 'ROL_USER';
     this.password = this.usuarioActual.password;
@@ -58,16 +63,19 @@ export class UsuariosComponent implements OnInit {
   }
 
   abrirModalEliminar(usuario: Usuario): void {
+    // Abrir el modal para confirmar la eliminación de un usuario
     this.usuarioSeleccionado = { ...usuario };
     this.mostrarModalEliminar = true;
   }
 
   cerrarModal(): void {
+    // Cerrar todos los modales
     this.mostrarModalCrearEditar = false;
     this.mostrarModalEliminar = false;
   }
 
   confirmarEliminarUsuario(): void {
+    // Confirmar la eliminación de un usuario
     if (this.usuarioSeleccionado) {
       this.userService.deleteUser(this.usuarioSeleccionado.id).subscribe({
         next: () => {
@@ -80,6 +88,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   onSubmit(): void {
+    // Guardar los cambios del formulario de crear/editar usuario
     const rolesArray = [this.rolSeleccionado];
     const userToSend: UserToSend = {
       id: this.usuarioActual.id,
@@ -91,6 +100,7 @@ export class UsuariosComponent implements OnInit {
     };
 
     if (this.esNuevoUsuario) {
+      // Crear un nuevo usuario
       if (this.rolSeleccionado === 'ROL_ADMIN') {
         this.userService.createUserAdmin(userToSend).subscribe({
           next: () => {
@@ -109,6 +119,7 @@ export class UsuariosComponent implements OnInit {
         });
       }
     } else {
+      // Actualizar un usuario existente
       this.userService.updateUser(this.usuarioActual.id, userToSend).subscribe({
         next: () => {
           this.cargarUsuarios();
