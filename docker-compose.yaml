@@ -21,6 +21,8 @@ services:
     ports:
       - "8081:8001"
     env_file: .env
+    volumes:
+      - uploads:/app/uploads
     networks:
       - planazo_network
     depends_on:
@@ -41,7 +43,9 @@ services:
 
 volumes:
   data-mysql:
-    name: data-mysql
+    name: planazo-data-mysql
+  uploads:
+    name: planazo-uploads
 
 networks:
   planazo_network:

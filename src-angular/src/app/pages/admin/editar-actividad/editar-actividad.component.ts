@@ -92,7 +92,7 @@ export class EditarActividadComponent implements OnInit {
   }
 
   getImageUrl(filename: string): string {
-    return `http://localhost:8081/files/${filename}`;
+    return filename;
   }
 
 
