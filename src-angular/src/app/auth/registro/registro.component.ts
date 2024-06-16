@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth.service';
 import { Usuario } from '../../models/usuario.model';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registro',
@@ -50,8 +51,13 @@ export class RegistroComponent implements OnInit {
     this.authService.signup(newUser).subscribe({
       next: (response) => {
         console.log('Registro exitoso:', response);
-        this.router.navigate(['/']).then(() => {
-          window.location.reload();
+        Swal.fire({
+          title: 'Registro Exitoso',
+          text: 'Te has registrado correctamente.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        }).then(() => {
+          this.router.navigate(['/login']);
         });
       },
       error: (err) => {

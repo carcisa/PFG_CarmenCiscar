@@ -117,17 +117,17 @@ export class AuthService {
     this.router.navigate(['/']);
   }
 
-  signup(user: Usuario): Observable<{ token: string; roles: string[] }> {
+  signup(user: Usuario): Observable<any> {
     return this.http.post<any>(this.apiUrlSignup, user).pipe(
       map(response => {
-        if (response && response.token) {
-          this.tokenService.setUserDetails(response.token, response.roles);
+        if (response) {
+          // Registro exitoso
           return response;
         } else {
           throw new Error('Respuesta de registro no válida');
         }
       }),
-      catchError(error => this.handleError(error))
+      catchError(this.handleError)
     );
   }
 
